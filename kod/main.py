@@ -1,5 +1,3 @@
-import pricing
-
-my_pricelist = pricing.Pricelist()
-my_pricelist.set_price_oxygen(3)
-print(my_pricelist.oxygen)
+"""
+This is the file that is intended to be the starting point for the app
+"""
