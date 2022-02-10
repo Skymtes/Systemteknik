@@ -27,6 +27,3 @@ def calculate_not_empty():
         Starting_pressure = (Desired_pressure*(Desired_gas_mix - Oxygen_air))/(Start_oxygen_mix - Oxygen_air)
         print(f"Please lower the starting tank to {Starting_pressure} bar")
     return
-
-
-
