@@ -8,12 +8,13 @@ class Pricelist:
     """
 
     def __init__(self):
-        self.oxygen = None
-        self.helium = None
-        self.air = None
+        """Price for one metric Liter"""
+        self.oxygen = 0
+        self.helium = 0
+        self.air = 0
 
-        self.startingfee = None
-        self.servicefee = None
+        self.startingfee = 0
+        self.servicefee = 0
     
     def check_ok_input(self, input):
         if isinstance(input, int):
@@ -23,6 +24,25 @@ class Pricelist:
 
     def set_price_oxygen(self, new_price):
         if self.check_ok_input(new_price) != True:
-            raise ValueError
-        
+            raise ValueError    
         self.oxygen = new_price
+
+    def set_price_helium(self, new_price):
+        if self.check_ok_input(new_price) != True:
+            raise ValueError
+        self.helium = new_price
+
+    def set_price_air(self, new_price):
+        if self.check_ok_input(new_price) != True:
+            raise ValueError    
+        self.air = new_price
+
+    def set_price_startingfee(self, new_price):
+        if self.check_ok_input(new_price) != True:
+            raise ValueError    
+        self.startingfee = new_price
+
+    def set_price_servicefee(self, new_price):
+        if self.check_ok_input(new_price) != True:
+            raise ValueError    
+        self.servicefee = new_price
