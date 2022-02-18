@@ -8,6 +8,7 @@ class Customer:
         self.phone = phone
         self.to_pay = 0
         self.scubatanks = []
+        self.certification = ""
 
     def add_to_bill(self, amount):
         self.to_pay += amount
