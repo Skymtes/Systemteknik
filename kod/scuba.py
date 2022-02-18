@@ -49,17 +49,6 @@ class Tank:
         self.desiredgasmix = desiredgasmix
 
     def Nitrox(self):
-        """
-        1. Calculate if the tube needs to release some of the gas that is currently inside.
-
-        2. Calculate how much of each gas is needed for the correct blend.
-        Count gases as air, oxygen and helium and NOT as nitrogen, oxygen and helium.
-
-        3. Calculate the blends max and min depth and check if that is reasonable.
-
-        4. Calculate the total cost of the tube.
-        """
-
         # Temporary NITROX ONLY calculation until algorithm is complete
         oxygen_fill_pressure = (self.desiredpressure*(self.desiredgasmix[0] - StandardBlends.Air[0])
                                 - self.pressure*(self.gasmix[0] - StandardBlends.Air[0])
