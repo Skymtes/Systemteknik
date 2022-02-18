@@ -49,15 +49,20 @@ customer_2.add_to_bill(my_pricelist.servicefee)
 
 
 # Customers pay their bills
-# Terrible implemen
 print(customer_1.name, "Total to be paid", customer_1.to_pay, my_pricelist.currency)
 customer_1.paid()
+# Terrible implementation DO NOT REUSE
+"""
 if customer_1.remove_customer() == True:
     customers.remove(customer_1)
+"""
 
 print(customer_2.name, "Total to be paid", customer_2.to_pay, my_pricelist.currency)
+# Terrible implementation DO NOT REUSE
+"""
 if customer_2.remove_customer() == True:
     customers.remove(customer_2)
+"""
 customer_2.paid()
 
 print(customers)
