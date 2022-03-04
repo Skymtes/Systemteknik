@@ -1,0 +1,24 @@
+#:include kv/homescreen.kv
+#:include kv/settingsscreen.kv
+#:include kv/tablescreen.kv
+#:include kv/profilescreen.kv
+GridLayout:
+    cols: 1
+    ScreenManager:
+        id: screen_manager
+        HomeScreen:
+            name: 'home_screen'
+            id: home_screen
+
+        SettingsScreen:
+            name: 'settings_screen'
+            id : settings_screen
+
+        TableScreen:
+            name: 'table_screen'
+            id : table_screen
+
+
+        ProfileScreen:
+            name: 'profile_screen'
+            id: profile_screen
