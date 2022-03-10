@@ -48,13 +48,13 @@ def Blend(desiredOxygen = 0.32, desiredHelium = 0.0, desiredPressure = 200.0, st
 
     if oxygenFill < 0 and desiredHelium == 0: # If some oxygen should be removed in a nitrox blend
 
-        lowerPressure = desiredPressure * (desiredOxygen - oxygenAir) / (startOxygen - oxygenAir)
+        lowerPressure = desiredPressure * (desiredOxygen - oxygenAir) / (startOxygen - oxygenAir) # if startOxygen == .21 ERROR
 
     airFill = desiredPressure - startPressure - heliumFill # How much air should be in the tank
 
     if oxygenFill >= 0: # If any oxygen should be added
 
-        airFill -= oxygenPressure
+        airFill -= oxygenFill
 
     return (round(oxygenFill, 1), round(heliumFill, 1), round(airFill, 1)) # Returns how much oxygen, helium and air should be added, measured in bar
     
@@ -66,3 +66,5 @@ def Blend(desiredOxygen = 0.32, desiredHelium = 0.0, desiredPressure = 200.0, st
     'print(Blend(0.36, 0.0, 175, 0.16, 0.40, 45))' will print out how much oxygen, helium and air that is needed to create a EANx36 blend with toal pressure of 175 when starting with a trimix 16/40 blend of 45bar.
 
 """
+
+print(Blend(.36, .0, 300, .32, .0, 50))
