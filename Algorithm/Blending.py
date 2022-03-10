@@ -4,6 +4,9 @@
 
 ### TODO ###
 # Add Ideal Depth
+# Add functions when you need to lower pressure
+# Add ability to add gas on top of another gas
+# General testing of the whole algorithm
 
 def Blend(desiredOxygen = 0.32, desiredHelium = 0.0, desiredPressure = 200.0, startOxygen = 0.21, startHelium = 0.0, startPressure= 0.0):
 
@@ -16,7 +19,7 @@ def Blend(desiredOxygen = 0.32, desiredHelium = 0.0, desiredPressure = 200.0, st
         startHelium: What percentage of helium the tank is  currently filled with.
         startPressure: How much pressure of gases the tank is filled with.
 
-        returns (oxygen, helium, air)
+        returns (oxygen, helium, air) all measured in pressure to fill.
     """
 
     oxygenAir = 0.21 # How much oxygen is in air.
@@ -55,3 +58,11 @@ def Blend(desiredOxygen = 0.32, desiredHelium = 0.0, desiredPressure = 200.0, st
 
     return (round(oxygenFill, 1), round(heliumFill, 1), round(airFill, 1)) # Returns how much oxygen, helium and air should be added, measured in bar
     
+"""
+    Testing the algorithm in its current form using the console or this file itself:
+
+    'print(Blend())' will print out how much oxygen, helium and air that is needed to create an EANx32 blend with total pressure of 200bar.
+    'print(Blend(0.18, 0.45, 150))' will print out how much oxygen, helium and air that is needed to create a trimix 18/45 with total pressure of 150bar.
+    'print(Blend(0.36, 0.0, 175, 0.16, 0.40, 45))' will print out how much oxygen, helium and air that is needed to create a EANx36 blend with toal pressure of 175 when starting with a trimix 16/40 blend of 45bar.
+
+"""
