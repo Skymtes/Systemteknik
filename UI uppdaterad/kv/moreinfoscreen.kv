@@ -1,0 +1,211 @@
+<MoreInfoScreen>:
+    FloatLayout:
+        canvas:
+            Color:
+                rgb: 1,1,1,1
+            Rectangle:
+                pos: self.pos 
+                size: self.size 
+
+        GridLayout:
+            rows: 4 
+            pos_hint:{'top':1, 'left':1}
+            size_hint: 1,1
+
+
+
+            FloatLayout:
+                Label:
+                    pos_hint:{'top':1, 'center_x': 0.5}
+                    size_hint: 0.2, .2
+                    color: 0,0,0,1
+                    text:'Depth'  
+                Label:
+                    pos_hint:{'top':0.8, 'center_x': 0.5}
+                    size_hint: 0.2, .2
+                    color: 0,0,0,1
+                    text:'25' #variabel-label
+                Button:
+                    pos_hint:{'top':1, 'x':0}
+                    size_hint: 0.1,0.1
+                    text: 'Go Back'
+                    on_release:
+                        app.change_screen('home_screen')
+
+            
+            
+
+
+
+
+
+            
+            GridLayout:
+                size: self.size
+                pos: self.pos
+                rows: 2
+
+                FloatLayout:
+                    Label:
+                        color: 0,0,0,1
+                        size_hint: 0.2,0.2
+                        pos_hint:{'top':0.45, 'center_x': 0.5}
+                        text:'Results'
+
+
+                GridLayout:
+                    cols:3
+
+                    FloatLayout:
+                        Label:
+                            color: 0,0,0,1
+                            size_hint: 0.2,0.2
+                            pos_hint:{'top':1, 'center_x': 0.5}
+                            text:'Mix'
+                        Label:
+                            text:'Tx 36/46'#variabel-label
+                            color: 0,0,0,1
+                            size_hint: 0.2,0.2
+                            pos_hint:{'top':0.6, 'center_x': 0.5}
+
+                    FloatLayout:
+                        Label:
+                            color: 0,0,0,1
+                            size_hint: 0.2,0.2
+                            pos_hint:{'top':1, 'center_x': 0.5}
+                            text:'MOD'
+                        Label:
+                            text:'40 msw'#variabel-label
+                            color: 0,0,0,1
+                            size_hint: 0.2,0.2
+                            pos_hint:{'top':0.6, 'center_x': 0.5}
+
+                    FloatLayout:
+                        Label:
+                            color: 0,0,0,1
+                            size_hint: 0.2,0.2
+                            pos_hint:{'top':1, 'center_x': 0.5}
+                            text:'ppO2'
+                        Label:
+                            text:'1.35 bar'#variabel-label
+                            color: 0,0,0,1
+                            size_hint: 0.2,0.2
+                            pos_hint:{'top':0.6, 'center_x': 0.5}
+
+
+
+
+
+
+
+            GridLayout:
+                size: self.size
+                pos: self.pos
+                rows: 2
+
+                FloatLayout:
+                    Label:
+                        color: 0,0,0,1
+                        size_hint: 0.2,0.2
+                        pos_hint:{'top':0.45, 'center_x': 0.5}
+                        text:'CCR'
+
+
+                GridLayout:
+                    cols:3
+
+                    FloatLayout:
+                        Label:
+                            color: 0,0,0,1
+                            size_hint: 0.2,0.2
+                            pos_hint:{'top':1, 'center_x': 0.5}
+                            text:'END(N2+O2)'
+                        Label:
+                            text:'8 msw'#variabel-label
+                            color: 0,0,0,1
+                            size_hint: 0.2,0.2
+                            pos_hint:{'top':0.6, 'center_x': 0.5}
+
+                    FloatLayout:
+                        Label:
+                            color: 0,0,0,1
+                            size_hint: 0.2,0.2
+                            pos_hint:{'top':1, 'center_x': 0.5}
+                            text:'EAD(N2)'
+                        Label:
+                            text:'-3 msw'#variabel-label
+                            color: 0,0,0,1
+                            size_hint: 0.2,0.2
+                            pos_hint:{'top':0.6, 'center_x': 0.5}
+
+                    FloatLayout:
+                        Label:
+                            color: 0,0,0,1
+                            size_hint: 0.2,0.2
+                            pos_hint:{'top':1, 'center_x': 0.5}
+                            text:'EADD'
+
+                        Label:
+                            text:'11 msw'#variabel-label
+                            color: 0,0,0,1
+                            size_hint: 0.2,0.2
+                            pos_hint:{'top':0.6, 'center_x': 0.5}
+
+
+
+
+
+            GridLayout:
+                size: self.size
+                pos: self.pos
+                rows: 2
+
+                FloatLayout:
+                    Label:
+                        color: 0,0,0,1
+                        size_hint: 0.2,0.2
+                        pos_hint:{'top':0.45, 'center_x': 0.5}
+                        text:'OC'
+
+
+                GridLayout:
+                    cols:3
+
+                    FloatLayout:
+                        Label:
+                            color: 0,0,0,1
+                            size_hint: 0.2,0.2
+                            pos_hint:{'top':1, 'center_x': 0.5}
+                            text:'END'
+
+                        Label:
+                            text:'8 msw'#variabel-label
+                            color: 0,0,0,1
+                            size_hint: 0.2,0.2
+                            pos_hint:{'top':0.6, 'center_x': 0.5}
+
+                    FloatLayout:
+                        Label:
+                            color: 0,0,0,1
+                            size_hint: 0.2,0.2
+                            pos_hint:{'top':1, 'center_x': 0.5}
+                            text:'EAD'
+
+                        Label:
+                            text:'-3 msw'#variabel-label
+                            color: 0,0,0,1
+                            size_hint: 0.2,0.2
+                            pos_hint:{'top':0.6, 'center_x': 0.5}
+
+                    FloatLayout:
+                        Label:
+                            color: 0,0,0,1
+                            size_hint: 0.2,0.2
+                            pos_hint:{'top':1, 'center_x': 0.5}
+                            text:'EADD'
+
+                        Label:
+                            text:'12 msw'#variabel-label
+                            color: 0,0,0,1
+                            size_hint: 0.2,0.2
+                            pos_hint:{'top':0.6, 'center_x': 0.5}
