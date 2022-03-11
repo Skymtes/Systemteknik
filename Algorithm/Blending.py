@@ -25,6 +25,14 @@ def Blend(desiredOxygen = 0.32, desiredHelium = 0.0, desiredPressure = 200.0, st
     oxygenAir = 0.21 # How much oxygen is in air.
     nitrogenAir = 1 - oxygenAir # How much nitrogen is in air.
 
+    if desiredHelium >= 1:
+
+        return "Can't fill tank with only helium" # TEMP
+
+    if desiredHelium + desiredOxygen > 1:
+
+        return "Doesn't Work" # TEMP
+
     oxygenPressure = desiredPressure * desiredOxygen # Desired oxygen pressure in the tank
     pressureNitrox = desiredPressure - desiredPressure * desiredHelium # The percentage of tank that is not helium
     oxygenNitrox = oxygenPressure / pressureNitrox # The percentage of oxygen in PressureNitrox
@@ -40,11 +48,20 @@ def Blend(desiredOxygen = 0.32, desiredHelium = 0.0, desiredPressure = 200.0, st
 
     heliumFill = desiredPressure * desiredHelium - startPressure * startHelium # How much helium should be in the tank
 
+    if desiredHelium == 0:
+
+        heliumFill = 0
+
     if heliumFill < 0: # If some helium should be removed
 
         lowerPressure = desiredPressure * desiredHelium / startHelium
 
-        return "Lower pressure to: " + lowerPressure # TEMP
+        if lowerPressure < 1:
+
+            return "Please Empty Tank"
+
+        else:
+            return "Lower total pressure to: ", round(lowerPressure - 0.1, 1), "Then fill with:", Blend(desiredOxygen, desiredHelium, desiredPressure, startOxygen, startHelium, round(lowerPressure - 0.1, 1)) # SOMEWHAT TEMP
 
     oxygenFill = (pressureNitrox * (oxygenNitrox - oxygenAir) - startPressureNitrox * (startOxygenFractionNitrox - oxygenAir)) / nitrogenAir # How much oxygen should be in the tank
 
@@ -58,7 +75,13 @@ def Blend(desiredOxygen = 0.32, desiredHelium = 0.0, desiredPressure = 200.0, st
 
             lowerPressure = desiredPressure * (desiredOxygen - oxygenAir) / (startOxygen - oxygenAir)
 
-            return "Lower pressure to: " + lowerPressure # TEMP
+            if lowerPressure < 1:
+
+                return "Please Empty Tank"
+
+            else:
+
+                return "Lower total pressure to: ", round(lowerPressure - 0.1, 1), "Then fill with:", Blend(desiredOxygen, desiredHelium, desiredPressure, startOxygen, startHelium, round(lowerPressure - 0.1, 1)) # SOMEWHAT TEMP
 
     airFill = desiredPressure - startPressure - heliumFill # How much air should be in the tank
 
