@@ -1,9 +1,11 @@
 """
-This module can be used for various tests that we want to save for later
+    This module can be used for various tests that we want to save for later.
 """
-import scuba
-import pricing
-import customer
+
+import sys, os
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) # Makes file be able to find 'Algorithm Module'
+from Algorithm import scuba, pricing, customer
 
 my_pricelist = pricing.Pricelist()
 customers = []
