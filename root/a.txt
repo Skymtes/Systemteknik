@@ -1,0 +1,17 @@
+--DEMO NOTES--
+
+Payment history -- Done -- not ready for demo
+Notes on customer -- done -- ready for demo
+Tank rental -- not done
+tanksize/capacity -> volume (L) -- only change ui
+
+
+-ui-
+book/booked -> add/reserved
+
+
+--next demo--
+begin with statement on clompletion
+talk about specific task completion
+show different inputs and outputs
+something they can try and play with themselfs even outside demo

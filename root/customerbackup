@@ -1,0 +1,29 @@
+class Customer:
+    """
+    An instace of this class represents one customer.
+    """
+
+    def __init__(self, name, phone):
+        self.name = name
+        self.phone = phone
+        self.notes = None
+
+        self.scubatanks = []
+        self.rented_things = []
+        
+        self.to_pay = 0
+        self.payment_history = []
+
+    def rent_thing(self):
+        #ONLY FOR TERMINAL, NEEDS TO BE COMPLETELY REDONE FOR UI INPUT
+        self.item_to_rent = input()
+        self.item_rental_fee = input()
+        self.to_pay += self.item_rental_fee
+        self.rented_things.append((self.item_to_rent, self.item_rental_fee))
+
+    def add_to_bill(self, amount):
+        self.to_pay += amount
+
+    def paid(self):
+        self.payment_history.append((self.to_pay, datetime.datetime.now()))
+        self.to_pay = 0

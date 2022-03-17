@@ -2,12 +2,14 @@
 Module for handeling all things price
 """
 
+import save
+
 class Pricelist:
     """
     An instace of this class represents one stores pricing for their services.
     """
 
-    def __init__(self):
+    def __init__(self, name):
         """Price for one metric Liter"""
         self.currency = "SEK" #UNCLEAR HOW CURRENCY TYPE IS BEST CHOOSEN AND STORED. And default currency?
 
@@ -54,10 +56,10 @@ class Pricelist:
             raise ValueError    
         self.servicefee = new_price
 
-    def tank_total(self, h_l, o2_l, air_l):
+    def tank_total(self, he_l, o2_l, air_l):
         tank_cost = self.tankfee
         print("tank fee", tank_cost)
-        tank_cost += h_l*self.helium
+        tank_cost += he_l*self.helium
         print("tank fee + h", tank_cost)
         tank_cost += o2_l*self.oxygen
         print("tank fee + h + o2", tank_cost)
