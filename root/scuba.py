@@ -9,6 +9,7 @@ from sqlite3 import Error
 import save
 import datetime
 import blending
+import pricing
 
 class StandardBlends:
     """Standard gas blends, gasmix represented as (oxygen%, helium%)"""
@@ -92,7 +93,7 @@ def remove_tank(id):
     return 
 
 
-def tank_fill(id):
+def fill_tank(id):
     raw_tank_data = fetch_tank_data(id)
     tank_data = prepare_data(raw_tank_data)
     print(tank_data[5][0], tank_data[5][1], tank_data[4], tank_data[3][0], tank_data[3][1], tank_data[2]) # DEBUG
