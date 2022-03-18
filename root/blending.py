@@ -4,29 +4,26 @@
 
 ### TODO ###
 # Add Ideal Depth
+# Add functions when you need to lower pressure
+# Add ability to add gas on top of another gas
+# General testing of the whole algorithm
 
 def Blend(desiredOxygen, desiredHelium, desiredPressure, startOxygen, startHelium, startPressure):
-    """Function used for blending gases.
-    
-        desiredOxygen: What percentage of oxygen the tank should have.
-        desiredHelium: What percentage of helium the tank should have.
-        desiredPressure: How much pressure in the tank is desired.
-        startOxygen: What percentage of oxygen the tank is currently filled with.
-        startHelium: What percentage of helium the tank is  currently filled with.
-        startPressure: How much pressure of gases the tank is filled with.
-        returns (oxygen, helium, air)
     """
-
-    #print("desiredOxygen", desiredOxygen)
-    #print("desiredHelium", desiredHelium)
-    #print("desiredPressure", desiredPressure)
-    #print("startOxygen", startOxygen)
-    #print("startHelium", startHelium)
-    #print("startPressure", startPressure)
-
+    Function used for blending gases.
+    
+    desiredOxygen: What percentage of oxygen the tank should have.
+    desiredHelium: What percentage of helium the tank should have.
+    desiredPressure: How much pressure in the tank is desired.
+    startOxygen: What percentage of oxygen the tank is currently filled with.
+    startHelium: What percentage of helium the tank is  currently filled with.
+    startPressure: How much pressure of gases the tank is filled with.
+    returns (oxygen, helium, air) all measured in pressure to fill.
+    """
 
     oxygenAir = 0.21 # How much oxygen is in air.
     nitrogenAir = 1 - oxygenAir # How much nitrogen is in air.
+
 
     oxygenPressure = desiredPressure * desiredOxygen # Desired oxygen pressure in the tank
     pressureNitrox = desiredPressure - desiredPressure * desiredHelium # The percentage of tank that is not helium
@@ -43,15 +40,40 @@ def Blend(desiredOxygen, desiredHelium, desiredPressure, startOxygen, startHeliu
 
     heliumFill = desiredPressure * desiredHelium - startPressure * startHelium # How much helium should be in the tank
 
+    if desiredHelium == 0:
+
+        heliumFill = 0
+
     if heliumFill < 0: # If some helium should be removed
 
         lowerPressure = desiredPressure * desiredHelium / startHelium
+
+        if lowerPressure < 1:
+
+            return "Please Empty Tank"
+
+        else:
+            return "Lower total pressure to: ", round(lowerPressure - 0.1, 1), "Then fill with:", Blend(desiredOxygen, desiredHelium, desiredPressure, startOxygen, startHelium, round(lowerPressure - 0.1, 1)) # SOMEWHAT TEMP
 
     oxygenFill = (pressureNitrox * (oxygenNitrox - oxygenAir) - startPressureNitrox * (startOxygenFractionNitrox - oxygenAir)) / nitrogenAir # How much oxygen should be in the tank
 
     if oxygenFill < 0 and desiredHelium == 0: # If some oxygen should be removed in a nitrox blend
 
-        lowerPressure = desiredPressure * (desiredOxygen - oxygenAir) / (startOxygen - oxygenAir)
+        if startOxygen == oxygenAir: # If Tank is already filled with some air
+
+            return "Please Empty Tank" # TEMP
+
+        else:
+
+            lowerPressure = desiredPressure * (desiredOxygen - oxygenAir) / (startOxygen - oxygenAir)
+
+            if lowerPressure < 1:
+
+                return "Please Empty Tank"
+
+            else:
+
+                return "Lower total pressure to: ", round(lowerPressure - 0.1, 1), "Then fill with:", Blend(desiredOxygen, desiredHelium, desiredPressure, startOxygen, startHelium, round(lowerPressure - 0.1, 1)) # SOMEWHAT TEMP
 
     airFill = desiredPressure - startPressure - heliumFill # How much air should be in the tank
 
@@ -60,4 +82,10 @@ def Blend(desiredOxygen, desiredHelium, desiredPressure, startOxygen, startHeliu
         airFill -= oxygenFill
 
     return (round(oxygenFill, 1), round(heliumFill, 1), round(airFill, 1)) # Returns how much oxygen, helium and air should be added, measured in bar
-    
+
+"""
+    Testing the algorithm in its current form using the console or this file itself:
+    'print(Blend())' will print out how much oxygen, helium and air that is needed to create an EANx32 blend with total pressure of 200bar.
+    'print(Blend(0.18, 0.45, 150))' will print out how much oxygen, helium and air that is needed to create a trimix 18/45 with total pressure of 150bar.
+    'print(Blend(0.36, 0.0, 175, 0.16, 0.40, 45))' will print out how much oxygen, helium and air that is needed to create a EANx36 blend with toal pressure of 175 when starting with a trimix 16/40 blend of 45bar.
+"""

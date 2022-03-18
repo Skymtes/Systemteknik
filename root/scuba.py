@@ -7,7 +7,6 @@ import sqlite3
 from sqlite3 import Error
 
 import save
-import datetime
 import blending
 import pricing
 
@@ -48,8 +47,7 @@ def create_tank(capacity,customer_id):
             VALUES("{capacity}","{customer_id}") '''
     )
     conn.commit()
-    conn.close()
-    print(sqlite3.version, "closed")
+    save.close_connection(conn)
 
 
 def set_tank_fill(id,pressure,gasmix):
@@ -62,8 +60,7 @@ def set_tank_fill(id,pressure,gasmix):
             WHERE id="{id}"; '''
     )
     conn.commit()
-    conn.close()
-    print(sqlite3.version, "closed")
+    save.close_connection(conn)
 
 
 def set_desired_tank_fill(id,desired_pressure,desired_gasmix):
@@ -76,52 +73,46 @@ def set_desired_tank_fill(id,desired_pressure,desired_gasmix):
             WHERE id="{id}"; '''
     )
     conn.commit()
-    conn.close()
-    print(sqlite3.version, "closed")
+    save.close_connection(conn)
 
 
 def remove_tank(id):
     conn = save.create_connection()
     c = conn.cursor()
     c.execute(
-        f''' DELETE FROM tank
+        f''' DELETE FROM tanks
             WHERE id="{id}" ''' 
     )
     conn.commit()
-    conn.close()
-    print(sqlite3.version, "closed")
-    return 
+    save.close_connection(conn)
 
 
 def fill_tank(id):
     raw_tank_data = fetch_tank_data(id)
     tank_data = prepare_data(raw_tank_data)
-    print(tank_data[5][0], tank_data[5][1], tank_data[4], tank_data[3][0], tank_data[3][1], tank_data[2]) # DEBUG
     fill = blending.Blend(tank_data[5][0], tank_data[5][1], tank_data[4], tank_data[3][0], tank_data[3][1], tank_data[2])
-    print(fill) # DEBUG
-    # FIX ALGORITM (needs to take bleeding into account)
-    pricing.calculate_tank_price(tank_data[1], fill)
+    print("---NEW---") # DEBUG
+    print("amount o2 he air",fill) # DEBUG
+    if isinstance(fill, tuple):
+        #print("Algoritm gave tuple") # DEBUG
+        tank_cost = pricing.calculate_tank_price(tank_data[1], fill)
+        tank_fill_complete(tank_data, tank_cost)
+        pricing.create_payment(tank_data[8], tank_cost)
 
 
-def tank_fill_instructions(id):
-    lower_pressure_to = int
-    fill_he_to = int
-    fill_o2_to = fill_he_to + int
-    fill_air_to = fill_o2_to + int
-
-
-def tank_fill_complete(id):
+def tank_fill_complete(tank_data, tank_cost):
     time = datetime.datetime.now()
     conn = save.create_connection()
     c = conn.cursor()
     c.execute(
-        f''' UPDATE customers
-            SET fill_date="{time}"
-            WHERE id="{id}"; '''
+        f''' UPDATE tanks
+            SET fill_date="{time}",
+            fill_cost="{tank_cost}"
+            WHERE id="{tank_data[0]}"; '''
     )
     conn.commit()
-    conn.close()
-    print(sqlite3.version, "closed")
+    save.close_connection(conn)
+    set_tank_fill(tank_data[0], tank_data[4], tank_data[5])
 
 
 def prepare_data(tank_data):
@@ -142,8 +133,7 @@ def fetch_tank_data(id):
             WHERE id="{id}"; '''
     )
     tank_data = c.fetchall()
-    conn.close()
-    print(sqlite3.version, "closed")
+    save.close_connection(conn)
     return tank_data
     
 

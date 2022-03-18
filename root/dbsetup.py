@@ -5,17 +5,7 @@ Commands for setting up sqlite db
 import sqlite3
 from sqlite3 import Error
 
-
-def create_connection():
-    """ create a database connection to a SQLite database """
-    conn = None
-    try:
-        conn = sqlite3.connect("pythonsqlite.db")
-        print(sqlite3.version, "connection connected")
-    except Error as e:
-        print(e)
-    
-    return conn
+import save
 
 
 def create_table(conn, create_table_sql):
@@ -62,8 +52,10 @@ def main():
                                     id integer PRIMARY KEY AUTOINCREMENT,
                                     customer_id integer NOT_NULL,
                                     amount integer NOT NULL,
-                                    date_time text,
+                                    bill_date text,
+                                    paid_date text,
                                     paid integer NOT NULL,
+                                    currency text,
                                     FOREIGN KEY (customer_id) REFERENCES customer (id)
                                 ); """
                             
@@ -76,7 +68,7 @@ def main():
                                 ); """
 
     # create a database connection
-    conn = create_connection()
+    conn = save.create_connection()
 
     # create tables
     if conn is not None:
