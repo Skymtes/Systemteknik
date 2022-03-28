@@ -16,7 +16,9 @@ TODO: Explain how the whole project can be build.
 
 ### Test
 
-TODO: Explain how unit- or integreation tests can be executed.
+TODO: Explain how unit- or integration tests can be executed.
+
+`python3 -m unittest discover` runs all tests.
 
 ### Run
 
