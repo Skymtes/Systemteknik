@@ -1,6 +1,4 @@
-from sqlite3 import DataError
 import unittest
-from xml.dom import NoDataAllowedErr
 
 from root.blending import Blend
 
