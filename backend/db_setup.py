@@ -5,7 +5,7 @@ Commands for setting up sqlite db
 import sqlite3
 from sqlite3 import Error
 
-import save
+import db_connect
 
 
 def create_table(conn, create_table_sql):

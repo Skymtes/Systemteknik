@@ -5,10 +5,11 @@ Module for handeling all things rent
 import sqlite3
 from sqlite3 import Error
 
-import save
+import db_connect
+
 
 def create_rented(item, fee, customer_id):
-    conn = save.create_connection()
+    conn = db_connect.create_connection()
     c = conn.cursor()
     c.execute(
         f''' INSERT INTO rented (item,fee,customer_id)
@@ -20,7 +21,7 @@ def create_rented(item, fee, customer_id):
 
 
 def update_rented(id, item, fee, customer_id):
-    conn = save.create_connection()
+    conn = db_connect.create_connection()
     c = conn.cursor()
     c.execute(
         f''' UPDATE rented
@@ -35,7 +36,7 @@ def update_rented(id, item, fee, customer_id):
 
 
 def remove_rented(id):
-    conn = save.create_connection()
+    conn = db_connect.create_connection()
     c = conn.cursor()
     c.execute(
         f''' DELETE FROM rented

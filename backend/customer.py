@@ -2,22 +2,22 @@ import sqlite3
 from sqlite3 import Error
 import datetime
 
-import save
+import db_connect
 
 
 def create_customer(name,phone):
-    conn = save.create_connection()
+    conn = db_connect.create_connection()
     c = conn.cursor()
     c.execute(
         f''' INSERT INTO customers (name,phone)
             VALUES("{name}","{phone}"); '''
         )
     conn.commit()
-    save.close_connection(conn)
+    db_connect.close_connection(conn)
 
 
 def create_customer_note(id,note):
-    conn = save.create_connection()
+    conn = db_connect.create_connection()
     c = conn.cursor()
     c.execute(
         f''' UPDATE customers
@@ -25,17 +25,17 @@ def create_customer_note(id,note):
             WHERE id="{id}"; '''
     )
     conn.commit()
-    save.close_connection(conn)
+    db_connect.close_connection(conn)
 
 
 # def remove_customer(id):
 #     """DONT!!!"""
-#     conn = save.create_connection()
+#     conn = db_connect.create_connection()
 #     c = conn.cursor()
 #     c.execute(
 #         f''' DELETE FROM customers
 #             WHERE id="{id}"; ''' 
 #     )
 #     conn.commit()
-#     save.close_connection(conn)
+#     db_connect.close_connection(conn)
     

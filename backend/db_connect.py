@@ -6,7 +6,7 @@ def create_connection():
     """ create a database connection to a SQLite database """
     conn = None
     try:
-        conn = sqlite3.connect("pythonsqlite.db")
+        conn = sqlite3.connect("database_sqlite.db")
     except Error as e:
         print(e)
     

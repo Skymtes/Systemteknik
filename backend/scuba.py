@@ -6,9 +6,10 @@ import datetime
 import sqlite3
 from sqlite3 import Error
 
-import save
-import blending
+from .algorithm import blending
+import db_connect
 import pricing
+
 
 class StandardBlends:
     """Standard gas blends, gasmix represented as (oxygen%, helium%)"""
@@ -40,18 +41,18 @@ class GasPurity:
 
 
 def create_tank(capacity,customer_id):
-    conn = save.create_connection()
+    conn = db_connect.create_connection()
     c = conn.cursor()
     c.execute(
         f''' INSERT INTO tanks (capacity,customer_id)
             VALUES("{capacity}","{customer_id}") '''
     )
     conn.commit()
-    save.close_connection(conn)
+    db_connect.close_connection(conn)
 
 
 def set_tank_fill(id,pressure,gasmix):
-    conn = save.create_connection()
+    conn = db_connect.create_connection()
     c = conn.cursor()
     c.execute(
         f''' UPDATE tanks
@@ -60,11 +61,11 @@ def set_tank_fill(id,pressure,gasmix):
             WHERE id="{id}"; '''
     )
     conn.commit()
-    save.close_connection(conn)
+    db_connect.close_connection(conn)
 
 
 def set_desired_tank_fill(id,desired_pressure,desired_gasmix):
-    conn = save.create_connection()
+    conn = db_connect.create_connection()
     c = conn.cursor()
     c.execute(
         f''' UPDATE tanks
@@ -73,18 +74,18 @@ def set_desired_tank_fill(id,desired_pressure,desired_gasmix):
             WHERE id="{id}"; '''
     )
     conn.commit()
-    save.close_connection(conn)
+    db_connect.close_connection(conn)
 
 
 def remove_tank(id):
-    conn = save.create_connection()
+    conn = db_connect.create_connection()
     c = conn.cursor()
     c.execute(
         f''' DELETE FROM tanks
             WHERE id="{id}" ''' 
     )
     conn.commit()
-    save.close_connection(conn)
+    db_connect.close_connection(conn)
 
 
 def fill_tank(id):
@@ -102,7 +103,7 @@ def fill_tank(id):
 
 def tank_fill_complete(tank_data, tank_cost):
     time = datetime.datetime.now()
-    conn = save.create_connection()
+    conn = db_connect.create_connection()
     c = conn.cursor()
     c.execute(
         f''' UPDATE tanks
@@ -111,7 +112,7 @@ def tank_fill_complete(tank_data, tank_cost):
             WHERE id="{tank_data[0]}"; '''
     )
     conn.commit()
-    save.close_connection(conn)
+    db_connect.close_connection(conn)
     set_tank_fill(tank_data[0], tank_data[4], tank_data[5])
 
 
@@ -125,7 +126,7 @@ def prepare_data(tank_data):
 
 
 def fetch_tank_data(id):
-    conn = save.create_connection()
+    conn = db_connect.create_connection()
     c = conn.cursor()
     c.execute(
         f''' SELECT *
@@ -133,7 +134,7 @@ def fetch_tank_data(id):
             WHERE id="{id}"; '''
     )
     tank_data = c.fetchall()
-    save.close_connection(conn)
+    db_connect.close_connection(conn)
     return tank_data
     
 

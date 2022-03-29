@@ -20,7 +20,7 @@ TODO: Add simple diagram that explains the architecture.
 
 ### Build
 
-TODO: Explain how the whole project can be build.
+TODO: Explain how the whole project can be built.
 
 ### Test
 
