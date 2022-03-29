@@ -4,7 +4,6 @@
 
 ### TODO ###
 # Add Ideal Depth
-# Add functions when you need to lower pressure
 # Add ability to add gas on top of another gas
 # General testing of the whole algorithm
 
@@ -51,7 +50,7 @@ def Blend(desiredOxygen = 0.32, desiredHelium = 0.0, desiredPressure = 200.0, st
 
         else:
             
-            heliumDiff = round(startHelium - lowerHelium, 1) # Difference in starting helium from how much helium it should have
+            heliumDiff = round(lowerHelium - startHelium * startPressure, 1) # Difference in starting helium from how much helium it should have
 
             return (0, heliumDiff, 0)
 
