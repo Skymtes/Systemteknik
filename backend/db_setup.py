@@ -4,8 +4,10 @@ Commands for setting up sqlite db
 
 import sqlite3
 from sqlite3 import Error
-
-import db_connect
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from backend import db_connect
 
 
 def create_table(conn, create_table_sql):
@@ -68,7 +70,7 @@ def main():
                                 ); """
 
     # create a database connection
-    conn = save.create_connection()
+    conn = db_connect.create_connection()
 
     # create tables
     if conn is not None:

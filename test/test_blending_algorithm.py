@@ -1,6 +1,6 @@
 import unittest
 
-from root.blending import Blend
+from backend.algorithm.blending_algorithm import Blend
 
 class BlendingTest(unittest.TestCase):
     def test_blending_eanx36(self):

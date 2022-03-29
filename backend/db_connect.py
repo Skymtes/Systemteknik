@@ -6,9 +6,9 @@ def create_connection():
     """ create a database connection to a SQLite database """
     conn = None
     try:
-        conn = sqlite3.connect("database_sqlite.db")
+        conn = sqlite3.connect("backend/sqlite.db")
     except Error as e:
-        print(e)
+        print("ERROR",e)
     
     return conn
 

@@ -1,6 +1,6 @@
-from backend import pricing
-from .backend import customer
-from .backend import scuba
+from backend import dbedit_customer as customer
+from backend import dbedit_pricing as pricing
+from backend import dbedit_scuba as scuba
 
 input("set prices")
 pricing.create_pricelist("UDT") #NAME "UDT"

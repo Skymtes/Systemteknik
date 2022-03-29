@@ -5,7 +5,7 @@ Module for handeling all things rent
 import sqlite3
 from sqlite3 import Error
 
-import db_connect
+from backend import db_connect
 
 
 def create_rented(item, fee, customer_id):

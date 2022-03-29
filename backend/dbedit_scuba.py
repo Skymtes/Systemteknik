@@ -6,9 +6,9 @@ import datetime
 import sqlite3
 from sqlite3 import Error
 
-from .algorithm import blending
-import db_connect
-import pricing
+from backend.algorithm import blending_algorithm as blending
+from backend import dbedit_pricing
+from backend import db_connect
 
 
 class StandardBlends:
@@ -96,9 +96,9 @@ def fill_tank(id):
     print("amount o2 he air",fill) # DEBUG
     if isinstance(fill, tuple):
         #print("Algoritm gave tuple") # DEBUG
-        tank_cost = pricing.calculate_tank_price(tank_data[1], fill)
+        tank_cost = dbedit_pricing.calculate_tank_price(tank_data[1], fill)
         tank_fill_complete(tank_data, tank_cost)
-        pricing.create_payment(tank_data[8], tank_cost)
+        dbedit_pricing.create_payment(tank_data[8], tank_cost)
 
 
 def tank_fill_complete(tank_data, tank_cost):

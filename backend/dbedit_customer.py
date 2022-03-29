@@ -2,7 +2,7 @@ import sqlite3
 from sqlite3 import Error
 import datetime
 
-import db_connect
+from backend import db_connect
 
 
 def create_customer(name,phone):
