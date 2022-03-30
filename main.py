@@ -5,10 +5,17 @@ from kivy.uix.image import Image
 from kivy.uix.button import ButtonBehavior
 from kivy.properties import ObjectProperty
 from kivy.uix.checkbox import CheckBox
+
+# Dont remove these
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-from backend.algorithm import blending_algorithm as Blending
+from backend.algorithm import blending
+from backend import db_connect
+from backend import dbedit_customer
+from backend import dbedit_pricing
+from backend import dbedit_rent
+from backend import dbedit_scuba
 
 
 class HomeScreen(Screen):
@@ -25,7 +32,7 @@ class HomeScreen(Screen):
 
     def btn(self):
         
-        a = Blending.Blend(float(self.new_otwo.text), float(self.new_he.text), float(self.new_pressure.text), float(self.old_otwo.text), float(self.old_he.text), float(self.old_pressure.text))
+        a = blending.Blend(float(self.new_otwo.text), float(self.new_he.text), float(self.new_pressure.text), float(self.old_otwo.text), float(self.old_he.text), float(self.old_pressure.text))
         self.manager.get_screen('more_info_screen').change_values(a)
         self.ids.old_pressure.text = ' '
         self.ids.old_he.text = ' '
