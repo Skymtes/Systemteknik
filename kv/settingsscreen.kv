@@ -1,0 +1,140 @@
+<SettingsScreen>:
+    price_oxygen : price_oxygen
+    price_air : price_air
+    price_helium : price_helium
+    price_service_fee : price_service_fee 
+    price_tank_fee : price_tank_fee
+    cylinder_size : cylinder_size
+    cyliner_maximum_pressure : cyliner_maximum_pressure
+
+    FloatLayout:
+        canvas:
+            Color:
+                rgb: 1,1,1,1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+
+        GridLayout:
+            rows: 1
+            pos_hint: {'top': 1, 'left': 1}
+            size_hint: 1, .15
+            FloatLayout:
+                Image:
+                    pos_hint: {'top':1, 'center_x':0.5}
+                    pos_size: 0.5, 1
+                    source: 'pic/gas_price.png'
+                Button:
+                    on_release:
+                        app.change_screen('home_screen')
+                        root.button()
+                    pos_hint: {'top':0.9, 'center_x':0.05}
+                    size_hint: 0.1, 0.1
+                    color: 0,0,0,1
+                    text:
+                        'Go back'
+                    
+        
+
+        GridLayout:
+
+            rows: 6
+            size_hint: 1, 0.45
+            pos_hint: {'top':0.85, 'left':1}
+
+            FloatLayout:
+                Label:
+                    color: 0,0,0,1
+                    text:'Oxygen'
+                    pos_hint:{'top':1, 'left':1}
+                    size_hint: 0.2, 0.2
+                TextInput:
+                    pos_hint:{'top':1, 'center_x':0.5}
+                    size_hint: 0.1, 0.55
+                    id: price_oxygen
+            FloatLayout:
+                Label:
+                    color: 0,0,0,1
+                    text:'Air'
+                    pos_hint:{'top':1, 'left':1}
+                    size_hint: 0.2, 0.2
+                TextInput:
+                    pos_hint:{'top':1, 'center_x':0.5}
+                    size_hint: 0.1, 0.55
+                    id : price_air
+            FloatLayout:
+                Label:
+                    color: 0,0,0,1
+                    text:'Helium'
+                    pos_hint:{'top':1, 'left':1}
+                    size_hint: 0.2, 0.2
+                TextInput:
+                    pos_hint:{'top':1, 'center_x':0.5}
+                    size_hint: 0.1, 0.55
+                    id: price_helium 
+            FloatLayout:
+                
+                Label:
+                    color: 0,0,0,1
+                    text:'Service Fee'
+                    pos_hint:{'top':1, 'left':1}
+                    size_hint: 0.2, 0.2
+                TextInput:
+                    pos_hint:{'top':1, 'center_x':0.5}
+                    size_hint: 0.1, 0.55
+                    id: price_service_fee 
+            FloatLayout:
+                Label:
+                    color: 0,0,0,1
+                    text:'Tank Fee'
+                    pos_hint:{'top':1, 'left':1}
+                    size_hint: 0.2, 0.2
+                TextInput:
+                    pos_hint:{'top':1, 'center_x':0.5}
+                    size_hint: 0.1, 0.55 
+                    id: price_tank_fee
+
+
+
+
+
+        GridLayout:
+
+            rows:3
+            size_hint: 1, 0.25
+            pos_hint: {'top':0.4, 'left':1}
+            
+            Image:
+                source: 'pic/cylinder.png'
+            FloatLayout:
+                Label:
+                    pos_hint:{'top':1, 'left':1}
+                    size_hint: 0.2,0.2
+                    color: 0,0,0,1
+                    text: 'Size'
+                TextInput:
+                    pos_hint:{'top':1, 'center_x':0.5}
+                    size_hint: 0.1, 0.55
+                    id: cylinder_size
+            FloatLayout:
+                Label:
+                    pos_hint:{'top':1, 'left':1}
+                    size_hint: 0.2,0.2
+                    color: 0,0,0,1
+                    text: 'Maximum Pressure'
+                TextInput:
+                    pos_hint:{'top':1, 'center_x':0.5}
+                    size_hint: 0.1, 0.55 
+                    id: cyliner_maximum_pressure
+
+        FloatLayout:
+            size_hint: 1,0.15
+            pos_hint:{'top':0.15, 'left':1}
+            ImageButton:
+                size_hint: 0.85,0.85
+                pos_hint:{'center_x':0.5, 'center_y':0.5}
+                source: 'pic/tabell.png'
+                on_release:
+                    app.change_screen('table_screen')
+
