@@ -10,7 +10,7 @@ from kivy.uix.checkbox import CheckBox
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-from backend.algorithm import blending
+from backend.algorithm import Blending as blending
 from backend import db_connect
 from backend import dbedit_customer
 from backend import dbedit_pricing
@@ -27,11 +27,7 @@ class HomeScreen(Screen):
     new_he = ObjectProperty(None)
     new_pressure = ObjectProperty(None)
 
-
-
-
     def btn(self):
-        
         a = blending.Blend(float(self.new_otwo.text), float(self.new_he.text), float(self.new_pressure.text), float(self.old_otwo.text), float(self.old_he.text), float(self.old_pressure.text))
         self.manager.get_screen('more_info_screen').change_values(a)
         self.ids.old_pressure.text = ' '
@@ -42,62 +38,37 @@ class HomeScreen(Screen):
         self.ids.new_pressure.text = ' '
 
         
-
 class SettingsScreen(Screen):
-
-
     def button(self):
         pass
 
     
-
 class SelectCustomerScreen(Screen):
     pass
-
-
 
 
 class AddProfileScreen(Screen):
     pass 
 
 
-
-
-
-
-
 class TableScreen(Screen):
     pass 
-
-
-
 
 
 class ImageButton(ButtonBehavior, Image):
     pass
 
 
-
-
-
-
 class ProfileScreen(Screen):
     pass 
 
 
-
-
-
 class MoreInfoScreen(Screen):
-
     def change_values(self, fill_recipe):
         self.ids.fill.text = fill_recipe
         
     def reset_values(self):
-
         pass
-        
-
 
 
 GUI = Builder.load_file('main.kv')
@@ -108,7 +79,5 @@ class MainApp(App):
         screen_manager = self.root.ids['screen_manager']
         screen_manager.current = screen_name
         
-
-
 
 MainApp().run()
