@@ -11,11 +11,7 @@ import sys
 import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from backend.algorithm import Blending as blending
-from backend import db_connect
-from backend import dbedit_customer
-from backend import dbedit_pricing
-from backend import dbedit_rent
-from backend import dbedit_scuba
+from backend import db_connect, dbedit_customer, dbedit_pricing, dbedit_rent, dbedit_scuba
 
 
 class HomeScreen(Screen):
