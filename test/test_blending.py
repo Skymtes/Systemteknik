@@ -2,7 +2,7 @@ from random import random, randrange
 import sys, os, unittest
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from backend.algorithm.Blending import Blend
+from backend.algorithm.blending import Blend
 
 class BlendingTest(unittest.TestCase):
 
