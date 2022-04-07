@@ -16,7 +16,7 @@ def create_table(conn, create_table_sql):
         c = conn.cursor()
         c.execute(create_table_sql)
     except Error as e:
-        print(e)
+        print("createtableerror", e)
 
 
 def main():
@@ -33,7 +33,9 @@ def main():
     customers_table = """ CREATE TABLE IF NOT EXISTS customers (
                                     id integer PRIMARY KEY AUTOINCREMENT,
                                     name text NOT NULL,
-                                    phone text NOT NULL,
+                                    phone text,
+                                    email text,
+                                    cert text,
                                     note text
                                 ); """
 
