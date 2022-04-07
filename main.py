@@ -81,6 +81,9 @@ class SettingsScreen(Screen):
         if self.ids.price_oxygen.text != '':
             dbedit_pricing.update_pricelist("UDT", 'o2',float(self.ids.price_oxygen.text))
 
+        if self.ids.price_oxygen.text != '':
+            dbedit_pricing.update_pricelist("UDT", 'air',float(self.ids.price_air.text))
+
         if self.ids.price_helium.text != '':
             dbedit_pricing.update_pricelist("UDT", 'he', float(self.ids.price_helium.text))
              
