@@ -40,6 +40,30 @@ def update_customer(id, type, price):
     db_connect.close_connection(conn)
 
 
+def select_customer():
+    customer_li = []
+    conn = db_connect.create_connection()
+    c = conn.cursor()
+    c.execute('SELECT * FROM customers')
+    for row in c:
+        #print(row)
+        customer_li.append(row)
+    return(customer_li)
+
+
+def find_id(name):
+    conn = db_connect.create_connection()
+    c = conn.cursor()
+    c.execute(
+        f''' SELECT id
+            FROM customers
+            WHERE name="{name}"; '''
+        )
+    for row in c:
+        return(row[0])
+    db_connect.close_connection(conn)
+
+
 # def remove_customer(id):
 #     """DONT!!!"""
 #     conn = db_connect.create_connection()
