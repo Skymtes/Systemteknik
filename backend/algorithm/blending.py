@@ -53,7 +53,7 @@ def Blend(desiredOxygen = None, desiredHelium = None, desiredPressure = None, st
    
     except ZeroDivisionError:
         
-        return("Can not by divided by zero")
+        return("Can not divide by zero")
     
     startOxygenPressure = startPressure * startOxygen # How much pressure of oxygen is already in the tank
     startPressureNitrox = startPressure - startPressure * startHelium # How much pressure in the tank that is not helium
