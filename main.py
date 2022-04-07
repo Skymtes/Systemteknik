@@ -20,6 +20,7 @@ from kivymd.uix.picker import MDDatePicker
 from datetime import date
 import sys
 import os
+import sqlite3
 
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
