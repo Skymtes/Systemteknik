@@ -5,9 +5,6 @@ import datetime
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from backend.db_connect import create_connection, close_connection
 from backend.db_setup import main
-from backend.dbedit_customer import create_customer, create_customer_note
-from backend.dbedit_pricing import create_pricelist, update_pricelist, remove_pricelist, create_payment, add_service_fee, get_debt, paid_debt, calculate_tank_price, fetch_tank_fee, fetch_currency
-from backend.dbedit_scuba import create_tank, set_tank_fill, set_desired_tank_fill, remove_tank, fill_tank, tank_fill_complete, prepare_data, fetch_tank_data
 from backend import dbedit_customer as customer
 from backend import dbedit_pricing as pricing
 from backend import dbedit_scuba as scuba
