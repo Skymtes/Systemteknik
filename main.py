@@ -5,18 +5,12 @@ from kivy.uix.image import Image
 from kivy.uix.button import ButtonBehavior
 from kivy.properties import ObjectProperty
 from kivy.uix.checkbox import CheckBox
-from Algorithm import Blending
-from backend import dbedit_pricing
+import os
+import sys
 
-
-
-
-
-
-
-
-
-
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+from backend.algorithm import blending as blending
+from backend import db_connect, dbedit_customer, dbedit_pricing, dbedit_rent, dbedit_scuba
 
 
 class HomeScreen(Screen):
