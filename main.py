@@ -78,21 +78,21 @@ class SettingsScreen(Screen):
         self._currency = self._currency
 
         if self.ids.price_oxygen.text != '':
-            dbedit_pricing.update_pricelist(name, 'o2',float(self.ids.price_oxygen.text))
+            dbedit_pricing.update_pricelist("UDT", 'o2',float(self.ids.price_oxygen.text))
 
         if self.ids.price_helium.text != '':
-            dbedit_pricing.update_pricelist(name, 'he', float(self.ids.price_helium.text))
+            dbedit_pricing.update_pricelist("UDT", 'he', float(self.ids.price_helium.text))
              
         if self.ids.price_service_fee.text != '':
-            dbedit_pricing.update_pricelist(name,'service', int(self.ids.price_service_fee.text))
+            dbedit_pricing.update_pricelist("UDT",'service', int(self.ids.price_service_fee.text))
             
         if self.ids.price_tank_fee.text != '':
-            dbedit_pricing.update_pricelist(name, 'tank', int(self.ids.price_tank_fee.text))
+            dbedit_pricing.update_pricelist("UDT", 'tank', int(self.ids.price_tank_fee.text))
             
         if self._currency == None:
             self._currency = 'SEK'
 
-        dbedit_pricing.update_pricelist(name, 'currency', self._currency)
+        dbedit_pricing.update_pricelist("UDT", 'currency', self._currency)
             
     
         self.ids.price_oxygen.text = ''
