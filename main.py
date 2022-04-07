@@ -18,17 +18,13 @@ from kivymd.app import MDApp
 from kivymd.uix.picker import MDDatePicker
 
 from datetime import date
-
-# Dont remove these
 import sys
 import os
+
+
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from backend.algorithm import blending
-from backend import db_connect
-from backend import dbedit_customer
-from backend import dbedit_pricing
-from backend import dbedit_rent
-from backend import dbedit_scuba
+from backend import db_connect, dbedit_customer, dbedit_pricing, dbedit_rent, dbedit_scuba
 
 exists = []
 
