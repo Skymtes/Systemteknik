@@ -5,12 +5,12 @@ import datetime
 from backend import db_connect
 
 
-def create_customer(name):
+def create_customer(name,phone,email,cert,date):
     conn = db_connect.create_connection()
     c = conn.cursor()
     c.execute(
-        f''' INSERT INTO customers (name)
-            VALUES("{name}"); '''
+        f''' INSERT INTO customers (name,phone,email,cert,date)
+            VALUES("{name}","{phone}","{email}","{cert}","{date}"); '''
         )
     conn.commit()
     db_connect.close_connection(conn)
