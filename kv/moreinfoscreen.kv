@@ -20,7 +20,7 @@
                 size_hint: 0.2, 0.2
                 text: 'Go Back'
                 on_release:
-                    app.change_screen('home_screen')
+                    root.manager.current = 'home_screen'
                     root.reset_values()
 
 

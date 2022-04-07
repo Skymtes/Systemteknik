@@ -1,3 +1,4 @@
+#:kivy 2.0.0
 <ProfileScreen>:
     GridLayout:
         canvas:
@@ -5,7 +6,7 @@
                 rgb: 1,1,1,1
             Rectangle:
                 size: self.size
-                pos: self.pos
+                pos: self.pos   
         rows:2
         FloatLayout:
             Button:
@@ -14,10 +15,13 @@
                 text:
                     'ADD'
                 on_release:
-                    app.change_screen('add_profile_screen')
+                    root.manager.current = 'add_profile_screen'
         FloatLayout:
             Button:
                 pos_hint: {'center_x':0.5, 'top':1}
                 size_hint: 0.8, 0.8
                 text:
                     'RESERVED'
+                on_release:
+                    root.manager.current = 'reserved_profile_screen'
+                    root.on_reserved_press()
