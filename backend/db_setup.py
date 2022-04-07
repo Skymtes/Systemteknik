@@ -7,11 +7,11 @@ from sqlite3 import Error
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from backend import db_connect
+from backend import db_connect, dbedit_pricing
 
 
 def run_query(conn, query):
-    """ run sql query"""
+    """ run sql query """
     try:
         c = conn.cursor()
         c.execute(query)
@@ -93,6 +93,8 @@ def main():
         run_query(conn, tanks_table)
         run_query(conn, payments_table)
         run_query(conn, rented_table)
+        
+        dbedit_pricing.create_pricelist("UDT")
     else:
         print("Error! cannot create the database connection.")
 
