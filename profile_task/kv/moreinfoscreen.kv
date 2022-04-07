@@ -1,0 +1,32 @@
+<MoreInfoScreen>:
+    
+    GridLayout:
+        canvas:
+            Color:
+                rgb: 1,1,1,1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        rows: 2
+        pos_hint: {'top':1, 'left':1}
+        size_hint: 1,1
+
+        FloatLayout:
+            pos_hint: {'top':1, 'left': 1}
+            size_hint: 1,1
+
+            Button:
+                pos_hint: {'top': 1, 'left': 0.8}
+                size_hint: 0.2, 0.2
+                text: 'Go Back'
+                on_release:
+                    app.change_screen('home_screen')
+                    root.reset_values()
+
+
+        Label:
+            color: 0,0,0,1
+            id: fill
+            text: ' '
+
+
