@@ -1,0 +1,72 @@
+#:kivy 2.0.0
+<ProfileInfoScreen>:
+    FloatLayout:
+        orientation: 'vertical'
+        padding: 10
+        spacing: 10
+        size_hint: 1, 1
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        canvas:
+            Color:
+                rgba: 0, 0, 0, .5
+            Rectangle:
+                pos: self.pos
+                size: self.size
+            Color:
+                rgba: 1, 1, 1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Label:
+            text: 'Profile Info'
+            font_size: '30sp'
+            bold: True
+            halign: 'center'
+            size_hint_y: None
+            height: self.texture_size[1]
+            pos_hint: {'center_x': .5, 'center_y': .96}
+            color: 0, 0, 0, 1
+        Button:
+            pos_hint: {'top': 1, 'left': 0.8}
+            size_hint: 0.1, 0.02
+            text: 'Go Back'
+            on_release: root.manager.current = 'reserved_profile_screen'
+        BoxLayout:
+            id: profile_info_box
+            orientation: 'vertical'
+            Label:
+                id: name
+                text: root.name
+                pos_hint: {'center_x': .5, 'center_y': .8}
+                font_size: '20sp'
+                color: 0, 0, 0, 1
+            Label:
+                id: note
+                text: root.note
+                pos_hint: {'center_x': .3, 'center_y': .7}
+                font_size: '20sp'
+                color: 0, 0, 0, 1
+            Label:
+                id: number
+                text: root.number
+                pos_hint: {'center_x': .8, 'center_y': .7}
+                font_size: '20sp'
+                color: 0, 0, 0, 1
+            Label:
+                id: email
+                text: root.email
+                pos_hint: {'center_x': .8, 'center_y': .6}
+                font_size: '20sp'
+                color: 0, 0, 0, 1
+            Label:
+                id: gas_type
+                text: root.gas_type
+                pos_hint: {'center_x': .8, 'center_y': .5}
+                font_size: '20sp'
+                color: 0, 0, 0, 1
+            Label:
+                id: date
+                text: root.date
+                pos_hint: {'center_x': .8, 'center_y': .4}
+                font_size: '20sp'
+                color: 0, 0, 0, 1

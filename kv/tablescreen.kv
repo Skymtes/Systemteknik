@@ -1,0 +1,22 @@
+#:kivy 2.0.0
+<TableScreen>:
+    FloatLayout:
+        size_hint: 1,1
+        pos_hint:{'top':1, 'left':1}
+
+        canvas:
+            Color:
+                rgb: 1,1,1,1
+            Rectangle:
+                size:self.size
+                pos:self.pos
+        size_hint:1,1
+        pos_hint:{'top':1, 'left':1}
+        Image:
+            source: 'pic/tabell_pic.png'
+
+        Button:
+            pos_hint: {'top': 1, 'left': 0.8}
+            size_hint: 0.1, 0.02
+            text: 'Go Back'
+            on_release: root.manager.current = 'more_info_screen'
