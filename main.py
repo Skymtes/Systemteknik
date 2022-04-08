@@ -182,7 +182,7 @@ class ProfileScreen(Screen):
 class MoreInfoScreen(Screen):
 
     def change_values(self, fill_recipe, newoxygen,newhelium,newpressure,oldoxygen,oldhelium,oldpressure):
-        self.ids.fill.text = str(fill_recipe)
+        self.ids.fill.text = f"Please fill with \n {fill_recipe[0]} Bar Oxygen \n {fill_recipe[1]} Bar Helium \n {fill_recipe[2]} Bar Air"
         self.ids.newo2.text = newoxygen 
         self.ids.oldo2.text = oldoxygen 
         self.ids.oldhe.text = oldhelium
