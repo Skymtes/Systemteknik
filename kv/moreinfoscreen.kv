@@ -56,7 +56,19 @@
                 id: fill
                 text:''
 
+        GridLayout:
+            rows:2
+            size_hint: 1, 0.15
+            pos_hint: {'top':0.7, 'left':1}
+            Label:
+                color: 0,0,0,1
+                text:'price'
 
+            Label:
+                id: tank_price
+                color: 0,0,0,1
+                pos_hint: {'top':0.09, 'left':0.15}
+                text:'test'
 
         FloatLayout:
             size_hint: 1, 0.15
