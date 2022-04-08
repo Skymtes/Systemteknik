@@ -7,7 +7,14 @@
             Rectangle:
                 size: self.size
                 pos: self.pos   
-        rows:2
+        rows:3
+        FloatLayout:
+            Button:
+                pos_hint: {'top': 0.95, 'left': 0.8}
+                size_hint: 0.1, 0.02
+                text: 'Go Back'
+                on_release: root.manager.current = 'home_screen'
+
         FloatLayout:
             Button:
                 pos_hint: {'center_x':0.5, 'top':1}
@@ -26,8 +33,4 @@
                     root.manager.current = 'reserved_profile_screen'
                     root.on_reserved_press()
         
-        Button:
-            pos_hint: {'top': 1, 'left': 0.8}
-            size_hint: 0.1, 0.02
-            text: 'Go Back'
-            on_release: root.manager.current = 'home_screen'
+        
