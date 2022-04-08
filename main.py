@@ -172,7 +172,7 @@ class ProfileInfoScreen(Screen,Widget):
         self.ids['gas_type'].text = "Certificate: " + gas_type
         self.ids['date'].text = "Date: " + str(date)
         if not note:
-            pass
+            self.ids['note'].text = "Note: None"
         else:
             self.ids['note'].text = "Note: " + note
 class ProfileScreen(Screen):
