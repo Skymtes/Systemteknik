@@ -99,11 +99,11 @@ class SettingsScreen(Screen):
         dbedit_pricing.update_pricelist("UDT", 'currency', self._currency)
             
     
-        self.ids.price_oxygen.text = ''
-        self.ids.price_air.text = ''
-        self.ids.price_helium.text = ''
-        self.ids.price_service_fee.text = ''
-        self.ids.price_tank_fee.text = ''
+        #self.ids.price_oxygen.text = ''
+        #self.ids.price_air.text = ''
+        #self.ids.price_helium.text = ''
+        #self.ids.price_service_fee.text = ''
+        #self.ids.price_tank_fee.text = ''
 
 
 

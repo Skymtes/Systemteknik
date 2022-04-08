@@ -4,7 +4,7 @@ import os
 import datetime
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from backend.db_connect import create_connection, close_connection
-from backend.db_setup import main
+from db_setup import main
 from backend import dbedit_customer as customer
 from backend import dbedit_pricing as pricing
 from backend import dbedit_scuba as scuba
