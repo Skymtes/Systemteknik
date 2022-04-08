@@ -1,3 +1,4 @@
+#:kivy 2.0.0
 <MoreInfoScreen>:
 #id : fill, ger receptet på önskad blandning
     FloatLayout:
@@ -13,7 +14,11 @@
 
 
 
-
+        Button:
+            pos_hint: {'top': 1, 'left': 0.8}
+            size_hint: 0.1, 0.02
+            text: 'Go Back'
+            on_release: root.manager.current = 'home_screen'
 
 
 
@@ -28,13 +33,13 @@
             rows:2
             size_hint: 1, 0.15
             pos_hint: {'top':1, 'left':1}
-            Label:
-                color: 0,0,0,1
-                text:'Depth'
+            #Label:
+            #    color: 0,0,0,1
+            #    text:'Depth'
 
-            Label:
-                color:0,0,0,1
-                text:'Variabel'
+            #Label:
+            #    color:0,0,0,1
+            #    text:'Variabel'
 
 
 
@@ -49,9 +54,21 @@
             Label:
                 color: 0,0,0,1
                 id: fill
-                text:'Variabel'
+                text:''
 
+        GridLayout:
+            rows:2
+            size_hint: 1, 0.15
+            pos_hint: {'top':0.7, 'left':1}
+            Label:
+                color: 0,0,0,1
+                text:'price'
 
+            Label:
+                id: tank_price
+                color: 0,0,0,1
+                pos_hint: {'top':0.09, 'left':0.15}
+                text:'test'
 
         FloatLayout:
             size_hint: 1, 0.15
@@ -187,7 +204,7 @@
                 pos_hint: {'top':1, 'right':1}
                 source: 'pic/tabell.png'
                 on_release:
-                    app.change_screen('table_screen')
+                    root.manager.current = 'table_screen'
 
 
 

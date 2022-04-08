@@ -11,33 +11,27 @@ def IdealBlend(depth, endTrimix = None): # What is the ideal blend at a certain 
 
     if endTrimix: # If trimix is involved
 
-        idealNitrogenTrimix = ((endTrimix / 10 + 1) * .79) / (depth / 10 + 1) * 100
-        idealHelium = 100 - idealOxygen - idealNitrogenTrimix
+        idealNitrogenTrimix = ((endTrimix / 10 + 1) * .79) / (depth / 10 + 1) * 100 # Ideal nitrogen percentage in a trimix mix
+        idealHelium = 100 - idealOxygen - idealNitrogenTrimix # Ideal helium percentage in a trimix mix
 
         return (round(idealOxygen, 1), round(idealHelium, 1), round(idealNitrogenTrimix, 1))
 
     return (round(idealOxygen, 1), 0, round(idealNitrogenNitrox, 1))
 
-def MaxDepth(oxygen):
+def MaxDepth(oxygen): # Returns max operating depth based on percentage of oxygen
 
     return round((1.4 / oxygen - 1) * 10, 1)
 
-def MinDepth(oxygen):
+def MinDepth(oxygen): # Returns minimum operating depth on percentage of oxygen
 
     return round((.18 / oxygen - 1) * 10, 1)
 
-def EquivalentAirDepth(depth, oxygenPercentage, heliumPercentage = 0):
+def EquivalentAirDepth(depth, oxygenPercentage, heliumPercentage = 0): # Returns the equivalent air depth of blend at specific depth
 
     nitrogenPercentage = 1 - oxygenPercentage - heliumPercentage
 
     return round((depth + 10) * nitrogenPercentage / .79 - 10, 1)
 
-def EquivalentNarcoticDepth(depth, oxygenPercentage, heliumPercentage = 0):
-
-    if heliumPercentage == 0:
-
-        nitrogenPercentage = 1 - oxygenPercentage - heliumPercentage
-
-        return round((nitrogenPercentage * (depth / 10 + 1) / .79 - 1) * 10, 1)
+def EquivalentNarcoticDepth(depth, heliumPercentage): # Returns the equivalent nartcotic depth of trimix blend at specific depth
 
     return round((depth + 10) * (1 - heliumPercentage) - 10, 1)

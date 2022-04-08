@@ -23,7 +23,7 @@ pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
 
 a.datas += [('Code\main.kv',
-'C:\\Pythonprojekt\\Systemteknik\main.kv',
+'C:\\Uppgifter\\Systemteknik\main.kv',
 'DATA')]
 
 exe = EXE(pyz,
@@ -41,7 +41,7 @@ exe = EXE(pyz,
           codesign_identity=None,
           entitlements_file=None )
 coll = COLLECT(exe,
-Tree('C:\\Pythonprojekt\\Systemteknik\\'),
+Tree('C:\\Uppgifter\\Systemteknik\\'),
                a.binaries,
                a.zipfiles,
                a.datas, 

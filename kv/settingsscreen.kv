@@ -1,3 +1,4 @@
+#:kivy 2.0.0
 <SettingsScreen>:
     price_oxygen : price_oxygen
     price_air : price_air
@@ -41,7 +42,7 @@
                 pos_hint:{'top':1, 'left':0.8}
                 size_hint: 0.1,0.3
                 on_release:
-                    app.change_screen('home_screen')
+                    root.manager.current = 'home_screen'
                     root.button()
 
                 text: 'Go back'

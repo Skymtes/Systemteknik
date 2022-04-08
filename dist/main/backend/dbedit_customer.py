@@ -5,12 +5,12 @@ import datetime
 from backend import db_connect
 
 
-def create_customer(name):
+def create_customer(name,phone,email,cert,date):
     conn = db_connect.create_connection()
     c = conn.cursor()
     c.execute(
-        f''' INSERT INTO customers (name)
-            VALUES("{name}"); '''
+        f''' INSERT INTO customers (name,phone,email,cert,date)
+            VALUES("{name}","{phone}","{email}","{cert}","{date}"); '''
         )
     conn.commit()
     db_connect.close_connection(conn)
@@ -37,6 +37,30 @@ def update_customer(id, type, price):
             WHERE id="{id}"; '''
     )
     conn.commit()
+    db_connect.close_connection(conn)
+
+
+def select_customer():
+    customer_li = []
+    conn = db_connect.create_connection()
+    c = conn.cursor()
+    c.execute('SELECT * FROM customers')
+    for row in c:
+        #print(row)
+        customer_li.append(row)
+    return(customer_li)
+
+
+def find_id(name):
+    conn = db_connect.create_connection()
+    c = conn.cursor()
+    c.execute(
+        f''' SELECT id
+            FROM customers
+            WHERE name="{name}"; '''
+        )
+    for row in c:
+        return(row[0])
     db_connect.close_connection(conn)
 
 

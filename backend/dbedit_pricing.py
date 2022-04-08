@@ -10,6 +10,7 @@ from backend import db_connect
 
 
 def create_pricelist(name):
+    """ Dont call directly """
     conn = db_connect.create_connection()
     c = conn.cursor()
     c.execute(
@@ -32,15 +33,16 @@ def update_pricelist(name, type, price):
     db_connect.close_connection(conn)
 
 
-def remove_pricelist(name):
-    conn = db_connect.create_connection()
-    c = conn.cursor()
-    c.execute(
-        f''' DELETE FROM pricelists
-            WHERE name="{name}"; ''' 
-    )
-    conn.commit()
-    db_connect.close_connection(conn)
+# def remove_pricelist(name):
+#     """ only relevant for debugging """
+#     conn = db_connect.create_connection()
+#     c = conn.cursor()
+#     c.execute(
+#         f''' DELETE FROM pricelists
+#             WHERE name="{name}"; ''' 
+#     )
+#     conn.commit()
+#     db_connect.close_connection(conn)
 
 #--------------------------------------------------------------------
 
