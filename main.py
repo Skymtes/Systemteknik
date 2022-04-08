@@ -139,8 +139,7 @@ class ReservedProfileScreen(Screen,Widget):
     def add_button(self,):
         customer = dbedit_customer.select_customer()
         for profile in customer:
-            name = profile[1].split(' ')
-            self.button = Button(text=f'{name[1].upper()} , {name[0].upper()}',
+            self.button = Button(text=f'{profile[1]}',
                                  on_press= self.Press_auth)
             if self.button.text not in exists:
                 self.ids.box.add_widget(self.button)
@@ -148,15 +147,14 @@ class ReservedProfileScreen(Screen,Widget):
             else:
                 pass
     def Press_auth(self,instance):
-        name = instance.text.lower().split(',')
-        name = name[1].strip() + ' ' + name[0].strip()     
+        name = instance.text.lower() 
         self.button_press(name)
     def button_press(self,name):
        id = dbedit_customer.find_id(name.lower())
        customer = dbedit_customer.select_customer()
        for profile in customer:
             if profile[0] == id:
-                self.manager.get_screen('profile_info_screen').insert_info(profile[1],profile[2],profile[3],profile[4],profile[5],profile[6])
+                self.manager.get_screen('profile_info_screen').insert_info(profile[1],profile[2],profile[3],profile[4],profile[6],profile[5])
                 self.manager.current= 'profile_info_screen'
                 break
 
@@ -171,7 +169,7 @@ class ProfileInfoScreen(Screen,Widget):
         self.ids['name'].text = "Name: " + name
         self.ids['number'].text = "Number: " + str(number)
         self.ids['email'].text = "Email: " + email
-        self.ids['gas_type'].text = "Gas Type: " + gas_type
+        self.ids['gas_type'].text = "Certificate: " + gas_type
         self.ids['date'].text = "Date: " + str(date)
         if not note:
             pass
