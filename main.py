@@ -198,7 +198,7 @@ class MoreInfoScreen(Screen):
                 if -fill_recipe[0] + -fill_recipe[1] + -fill_recipe[2] == oldpressure:
                     self.ids.fill.text = "Please empty the old tank before filling"
                 else:
-                    self.ids.fill.text = f"Please empty the old tank to {-fill_recipe[0] + -fill_recipe[1] + -fill_recipe[2] - 0.1} Bar"
+                    self.ids.fill.text = f"Please lower the old tank to {-fill_recipe[0] + -fill_recipe[1] + -fill_recipe[2] - 0.1} Bar"
             else:
                 self.ids.fill.text = f"Please fill with \n {fill_recipe[0]} Bar Oxygen \n {fill_recipe[1]} Bar Helium \n {fill_recipe[2]} Bar Air"
 
