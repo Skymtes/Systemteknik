@@ -39,26 +39,30 @@ class HomeScreen(Screen):
     new_he = ObjectProperty(None)
     new_pressure = ObjectProperty(None)
 
-
-
-
     def btn(self):
         
-        if self.ids.old_pressure.text == '' and self.ids.old_he.text == '' and self.ids.old_otwo.text == '' and self.ids.new_otwo.text == '' and self.ids.new_he.text == '' and self.ids.new_pressure.text == '':
-            
-            self.manager.get_screen('more_info_screen')
-        else:
-            a = blending.Blend( (float(self.new_otwo.text))/100, (float(self.new_he.text))/100, float(self.new_pressure.text), (float(self.old_otwo.text))/100, (float(self.old_he.text))/100, float(self.old_pressure.text)) #Values should be enterd in Procents/Bar. 
-            self.manager.get_screen('more_info_screen').change_values(a, self.new_otwo.text,self.new_he.text,self.new_pressure.text,self.old_otwo.text,self.old_he.text,self.old_pressure.text)
-            self.manager.get_screen('more_info_screen').tank_price(int(self.new_pressure.text),[int(self.new_otwo.text),int(self.new_he.text),0.25])
-            self.ids.old_pressure.text = ' '
-            self.ids.old_he.text = ' '
-            self.ids.old_otwo.text = ' '
-            self.ids.new_otwo.text = ' '
-            self.ids.new_he.text = ' '
-            self.ids.new_pressure.text = ' '
+        if self.ids.old_pressure.text == '':
+            self.ids.old_pressure.text = '0'
 
-        
+        if self.ids.old_he.text == '':
+            self.ids.old_he.text = '0'
+
+        if self.ids.old_otwo.text == '':
+            self.ids.old_otwo.text = '0'
+
+        if self.ids.new_otwo.text == '':
+            self.ids.new_otwo.text = '0'
+
+        if self.ids.new_he.text == '':
+            self.ids.new_he.text = '0'
+            
+        if self.ids.new_pressure.text == '':
+            self.ids.new_pressure.text = '0'
+
+        a = blending.Blend( (float(self.new_otwo.text))/100, (float(self.new_he.text))/100, float(self.new_pressure.text), (float(self.old_otwo.text))/100, (float(self.old_he.text))/100, float(self.old_pressure.text)) #Values should be enterd in Procents/Bar. 
+        self.manager.get_screen('more_info_screen').change_values(a, self.new_otwo.text,self.new_he.text,self.new_pressure.text,self.old_otwo.text,self.old_he.text,self.old_pressure.text)
+        self.manager.get_screen('more_info_screen').tank_price(int(self.new_pressure.text),[int(self.new_otwo.text),int(self.new_he.text),0.25])
+
 
 class SettingsScreen(Screen):
 
@@ -171,11 +175,15 @@ class ProfileInfoScreen(Screen,Widget):
         self.ids['number'].text = "Number: " + str(number)
         self.ids['email'].text = "Email: " + email
         self.ids['gas_type'].text = "Certificate: " + gas_type
-        self.ids['date'].text = "Date: " + str(date)
+        if str(date) == "Date":
+            self.ids['date'].text = "Date: "
+        else:
+            self.ids['date'].text = "Date: " + str(date)
         if not note:
-            self.ids['note'].text = "Note: None"
+            self.ids['note'].text = "Note: "
         else:
             self.ids['note'].text = "Note: " + note
+
 class ProfileScreen(Screen):
     def on_reserved_press(self):
         self.manager.get_screen('reserved_profile_screen').add_button() 
@@ -183,7 +191,17 @@ class ProfileScreen(Screen):
 class MoreInfoScreen(Screen):
 
     def change_values(self, fill_recipe, newoxygen,newhelium,newpressure,oldoxygen,oldhelium,oldpressure):
-        self.ids.fill.text = f"Please fill with \n {fill_recipe[0]} Bar Oxygen \n {fill_recipe[1]} Bar Helium \n {fill_recipe[2]} Bar Air"
+        if isinstance(fill_recipe, str):
+            self.ids.fill.text = fill_recipe
+        else:
+            if fill_recipe[0] < 0 or fill_recipe[1] < 0 or fill_recipe[2] < 0:
+                if -fill_recipe[0] + -fill_recipe[1] + -fill_recipe[2] == oldpressure:
+                    self.ids.fill.text = "Please empty the old tank before filling"
+                else:
+                    self.ids.fill.text = f"Please empty the old tank to {-fill_recipe[0] + -fill_recipe[1] + -fill_recipe[2] - 0.1} Bar"
+            else:
+                self.ids.fill.text = f"Please fill with \n {fill_recipe[0]} Bar Oxygen \n {fill_recipe[1]} Bar Helium \n {fill_recipe[2]} Bar Air"
+
         self.ids.newo2.text = newoxygen 
         self.ids.oldo2.text = oldoxygen 
         self.ids.oldhe.text = oldhelium

@@ -20,7 +20,7 @@
                 pos_hint: {'center_x':0.5, 'top':1}
                 size_hint: 0.8, 0.8
                 text:
-                    'Create new profile'
+                    'Create New Profile'
                 on_release:
                     root.manager.current = 'add_profile_screen'
         FloatLayout:
@@ -28,7 +28,7 @@
                 pos_hint: {'center_x':0.5, 'top':1}
                 size_hint: 0.8, 0.8
                 text:
-                    'Current profiles'
+                    'Current Profiles'
                 on_release:
                     root.manager.current = 'reserved_profile_screen'
                     root.on_reserved_press()

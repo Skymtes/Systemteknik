@@ -133,12 +133,9 @@ def calculate_tank_price(capacity, fill):
             WHERE name="UDT"; '''
         )
     prices = c.fetchall()[0]
-    print("price/l o2 he air",prices)
-    print("tank capacity",capacity)
     o2_cost = round(fill[0]*capacity*prices[0], 3)
     he_cost = round(fill[1]*capacity*prices[1], 3)
     air_cost = round(fill[2]*capacity*prices[2], 3)
-    print("cost of o2 he air tankfee",o2_cost, he_cost, air_cost, fetch_tank_fee())
     return o2_cost + he_cost + air_cost + fetch_tank_fee()
 
 
