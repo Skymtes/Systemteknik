@@ -39,12 +39,12 @@
             Label:
                 color: 0,0,0,1
                 text: 'Old Mix'
-                pos_hint: {'top' : 1, 'center_x':0.35} 
+                pos_hint: {'top' : 1, 'center_x':0.4} 
 
             Label:
                 color: 0,0,0,1
                 text: 'New Mix'
-                pos_hint: {'top' : 1, 'center_x':0.7}
+                pos_hint: {'top' : 1, 'center_x':0.6}
 
 
 
@@ -52,25 +52,26 @@
             rows:4
             pos_hint: {'top': 0.7, 'left': 0}
             size_hint: 1, .55
-
-
+            
+            
             FloatLayout:
                 Label:
                     color:0,0,0,1
                     text: 'O2%'
                     pos_hint:{'top':1, 'left':1}
-                    size_hint: 0.2, 0.2
+                    size_hint: 0.4, 0.5
 
                 TextInput:
-                    pos_hint:{'top':1, 'center_x':0.35}
+                    pos_hint:{'top':1, 'center_x':0.4}
                     size_hint: 0.1, 0.55
                     id : old_otwo
+                    input_filter: 'float'
 
                 TextInput:
-                    pos_hint:{'top':1, 'center_x':0.7}
+                    pos_hint:{'top':1, 'center_x':0.6}
                     size_hint: 0.1, 0.55
                     id : new_otwo
-
+                    input_filter: 'float'
 
 
 
@@ -79,54 +80,62 @@
                     color:0,0,0,1
                     text: 'He%'
                     pos_hint:{'top':1, 'left':1}
-                    size_hint: 0.2, 0.2 
+                    size_hint: 0.4, .5 
                 
                 TextInput:
-                    pos_hint:{'top':1, 'center_x':0.35}
+                    pos_hint:{'top':1, 'center_x':0.4}
                     size_hint: 0.1, 0.55
                     id: old_he
+                    input_filter: 'float'
 
                 TextInput:
-                    pos_hint:{'top':1, 'center_x':0.7}
+                    pos_hint:{'top':1, 'center_x':0.6}
                     size_hint: 0.1, 0.55
                     id: new_he
+                    input_filter: 'float'
 
             FloatLayout:
                 Label:
                     color:0,0,0,1
-                    text: 'Pressure\n(In Bar)'
+                    text: 'Pressure (Bar)'
                     pos_hint:{'top':1, 'left':1}
-                    size_hint: 0.2, 0.2
+                    size_hint: 0.4, 0.5
 
                 TextInput:
-                    pos_hint:{'top':1, 'center_x':0.35}
+                    pos_hint:{'top':1, 'center_x':0.4}
                     size_hint: 0.1, 0.55
                     id : old_pressure
+                    input_filter: 'float'
 
                 TextInput:
-                    pos_hint:{'top':1, 'center_x':0.7}
+                    pos_hint:{'top':1, 'center_x':0.6}
                     size_hint: 0.1, 0.55
                     id : new_pressure
+                    input_filter: 'float'
 
+            FloatLayout:
+                Button:
+                    text: 'Calculate'
+                    pos_hint: {'center_x': 0.5, 'center_y': .7}
+                    size_hint: .3, .7
+                    on_release:
+                        root.manager.current = 'more_info_screen'
+                        root.btn()
 
         FloatLayout:
-            pos_hint: {'top': 0.15, 'left': 1}
-            size_hint: 1, .15
-            Button:
-                text: 'Calculate'
-                pos_hint: {'center_y': 0.5, 'center_x': 0.5}
-                size_hint: 0.1, 0.1
-                on_release:
-                    root.manager.current = 'more_info_screen'
-                    root.btn()
+            pos_hint: {'top': .4, 'left': 1}
+            size_hint: 1, .4
+            
             Button:
                 text: 'Settings'
-                pos_hint: {'y': 0.1, 'x': 0}
-                size_hint: 0.1, 0.1
+                pos_hint: {'y': 0.2, 'x': 0}
+                size_hint: 0.2, 0.2
                 on_release:
                     root.manager.current = 'settings_screen'
+            
             Button:
                 text: 'Profiles'
-                pos_hint: {'y': 0.1, 'x': 0.1}
-                size_hint: 0.1, 0.1
-                on_release: root.manager.current = 'profile_screen'
+                pos_hint: {'y': 0.0, 'x': 0}
+                size_hint: 0.2, 0.2
+                on_release: 
+                    root.manager.current = 'profile_screen'

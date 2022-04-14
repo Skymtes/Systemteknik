@@ -18,10 +18,7 @@ from kivymd.app import MDApp
 from kivymd.uix.picker import MDDatePicker
 
 from datetime import date
-import sys
-import os
-import sqlite3
-
+import sys, os, sqlite3
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from backend.algorithm import blending
@@ -58,7 +55,7 @@ class HomeScreen(Screen):
             
         if self.ids.new_pressure.text == '':
             self.ids.new_pressure.text = '0'
-
+        
         a = blending.Blend( (float(self.new_otwo.text))/100, (float(self.new_he.text))/100, float(self.new_pressure.text), (float(self.old_otwo.text))/100, (float(self.old_he.text))/100, float(self.old_pressure.text)) #Values should be enterd in Procents/Bar. 
         self.manager.get_screen('more_info_screen').change_values(a, self.new_otwo.text,self.new_he.text,self.new_pressure.text,self.old_otwo.text,self.old_he.text,self.old_pressure.text)
         self.manager.get_screen('more_info_screen').tank_price(int(self.new_pressure.text),[int(self.new_otwo.text),int(self.new_he.text),0.25])
