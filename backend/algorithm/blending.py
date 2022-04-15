@@ -2,12 +2,6 @@
     File containing all relevant functions for blending gases.
 """
 
-### TODO ###
-# Add Ideal Depth
-# Add ability to add gas on top of another gas
-# General testing of the whole algorithm
-
-
 def Blend(desiredOxygen = None, desiredHelium = None, desiredPressure = None, startOxygen = None, startHelium = None, startPressure = None):
 
     """
@@ -23,7 +17,7 @@ def Blend(desiredOxygen = None, desiredHelium = None, desiredPressure = None, st
         returns (oxygen, helium, air) all measured in pressure to fill.
     """
 
-    args = [desiredOxygen , desiredHelium, desiredPressure, startOxygen, startHelium , startPressure]
+    args = [desiredOxygen, desiredHelium, desiredPressure, startOxygen, startHelium, startPressure]
     
     for idx,value in enumerate(args):
         
