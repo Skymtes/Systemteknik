@@ -40,7 +40,7 @@
 
             Button:
                 pos_hint:{'top':1, 'left':0.8}
-                size_hint: 0.1,0.3
+                size_hint: 0.15, 0.5
                 on_release:
                     root.manager.current = 'home_screen'
                     root.button()
@@ -56,78 +56,89 @@
             Spinner:
                 id : spinner_id
                 pos_hint:{'top':1, 'right':1}
-                size_hint: 0.2,0.3
+                size_hint: 0.2, 0.5
                 text:'Currency'
-                values: ['SEK', 'EURO', 'DOLLAR']
+                values: ['SEK', 'EUR', 'USD']
                 on_text: root.spinnerclick(spinner_id.text)
 
         GridLayout:
             rows:5
-            pos_hint: {'top': 0.85, 'left': 0}
-            size_hint: 1, .45
+            pos_hint: {'top': 0.8, 'left': 0}
+            size_hint: 1, .6
 
 
             FloatLayout:
                 Label:
-                    color: 0,0,0,1
-                    text:'Oxygen'
+                    color: 0 , 0 , 0, 1
+                    text:'Oxygen Fee\n(per Liter)'
                     pos_hint:{'top':1, 'left':1}
-                    size_hint: 0.2, 0.2
+                    size_hint: 0.4, 0.5
                 TextInput:
                     pos_hint:{'top':1, 'center_x':0.5}
-                    size_hint: 0.1, 0.55
+                    size_hint: 0.1, 0.6
                     id: price_oxygen
+                    text: '0'
+                    input_filter: 'float'
+
             FloatLayout:
                 Label:
-                    color: 0,0,0,1
-                    text:'Air'
+                    color: 0, 0, 0, 1
+                    text:'Helium Fee\n(per Liter)'
                     pos_hint:{'top':1, 'left':1}
-                    size_hint: 0.2, 0.2
+                    size_hint: 0.4, 0.5
                 TextInput:
                     pos_hint:{'top':1, 'center_x':0.5}
-                    size_hint: 0.1, 0.55
+                    size_hint: 0.1, 0.6
+                    id: price_helium
+                    text: '0'
+                    input_filter: 'float'
+
+            FloatLayout:
+                Label:
+                    color: 0, 0, 0, 1
+                    text:'Air Fee\n(per Liter)'
+                    pos_hint:{'top':1, 'left':1}
+                    size_hint: 0.4, 0.5
+                TextInput:
+                    pos_hint:{'top':1, 'center_x':0.5}
+                    size_hint: 0.1, 0.6
                     id : price_air
+                    text: '0'
+                    input_filter: 'float'
+
             FloatLayout:
                 Label:
-                    color: 0,0,0,1
-                    text:'Helium'
-                    pos_hint:{'top':1, 'left':1}
-                    size_hint: 0.2, 0.2
-                TextInput:
-                    pos_hint:{'top':1, 'center_x':0.5}
-                    size_hint: 0.1, 0.55
-                    id: price_helium 
-            FloatLayout:
-                
-                Label:
-                    color: 0,0,0,1
-                    text:'Service Fee'
-                    pos_hint:{'top':1, 'left':1}
-                    size_hint: 0.2, 0.2
-                TextInput:
-                    pos_hint:{'top':1, 'center_x':0.5}
-                    size_hint: 0.1, 0.55
-                    id: price_service_fee 
-            FloatLayout:
-                Label:
-                    color: 0,0,0,1
+                    color: 0, 0, 0, 1
                     text:'Tank Fee'
                     pos_hint:{'top':1, 'left':1}
-                    size_hint: 0.2, 0.2
+                    size_hint: 0.4, 0.5
                 TextInput:
                     pos_hint:{'top':1, 'center_x':0.5}
-                    size_hint: 0.1, 0.55 
+                    size_hint: 0.1, 0.6 
                     id: price_tank_fee
+                    text: '0'
+                    input_filter: 'float'
 
+            FloatLayout:
+                Label:
+                    color: 0, 0, 0, 1
+                    text:'Service Fee'
+                    pos_hint:{'top':1, 'left':1}
+                    size_hint: 0.4, 0.5
+                TextInput:
+                    pos_hint:{'top':1, 'center_x':0.5}
+                    size_hint: 0.1, 0.6
+                    id: price_service_fee
+                    text: '0'
+                    input_filter: 'float'
 
         FloatLayout:
+            pos_hint: {'top': 0.4, 'left': 1}
+            size_hint: 1, .5
 
-            
-            size_hint: 1, 0.25
-            pos_hint: {'top':0.4, 'left':1}
             Button:
-                pos_hint:{'top':1, 'center_x':0.5}
-                size_hint: 0.2,0.2
+                pos_hint:{'center_x': 0.5, 'center_y': .5}
+                size_hint: 0.3, .2
                 text:'Confirm'
                 on_release:
                     root.confirm()

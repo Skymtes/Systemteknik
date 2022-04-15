@@ -36,7 +36,7 @@ class HomeScreen(Screen):
     new_he = ObjectProperty(None)
     new_pressure = ObjectProperty(None)
 
-    def btn(self):
+    def btn(self): # Calculate button in HomeScreen/BlendScreen
         
         if self.ids.old_pressure.text == '':
             self.ids.old_pressure.text = '0'
@@ -76,24 +76,30 @@ class SettingsScreen(Screen):
         # self.ids.cylinder_size.text = ''
         # self.cyliner_maximum_pressure.text = ''
 
-    def confirm(self):
+    def confirm(self): # Confirm button in settings
 
         self._currency = self._currency
 
-        if self.ids.price_oxygen.text != '':
-            dbedit_pricing.update_pricelist("UDT", 'o2',float(self.ids.price_oxygen.text))
+        if self.ids.price_oxygen.text == '':
+            self.ids.price_oxygen.text = 0
 
-        if self.ids.price_oxygen.text != '':
-            dbedit_pricing.update_pricelist("UDT", 'air',float(self.ids.price_air.text))
+        if self.ids.price_helium.text == '':
+            self.ids.price_helium.text = 0
 
-        if self.ids.price_helium.text != '':
-            dbedit_pricing.update_pricelist("UDT", 'he', float(self.ids.price_helium.text))
-             
-        if self.ids.price_service_fee.text != '':
-            dbedit_pricing.update_pricelist("UDT",'service', int(self.ids.price_service_fee.text))
-            
-        if self.ids.price_tank_fee.text != '':
-            dbedit_pricing.update_pricelist("UDT", 'tank', int(self.ids.price_tank_fee.text))
+        if self.ids.price_air.text == '':
+            self.ids.price_air.text = 0
+
+        if self.ids.price_tank_fee.text == '':
+            self.ids.price_tank_fee.text = 0
+
+        if self.ids.price_service_fee.text == '':
+            self.ids.price_service_fee.text = 0
+
+        dbedit_pricing.update_pricelist("UDT", 'o2',float(self.ids.price_oxygen.text))    
+        dbedit_pricing.update_pricelist("UDT", 'air',float(self.ids.price_air.text))
+        dbedit_pricing.update_pricelist("UDT", 'he', float(self.ids.price_helium.text))
+        dbedit_pricing.update_pricelist("UDT",'service', int(self.ids.price_service_fee.text))
+        dbedit_pricing.update_pricelist("UDT", 'tank', int(self.ids.price_tank_fee.text))
             
         if self._currency == None:
             self._currency = 'SEK'
