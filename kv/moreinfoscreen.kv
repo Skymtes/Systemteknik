@@ -16,7 +16,7 @@
 
         Button:
             pos_hint: {'top': 1, 'left': 0.8}
-            size_hint: 0.1, 0.02
+            size_hint: 0.15, 0.075
             text: 'Go Back'
             on_release: root.manager.current = 'home_screen'
 
@@ -45,30 +45,41 @@
 
         GridLayout:
             rows:2
-            size_hint: 1, 0.15
-            pos_hint: {'top':0.85, 'left':1}
+            size_hint: 1, 0.3
+            pos_hint: {'top':0.9, 'left':1}
+
             Label:
                 color: 0,0,0,1
-                text:'Instructions'
+                text:'Blending Instructions'
+                font_size: '26sp'
+                bold: True
+                halign: 'center'
+
 
             Label:
                 color: 0,0,0,1
                 id: fill
                 text:''
+                font_size: '16sp'
+                halign: 'center'
 
         GridLayout:
             rows:2
-            size_hint: 1, 0.15
-            pos_hint: {'top':0.7, 'left':1}
+            size_hint: 1, 0.1
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
             Label:
                 color: 0,0,0,1
-                text:'price'
+                text:'Price'
+                font_size: '20sp'
+                bold: True
+                halign: 'center'
 
             Label:
                 id: tank_price
                 color: 0,0,0,1
-                pos_hint: {'top':0.09, 'left':0.15}
-                text:'test'
+                pos_hint: {'top': 0.8, 'left': 1}
+                text: '0'
+                font_size: '16sp'
 
         FloatLayout:
             size_hint: 1, 0.15

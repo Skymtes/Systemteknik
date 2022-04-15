@@ -26,7 +26,6 @@ from backend import db_connect, dbedit_customer, dbedit_pricing, dbedit_rent, db
 
 exists = []
 
-
 class HomeScreen(Screen):
     old_pressure = ObjectProperty(None)
     old_he = ObjectProperty(None)
@@ -193,7 +192,7 @@ class ProfileScreen(Screen):
 
 class MoreInfoScreen(Screen):
 
-    def change_values(self, fill_recipe, newoxygen,newhelium,newpressure,oldoxygen,oldhelium,oldpressure):
+    def change_values(self, fill_recipe, newoxygen, newhelium, newpressure, oldoxygen, oldhelium, oldpressure):
         if isinstance(fill_recipe, str):
             self.ids.fill.text = fill_recipe
         else:
@@ -203,7 +202,7 @@ class MoreInfoScreen(Screen):
                 else:
                     self.ids.fill.text = f"Please lower the old tank to {-fill_recipe[0] + -fill_recipe[1] + -fill_recipe[2] - 0.1} Bar"
             else:
-                self.ids.fill.text = f"Please fill with \n {fill_recipe[0]} Bar Oxygen \n {fill_recipe[1]} Bar Helium \n {fill_recipe[2]} Bar Air"
+                self.ids.fill.text = f"Please fill tank with\n{fill_recipe[0]} Bar Oxygen,\n{fill_recipe[1]} Bar Helium,\n{fill_recipe[2]} Bar Air"
 
         self.ids.newo2.text = newoxygen 
         self.ids.oldo2.text = oldoxygen 
@@ -215,8 +214,9 @@ class MoreInfoScreen(Screen):
     def reset_values(self):
         pass
 
-    def tank_price(self,capacity,fill:list):
-        self.ids.tank_price.text = str(dbedit_pricing.calculate_tank_price(capacity,fill))
+    def tank_price(self, capacity, fill:list):
+
+        self.ids.tank_price.text = f"{str(dbedit_pricing.calculate_tank_price(capacity,fill))} {dbedit_pricing.fetch_currency()}"
         
 class TableScreen(Screen):
     pass 
