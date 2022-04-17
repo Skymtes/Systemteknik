@@ -39,14 +39,13 @@
 
 
             Button:
-                pos_hint:{'top':1, 'left':0.8}
+                pos_hint: {'top': 1, 'left': 0.8}
                 size_hint: 0.15, 0.5
+                text: 'Go Back'
                 on_release:
+                    root.manager.transition.direction = 'right'
                     root.manager.current = 'home_screen'
                     root.button()
-
-                text: 'Go Back'
-
 
             Image:
                 source: 'pic/gas_price.png'

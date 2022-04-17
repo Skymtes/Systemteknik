@@ -55,9 +55,9 @@ class HomeScreen(Screen):
         if self.ids.new_pressure.text == '':
             self.ids.new_pressure.text = '0'
         
-        a = blending.Blend( (float(self.new_otwo.text))/100, (float(self.new_he.text))/100, float(self.new_pressure.text), (float(self.old_otwo.text))/100, (float(self.old_he.text))/100, float(self.old_pressure.text)) #Values should be enterd in Procents/Bar. 
-        self.manager.get_screen('more_info_screen').change_values(a, self.new_otwo.text,self.new_he.text,self.new_pressure.text,self.old_otwo.text,self.old_he.text,self.old_pressure.text)
-        self.manager.get_screen('more_info_screen').tank_price(int(self.new_pressure.text),[int(self.new_otwo.text),int(self.new_he.text),0.25])
+        newBlend = blending.Blend( (float(self.new_otwo.text)) / 100, (float(self.new_he.text)) / 100, float(self.new_pressure.text), (float(self.old_otwo.text)) / 100, (float(self.old_he.text)) / 100, float(self.old_pressure.text)) # Values should be enterd Percentage / Pressure . 
+        self.manager.get_screen('more_info_screen').BlendResult(newBlend, self.new_otwo.text, self.new_he.text, self.new_pressure.text, self.old_otwo.text, self.old_he.text, self.old_pressure.text)
+        self.manager.get_screen('more_info_screen').GetPrice(int(self.new_pressure.text), newBlend)
 
 
 class SettingsScreen(Screen):
@@ -192,7 +192,7 @@ class ProfileScreen(Screen):
 
 class MoreInfoScreen(Screen):
 
-    def change_values(self, fill_recipe, newoxygen, newhelium, newpressure, oldoxygen, oldhelium, oldpressure):
+    def BlendResult(self, fill_recipe, newoxygen, newhelium, newpressure, oldoxygen, oldhelium, oldpressure):
         if isinstance(fill_recipe, str):
             self.ids.fill.text = fill_recipe
         else:
@@ -214,9 +214,18 @@ class MoreInfoScreen(Screen):
     def reset_values(self):
         pass
 
-    def tank_price(self, capacity, fill:list):
+    def GetPrice(self, capacity, fill:list):
 
-        self.ids.tank_price.text = f"{str(dbedit_pricing.calculate_tank_price(capacity,fill))} {dbedit_pricing.fetch_currency()}"
+        price = dbedit_pricing.calculate_tank_price(capacity, fill)
+        currency = dbedit_pricing.fetch_currency()
+
+        if price < 0: # Shouldn't be able to recieve money
+
+            self.ids.tank_price.text = f"0 {currency}" 
+
+        else:
+
+            self.ids.tank_price.text = f"{str(price)} {currency}"
         
 class TableScreen(Screen):
     pass 

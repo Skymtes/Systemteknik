@@ -18,7 +18,9 @@
             pos_hint: {'top': 1, 'left': 0.8}
             size_hint: 0.15, 0.075
             text: 'Go Back'
-            on_release: root.manager.current = 'home_screen'
+            on_release: 
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'home_screen'
 
 
 

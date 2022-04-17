@@ -10,10 +10,12 @@
         rows:3
         FloatLayout:
             Button:
-                pos_hint: {'top': 0.95, 'left': 0.8}
-                size_hint: 0.1, 0.02
+                pos_hint: {'top': 1, 'left': 0.8}
+                size_hint: 0.15, 0.25
                 text: 'Go Back'
-                on_release: root.manager.current = 'home_screen'
+                on_release:
+                    root.manager.transition.direction = 'right' 
+                    root.manager.current = 'home_screen'
 
         FloatLayout:
             Button:
@@ -22,6 +24,7 @@
                 text:
                     'Create New Profile'
                 on_release:
+                    root.manager.transition.direction = 'left' 
                     root.manager.current = 'add_profile_screen'
         FloatLayout:
             Button:
@@ -30,6 +33,7 @@
                 text:
                     'Current Profiles'
                 on_release:
+                    root.manager.transition.direction = 'left' 
                     root.manager.current = 'reserved_profile_screen'
                     root.on_reserved_press()
         
