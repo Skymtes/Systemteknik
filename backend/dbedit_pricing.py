@@ -161,3 +161,50 @@ def fetch_currency():
     currency = c.fetchall()
     db_connect.close_connection(conn)
     return currency[0][0]
+
+#--------------------------------------------------------------------
+# Functions to get each element of the price table
+
+def GetOxygen():
+
+    conn = db_connect.create_connection()
+    c = conn.cursor()
+    c.execute(
+        f''' SELECT o2 FROM pricelists WHERE name = "UDT"; '''
+    )
+    oxygen = c.fetchall()
+    db_connect.close_connection(conn)
+    return oxygen[0][0]
+
+def GetHelium():
+
+    conn = db_connect.create_connection()
+    c = conn.cursor()
+    c.execute(
+        f''' SELECT he FROM pricelists WHERE name = "UDT"; '''
+    )
+    helium = c.fetchall()
+    db_connect.close_connection(conn)
+    return helium[0][0]
+
+def GetAir():
+
+    conn = db_connect.create_connection()
+    c = conn.cursor()
+    c.execute(
+        f''' SELECT air FROM pricelists WHERE name = "UDT"; '''
+    )
+    air = c.fetchall()
+    db_connect.close_connection(conn)
+    return air[0][0]
+
+def GetServiceFee():
+
+    conn = db_connect.create_connection()
+    c = conn.cursor()
+    c.execute(
+        f''' SELECT service FROM pricelists WHERE name = "UDT"; '''
+    )
+    serviceFee = c.fetchall()
+    db_connect.close_connection(conn)
+    return serviceFee[0][0]

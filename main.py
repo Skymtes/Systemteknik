@@ -64,20 +64,25 @@ class SettingsScreen(Screen):
 
     _currency = None
 
+    def on_pre_enter(self, *args): # Gets prices from database as sonn as page switches to settings
+
+        self.ids.price_oxygen.text = str(dbedit_pricing.GetOxygen())
+        self.ids.price_helium.text = str(dbedit_pricing.GetHelium())
+        self.ids.price_air.text = str(dbedit_pricing.GetAir())
+        self.ids.price_tank_fee.text = str(dbedit_pricing.fetch_tank_fee())
+        self.ids.price_service_fee.text = str(dbedit_pricing.GetServiceFee())
+        self.ids.spinner_id.text = str(dbedit_pricing.fetch_currency())
+        return super().on_pre_enter(*args)
+
     def spinnerclick(self, value):
+        
         self._currency = value
 
-    def button(self):
+    def button(self): # Needed for back-button
+
         pass
 
-
-        
-        # self.ids.cylinder_size.text = ''
-        # self.cyliner_maximum_pressure.text = ''
-
     def confirm(self): # Confirm button in settings
-
-        self._currency = self._currency
 
         if self.ids.price_oxygen.text == '':
             self.ids.price_oxygen.text = 0
@@ -104,15 +109,6 @@ class SettingsScreen(Screen):
             self._currency = 'SEK'
 
         dbedit_pricing.update_pricelist("UDT", 'currency', self._currency)
-            
-    
-        #self.ids.price_oxygen.text = ''
-        #self.ids.price_air.text = ''
-        #self.ids.price_helium.text = ''
-        #self.ids.price_service_fee.text = ''
-        #self.ids.price_tank_fee.text = ''
-
-
 
 class SelectCustomerScreen(Screen):
     pass
