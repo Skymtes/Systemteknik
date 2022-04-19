@@ -67,6 +67,9 @@
                     id : old_otwo
                     text: '21'
                     input_filter: 'float'
+                    text_size: self.size
+                    halign: 'center'
+                    valign: 'middle'
 
                 TextInput:
                     pos_hint:{'top':1, 'center_x':0.6}
@@ -74,6 +77,9 @@
                     id : new_otwo
                     text: '36'
                     input_filter: 'float'
+                    text_size: self.size
+                    halign: 'center'
+                    valign: 'middle'
 
 
             FloatLayout:
@@ -89,6 +95,9 @@
                     id: old_he
                     text: '0'
                     input_filter: 'float'
+                    text_size: self.size
+                    halign: 'center'
+                    valign: 'middle'
 
                 TextInput:
                     pos_hint:{'top':1, 'center_x':0.6}
@@ -96,6 +105,9 @@
                     id: new_he
                     text: '0'
                     input_filter: 'float'
+                    text_size: self.size
+                    halign: 'center'
+                    valign: 'middle'
 
             FloatLayout:
                 Label:
@@ -110,6 +122,9 @@
                     id : old_pressure
                     text: '0'
                     input_filter: 'float'
+                    text_size: self.size
+                    halign: 'center'
+                    valign: 'middle'
 
                 TextInput:
                     pos_hint:{'top':1, 'center_x':0.6}
@@ -117,6 +132,9 @@
                     id : new_pressure
                     text: '200'
                     input_filter: 'float'
+                    text_size: self.size
+                    halign: 'center'
+                    valign: 'middle'
 
             FloatLayout:
                 Button:
@@ -133,17 +151,17 @@
             size_hint: 1, .4
             
             Button:
-                text: 'Settings'
-                pos_hint: {'y': 0.2, 'x': 0}
-                size_hint: 0.2, 0.2
-                on_release:
-                    root.manager.transition.direction = 'left'
-                    root.manager.current = 'settings_screen'
-            
-            Button:
                 text: 'Profiles'
                 pos_hint: {'y': 0.0, 'x': 0}
                 size_hint: 0.2, 0.2
                 on_release: 
                     root.manager.transition.direction = 'left'
                     root.manager.current = 'profile_screen'
+            
+            Button:
+                text: 'Settings'
+                pos_hint: {'y': 0, 'x': 0.8}
+                size_hint: 0.2, 0.2
+                on_release:
+                    root.manager.transition.direction = 'left'
+                    root.manager.current = 'settings_screen'

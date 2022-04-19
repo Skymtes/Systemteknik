@@ -59,12 +59,11 @@ class HomeScreen(Screen):
         self.manager.get_screen('more_info_screen').BlendResult(newBlend, self.new_otwo.text, self.new_he.text, self.new_pressure.text, self.old_otwo.text, self.old_he.text, self.old_pressure.text)
         self.manager.get_screen('more_info_screen').GetPrice(int(self.new_pressure.text), newBlend)
 
-
 class SettingsScreen(Screen):
 
     _currency = None
 
-    def on_pre_enter(self, *args): # Gets prices from database as sonn as page switches to settings
+    def on_pre_enter(self, *args): # Gets prices from database as soon as page switches to settings
 
         self.ids.price_oxygen.text = str(dbedit_pricing.GetOxygen())
         self.ids.price_helium.text = str(dbedit_pricing.GetHelium())
@@ -85,19 +84,25 @@ class SettingsScreen(Screen):
     def confirm(self): # Confirm button in settings
 
         if self.ids.price_oxygen.text == '':
-            self.ids.price_oxygen.text = 0
+            self.ids.price_oxygen.text = '0'
 
         if self.ids.price_helium.text == '':
-            self.ids.price_helium.text = 0
+            self.ids.price_helium.text = '0'
 
         if self.ids.price_air.text == '':
-            self.ids.price_air.text = 0
+            self.ids.price_air.text = '0'
 
         if self.ids.price_tank_fee.text == '':
-            self.ids.price_tank_fee.text = 0
+            self.ids.price_tank_fee.text = '0'
 
         if self.ids.price_service_fee.text == '':
-            self.ids.price_service_fee.text = 0
+            self.ids.price_service_fee.text = '0'
+
+        if self.ids.tank_capacity.text == '':
+            self.ids.tank_capacity.text = '0'
+
+        if self.ids.tank_depth.text == '':
+            self.ids.tank_depth.text = '0'
 
         dbedit_pricing.update_pricelist("UDT", 'o2',float(self.ids.price_oxygen.text))    
         dbedit_pricing.update_pricelist("UDT", 'air',float(self.ids.price_air.text))
@@ -189,16 +194,30 @@ class ProfileScreen(Screen):
 class MoreInfoScreen(Screen):
 
     def BlendResult(self, fill_recipe, newoxygen, newhelium, newpressure, oldoxygen, oldhelium, oldpressure):
+
         if isinstance(fill_recipe, str):
+            
             self.ids.fill.text = fill_recipe
+        
         else:
+
             if fill_recipe[0] < 0 or fill_recipe[1] < 0 or fill_recipe[2] < 0:
+                
                 if -fill_recipe[0] + -fill_recipe[1] + -fill_recipe[2] == oldpressure:
-                    self.ids.fill.text = "Please empty the old tank before filling"
+                    
+                    self.ids.fill.text = "Please empty the old tank before filling."
+                
                 else:
-                    self.ids.fill.text = f"Please lower the old tank to {-fill_recipe[0] + -fill_recipe[1] + -fill_recipe[2] - 0.1} Bar"
+                    
+                    self.ids.fill.text = f"Please lower the old tank to {-fill_recipe[0] + -fill_recipe[1] + -fill_recipe[2] - 0.1} Bar."
+            
+            elif str(fill_recipe[0]) == "-0.0":
+
+                self.ids.fill.text = "Please empty the tank."
+
             else:
-                self.ids.fill.text = f"Please fill tank with\n{fill_recipe[0]} Bar Oxygen,\n{fill_recipe[1]} Bar Helium,\n{fill_recipe[2]} Bar Air"
+                
+                self.ids.fill.text = f"Please fill tank with\n{fill_recipe[0]} Bar Oxygen,\n{fill_recipe[1]} Bar Helium,\n{fill_recipe[2]} Bar Air."
 
         self.ids.newo2.text = newoxygen 
         self.ids.oldo2.text = oldoxygen 

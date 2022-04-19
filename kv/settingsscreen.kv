@@ -61,7 +61,7 @@
                 on_text: root.spinnerclick(spinner_id.text)
 
         GridLayout:
-            rows:5
+            rows: 7
             pos_hint: {'top': 0.8, 'left': 0}
             size_hint: 1, .6
 
@@ -72,12 +72,18 @@
                     text:'Oxygen Fee\n(per Liter)'
                     pos_hint:{'top':1, 'left':1}
                     size_hint: 0.4, 0.5
+                    halign: 'center'
+                    valign: 'middle'
+
                 TextInput:
                     pos_hint:{'top':1, 'center_x':0.5}
                     size_hint: 0.1, 0.6
                     id: price_oxygen
                     text: '0'
                     input_filter: 'float'
+                    text_size: self.size
+                    halign: 'center'
+                    valign: 'middle'
 
             FloatLayout:
                 Label:
@@ -85,12 +91,18 @@
                     text:'Helium Fee\n(per Liter)'
                     pos_hint:{'top':1, 'left':1}
                     size_hint: 0.4, 0.5
+                    halign: 'center'
+                    valign: 'middle'
+
                 TextInput:
                     pos_hint:{'top':1, 'center_x':0.5}
                     size_hint: 0.1, 0.6
                     id: price_helium
                     text: '0'
                     input_filter: 'float'
+                    text_size: self.size
+                    halign: 'center'
+                    valign: 'middle'
 
             FloatLayout:
                 Label:
@@ -98,38 +110,95 @@
                     text:'Air Fee\n(per Liter)'
                     pos_hint:{'top':1, 'left':1}
                     size_hint: 0.4, 0.5
+                    halign: 'center'
+                    valign: 'middle'
+
                 TextInput:
                     pos_hint:{'top':1, 'center_x':0.5}
                     size_hint: 0.1, 0.6
                     id : price_air
                     text: '0'
                     input_filter: 'float'
+                    text_size: self.size
+                    halign: 'center'
+                    valign: 'middle'
+
 
             FloatLayout:
                 Label:
                     color: 0, 0, 0, 1
-                    text:'Tank Fee'
+                    text:'Tank Fee\n(per Tank)'
                     pos_hint:{'top':1, 'left':1}
                     size_hint: 0.4, 0.5
+                    halign: 'center'
+                    valign: 'middle'
+
                 TextInput:
                     pos_hint:{'top':1, 'center_x':0.5}
                     size_hint: 0.1, 0.6 
                     id: price_tank_fee
                     text: '0'
                     input_filter: 'float'
+                    text_size: self.size
+                    halign: 'center'
+                    valign: 'middle'
 
             FloatLayout:
                 Label:
                     color: 0, 0, 0, 1
-                    text:'Service Fee'
+                    text:'Service Fee\n(per Filling)'
                     pos_hint:{'top':1, 'left':1}
                     size_hint: 0.4, 0.5
+                    halign: 'center'
+                    valign: 'middle'
+
                 TextInput:
                     pos_hint:{'top':1, 'center_x':0.5}
                     size_hint: 0.1, 0.6
                     id: price_service_fee
                     text: '0'
                     input_filter: 'float'
+                    text_size: self.size
+                    halign: 'center'
+                    valign: 'middle'
+
+            FloatLayout:
+                Label:
+                    color: 0, 0, 0, 1
+                    text:'Tank Capacity\n(Liter)'
+                    pos_hint:{'top':1, 'left':1}
+                    size_hint: 0.4, 0.5
+                    halign: 'center'
+                    valign: 'middle'
+
+                TextInput:
+                    pos_hint:{'top':1, 'center_x':0.5}
+                    size_hint: 0.1, 0.6
+                    id: tank_capacity
+                    text: '0'
+                    input_filter: 'float'
+                    text_size: self.size
+                    halign: 'center'
+                    valign: 'middle'
+
+            FloatLayout:
+                Label:
+                    color: 0, 0, 0, 1
+                    text:'Depth\n(Meters)'
+                    pos_hint:{'top':1, 'left':1}
+                    size_hint: 0.4, 0.5
+                    halign: 'center'
+                    valign: 'middle'
+
+                TextInput:
+                    pos_hint:{'top':1, 'center_x':0.5}
+                    size_hint: 0.1, 0.6
+                    id: tank_depth
+                    text: '0'
+                    input_filter: 'float'
+                    text_size: self.size
+                    halign: 'center'
+                    valign: 'middle'
 
         FloatLayout:
             pos_hint: {'top': 0.4, 'left': 1}
