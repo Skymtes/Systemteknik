@@ -139,10 +139,4 @@ def fetch_tank_data(id):
     
 
 if __name__ == '__main__':
-#    print("Air: ",StandardBlends.Air)
-#    print("32: ",StandardBlends.EAN32)
-#    print("36: ",StandardBlends.EAN36)
-#    print("100: ",StandardBlends.EAN(100))
-#    print("tx air: ",StandardBlends.Tx(21,0))
-#    print("tx 50: ",StandardBlends.Tx(10.5,50))
     pass
