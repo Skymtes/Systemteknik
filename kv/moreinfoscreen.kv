@@ -35,15 +35,6 @@
             rows:2
             size_hint: 1, 0.15
             pos_hint: {'top':1, 'left':1}
-            #Label:
-            #    color: 0,0,0,1
-            #    text:'Depth'
-
-            #Label:
-            #    color:0,0,0,1
-            #    text:'Variabel'
-
-
 
         GridLayout:
             rows:2
@@ -87,8 +78,24 @@
             size_hint: 1, 0.15
             pos_hint: {'top':0.7, 'left':1}
 
+        # FloatLayout:
+        #     Label:
+        #         color: 0, 0, 0, 1
+        #         text:'Target Depth\n(Meters)'
+        #         pos_hint:{'top':1, 'left':1}
+        #         size_hint: 0.4, 0.5
+        #         halign: 'center'
+        #         valign: 'middle'
 
-
+        #     TextInput:
+        #         pos_hint:{'top':1, 'center_x':0.5}
+        #         size_hint: 0.1, 0.6
+        #         id: tank_depth
+        #         text: '0'
+        #         input_filter: 'float'
+        #         text_size: self.size
+        #         halign: 'center'
+        #         valign: 'middle'
 
         FloatLayout:
             size_hint: 1, 0.15
@@ -206,11 +213,8 @@
                     pos_hint: {'top':0.9, 'right': 0.8}
                     size_hint: 0.1,0.1
                     text:'New Mix'
-#            Button:
-#                size_hint: 0.3, 1
-#                pos_hint: {'top':1, 'right':1}
-#                text:
-#                    'hej'
+
+
 
             ImageButton:
                 size_hint: 0.3, 1

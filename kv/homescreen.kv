@@ -49,7 +49,7 @@
 
 
         GridLayout:
-            rows:4
+            rows:5
             pos_hint: {'top': 0.7, 'left': 0}
             size_hint: 1, .55
             
@@ -136,6 +136,25 @@
                     halign: 'center'
                     valign: 'middle'
 
+            FloatLayout:
+                Label:
+                    color: 0, 0, 0, 1
+                    text:'Tank Capacity\n(Liter)'
+                    pos_hint:{'top':1, 'left':1}
+                    size_hint: 0.4, 0.5
+                    halign: 'center'
+                    valign: 'middle'
+
+                TextInput:
+                    pos_hint:{'top':1, 'center_x':0.5}
+                    size_hint: 0.1, 0.6
+                    id: tank_capacity
+                    text: '12'
+                    input_filter: 'float'
+                    text_size: self.size
+                    halign: 'center'
+                    valign: 'middle'
+                  
             FloatLayout:
                 Button:
                     text: 'Calculate'
