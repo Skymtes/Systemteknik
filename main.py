@@ -21,7 +21,7 @@ from datetime import date
 import sys, os, sqlite3
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-from backend.algorithm import blending
+from backend.algorithm import blending, blendingUtilities
 from backend import db_connect, dbedit_customer, dbedit_pricing, dbedit_rent, dbedit_scuba
 
 exists = []
@@ -61,7 +61,8 @@ class HomeScreen(Screen):
         newBlend = blending.Blend( (float(self.new_otwo.text)) / 100, (float(self.new_he.text)) / 100, float(self.new_pressure.text), (float(self.old_otwo.text)) / 100, (float(self.old_he.text)) / 100, float(self.old_pressure.text)) # Values should be enterd Percentage / Pressure . 
         self.manager.get_screen('more_info_screen').BlendResult(newBlend, self.new_otwo.text, self.new_he.text, self.new_pressure.text, self.old_otwo.text, self.old_he.text, self.old_pressure.text)
         self.manager.get_screen('more_info_screen').GetPrice(int(self.ids.tank_capacity.text), newBlend)
-
+        self.manager.get_screen('more_info_screen').min_max(blendingUtilities.MaxDepth(float(self.new_otwo.text)/100),blendingUtilities.MinDepth(float(self.new_otwo.text)/100))
+        
 class SettingsScreen(Screen):
 
     _currency = None
@@ -222,6 +223,11 @@ class MoreInfoScreen(Screen):
         self.ids.newhe.text = newhelium 
         self.ids.oldpressure.text = oldpressure 
         self.ids.newpressure.text = newpressure
+
+    def min_max(self, max,min): #function to present max/min depth
+       self.ids.max_depth.text = (str(max) + 'm')
+       self.ids.min_depth.text= (str(min) + 'm')
+
 
     def reset_values(self):
         pass

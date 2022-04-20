@@ -35,12 +35,30 @@
             rows:2
             size_hint: 1, 0.15
             pos_hint: {'top':1, 'left':1}
-            # Label:
-            #     color: 0,0,0,1
-            #     text:'Maximum Depth'
-            # Label:
-            #     color:0,0,0,1
-            #     text:'Variabel'
+            
+            GridLayout:
+                cols:2
+                Label:
+                    bold: True
+                    color:0,0,0,1
+                    text:'Max Depth'
+                Label:
+                    bold: True
+                    color:0,0,0,1
+                    text:'Min Depth'
+
+
+            GridLayout:
+                cols:2
+                Label:
+                    color:0,0,0,1
+                    text:''
+                    id: max_depth
+                Label:
+                    color:0,0,0,1
+                    text:''
+                    id: min_depth
+
 
         GridLayout:
             rows:2
