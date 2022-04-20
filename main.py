@@ -101,12 +101,6 @@ class SettingsScreen(Screen):
         if self.ids.price_service_fee.text == '':
             self.ids.price_service_fee.text = '0'
 
-        if self.ids.tank_capacity.text == '':
-            self.ids.tank_capacity.text = '0'
-
-        if self.ids.tank_depth.text == '':
-            self.ids.tank_depth.text = '0'
-
         dbedit_pricing.update_pricelist("UDT", 'o2',float(self.ids.price_oxygen.text))    
         dbedit_pricing.update_pricelist("UDT", 'air',float(self.ids.price_air.text))
         dbedit_pricing.update_pricelist("UDT", 'he', float(self.ids.price_helium.text))
