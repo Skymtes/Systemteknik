@@ -1,9 +1,18 @@
 #:kivy 2.0.0
 <SelectCustomerScreen>:
     name: 'select_customer_screen'
-    GridLayout:
-        cols: 2
-        padding: 0
-        spacing: 0
-        #orientation: 'vertical'
-        id: box_layout
+    FloatLayout:
+        background_color: 0, 1, 1, 1
+        Button:
+            pos_hint: {'top': 1, 'left': 0.8}
+            size_hint: 0.1, 0.02
+            text: 'Go Back'
+            on_release: 
+                root.manager.transition.direction = 'right' 
+                root.manager.current = 'more_info_screen'
+        GridLayout:
+            cols: 2
+            padding: 0
+            spacing: 0
+            #orientation: 'vertical'
+            id: box_layout
