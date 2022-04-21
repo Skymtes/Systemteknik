@@ -21,6 +21,14 @@
             on_release: 
                 root.manager.transition.direction = 'right'
                 root.manager.current = 'home_screen'
+        Button:
+            pos_hint: {'top': 1, 'right': 1}
+            size_hint: 0.15, 0.075
+            text: 'plus'
+            on_release: 
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'select_customer_screen'
+                root.customer_select()
 
 
 

@@ -4,7 +4,6 @@
         orientation: 'vertical'
         padding: 10
         spacing: 10
-        size_hint: 1, 1
         pos_hint: {'center_x': .5, 'center_y': .5}
         canvas:
             Color:
@@ -19,15 +18,25 @@
                 size: self.size  
         Button:
             pos_hint: {'top': 1, 'left': 0.8}
-            size_hint: 0.1, 0.02
+            size_hint: 0.15, 0.05
             text: 'Go Back'
-            on_release: root.manager.current = 'profile_screen' 
-        BoxLayout:
-            id: box
-            orientation: 'vertical'
-            Label:
-                text: 'Profiles'
-                font_size: '40sp'
-                color: 0, 0, 0, 1
-                pos_hint: {'center_x': .5, 'center_y': .96}
+            on_release:
+                root.manager.transition.direction = 'right' 
+                root.manager.current = 'profile_screen' 
+        Label:
+            text: 'Profiles'
+            font_size: '40sp'
+            color: 0, 0, 0, 1
+            pos_hint: {'center_x': .5, 'center_y': .96}
+        ScrollView:
+            top: 5
+            do_scroll_x: False
+            do_scroll_y: True
+            GridLayout:
+                id: box
+                cols: 1
+                #height: self.minimum_height
+
+
+
                 

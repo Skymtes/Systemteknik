@@ -50,6 +50,7 @@
             font_size: '15sp'
             color: 0, 0, 0, 1
             pos_hint: {'center_x': .5, 'center_y': .72}
+            input_filter: 'int'
             #pos:200, 340
             size_hint: .5, .05
         Label:
@@ -84,7 +85,8 @@
             color: 0, 0, 0, 1
             pos_hint: {'x': 0, 'center_y': .46}
         Button:
-            text:'date'
+            id: date_button
+            text: 'Select Date'
             pos_hint: {'center_x': .5, 'center_y': .41}
             size_hint: .5, .05
             on_press: root.date_picker()

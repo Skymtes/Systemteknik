@@ -130,3 +130,5 @@ dmypy.json
 
 # macOS artifacts
 .DS_Store
+
+test_kivy.py

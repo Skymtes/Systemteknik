@@ -1,30 +1,37 @@
+from cProfile import label
+from turtle import color
 import kivy
 from kivy.app import App 
 from kivy.uix.widget import Widget
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.boxlayout import BoxLayout
 from kivy.lang import Builder
 from kivy.metrics import dp
-from kivy.uix.screenmanager import Screen, ScreenManager
+from kivy.uix.screenmanager import Screen, ScreenManager, FadeTransition
 from kivy.uix.image import Image
 from kivy.uix.button import ButtonBehavior, Button
 from kivy.uix.label import Label
+from kivy.uix.recycleview import RecycleView
+
+
+
+
 from kivy.uix.dropdown import DropDown
+from kivy.uix.recycleview.views import RecycleDataViewBehavior
 from kivy.properties import ObjectProperty, StringProperty, NumericProperty, ListProperty
 from kivy.uix.checkbox import CheckBox
 from kivy.uix.textinput import TextInput
 from kivy.uix.scrollview import ScrollView
 from kivymd.app import MDApp
 from kivymd.uix.picker import MDDatePicker
-
+from kivy.core.window import Window
 from datetime import date
 import sys, os, sqlite3
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from backend.algorithm import blending, blendingUtilities
 from backend import db_connect, dbedit_customer, dbedit_pricing, dbedit_rent, dbedit_scuba
-
-exists = []
 
 class HomeScreen(Screen):
     old_pressure = ObjectProperty(None)
@@ -114,7 +121,16 @@ class SettingsScreen(Screen):
         dbedit_pricing.update_pricelist("UDT", 'currency', self._currency)
 
 class SelectCustomerScreen(Screen):
-    pass
+    def customers_view(self):
+        customer = dbedit_customer.select_customer()
+        for profile in customer:
+            self.label = Label(text=f'{profile[1]}', color=(0,0,0,1),pos_hint={'center_x':0.5, 'center_y':0.9})
+            self.ids.box_layout.add_widget(self.label)
+            self.active = CheckBox(active = False, pos_hint={'center_x':0.5, 'center_y':0.9})
+            self.ids.box_layout.add_widget(self.active)
+
+
+    
 class AddProfileScreen(Screen,MDApp):  
     def add_profile(self,name,number,email,spinner_type,note,set_date):
         dbedit_customer.create_customer(name.lower(),number,email,spinner_type,set_date)
@@ -142,16 +158,13 @@ class AddProfileScreen(Screen,MDApp):
 
 
 class ReservedProfileScreen(Screen,Widget):
-    def add_button(self,):
+    def add_button(self):
+        self.ids.box.clear_widgets()
         customer = dbedit_customer.select_customer()
         for profile in customer:
             self.button = Button(text=f'{profile[1]}',
                                  on_press= self.Press_auth)
-            if self.button.text not in exists:
-                self.ids.box.add_widget(self.button)
-                exists.append(self.button.text)
-            else:
-                pass
+            self.ids.box.add_widget(self.button)
     def Press_auth(self,instance):
         name = instance.text.lower() 
         self.button_press(name)
@@ -180,14 +193,19 @@ class ProfileInfoScreen(Screen,Widget):
             self.ids['date'].text = "Date: "
         else:
             self.ids['date'].text = "Date: " + str(date)
-        if not note:
-            self.ids['note'].text = "Note: "
-        else:
+        if note:
             self.ids['note'].text = "Note: " + note
+        else:
+            self.ids['note'].text = "Note: "
+    def remove_profile(self,name_2):
+        name = name_2.split(':')[1].strip().lower()
+        id = dbedit_customer.find_id(name)
+        dbedit_customer.remove_customer(id)
+        self.manager.get_screen('reserved_profile_screen').add_button()
 
 class ProfileScreen(Screen):
     def on_reserved_press(self):
-        self.manager.get_screen('reserved_profile_screen').add_button() 
+        self.manager.get_screen('reserved_profile_screen').add_button()
 
 class MoreInfoScreen(Screen):
 
@@ -244,6 +262,8 @@ class MoreInfoScreen(Screen):
         else:
 
             self.ids.tank_price.text = f"{str(price)} {currency}"
+    def customer_select(self):
+        self.manager.get_screen('select_customer_screen').customers_view()
         
 class TableScreen(Screen):
     pass 
@@ -262,5 +282,5 @@ class MainApp(App):
         
 
 
-
+#Window.size = (360, 740)
 MainApp().run()
