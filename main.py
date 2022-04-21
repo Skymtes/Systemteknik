@@ -122,12 +122,25 @@ class SettingsScreen(Screen):
 
 class SelectCustomerScreen(Screen):
     def customers_view(self):
+        self.ids.box_layout.clear_widgets()
         customer = dbedit_customer.select_customer()
         for profile in customer:
             self.label = Label(text=f'{profile[1]}', color=(0,0,0,1),pos_hint={'center_x':0.5, 'center_y':0.9})
             self.ids.box_layout.add_widget(self.label)
             self.active = CheckBox(active = False, pos_hint={'center_x':0.5, 'center_y':0.9})
             self.ids.box_layout.add_widget(self.active)
+            self.active.bind(active=self.on_checkbox_active)
+            #self.active.bind(on_release=self.on_checkbox_release)
+    def on_checkbox_active(self, checkbox, value):
+        if value:
+            self.manager.get_screen('profile_info_screen').add_price_mix(price_currency)
+    # def on_checkbox_release(self, checkbox):
+    #     if checkbox.active:
+    #         self.ids.box_layout.add_widget(self.label)
+    #         self.ids.box_layout.add_widget(self.active)
+    #     else:
+    #         self.ids.box_layout.remove_widget(self.label)
+    #         self.ids.box_layout.remove_widget(self.active)
 
 
     
@@ -184,6 +197,8 @@ class ProfileInfoScreen(Screen,Widget):
     gas_type = StringProperty('')
     note = StringProperty('')
     date = StringProperty('')
+    price = StringProperty('')
+    mix = StringProperty('')
     def insert_info(self,name,number,email,gas_type,note,date):
         self.ids['name'].text = "Name: " + name
         self.ids['number'].text = "Number: " + str(number)
@@ -202,6 +217,9 @@ class ProfileInfoScreen(Screen,Widget):
         id = dbedit_customer.find_id(name)
         dbedit_customer.remove_customer(id)
         self.manager.get_screen('reserved_profile_screen').add_button()
+    def add_price_mix(self,price):
+        self.ids['price'].text = "Price: " + str(price)
+        #self.ids['mix'].text = "Mix: " + str(mix)
 
 class ProfileScreen(Screen):
     def on_reserved_press(self):
@@ -254,7 +272,8 @@ class MoreInfoScreen(Screen):
 
         price = dbedit_pricing.calculate_tank_price(capacity, fill)
         currency = dbedit_pricing.fetch_currency()
-
+        global price_currency
+        price_currency = price
         if price < 0: # Shouldn't be able to recieve money
 
             self.ids.tank_price.text = f"0 {currency}" 
