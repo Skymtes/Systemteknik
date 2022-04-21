@@ -13,10 +13,6 @@ from kivy.uix.image import Image
 from kivy.uix.button import ButtonBehavior, Button
 from kivy.uix.label import Label
 from kivy.uix.recycleview import RecycleView
-
-
-
-
 from kivy.uix.dropdown import DropDown
 from kivy.uix.recycleview.views import RecycleDataViewBehavior
 from kivy.properties import ObjectProperty, StringProperty, NumericProperty, ListProperty
@@ -74,14 +70,56 @@ class SettingsScreen(Screen):
 
     _currency = None
 
-    def on_pre_enter(self, *args): # Gets prices from database as soon as page switches to settings
+    def on_pre_enter(self, *args): # Gets prices from database as soon as page switches to settings, Fills in values if database is empty
 
-        self.ids.price_oxygen.text = str(dbedit_pricing.GetOxygen())
-        self.ids.price_helium.text = str(dbedit_pricing.GetHelium())
-        self.ids.price_air.text = str(dbedit_pricing.GetAir())
-        self.ids.price_tank_fee.text = str(dbedit_pricing.fetch_tank_fee())
-        self.ids.price_service_fee.text = str(dbedit_pricing.GetServiceFee())
-        self.ids.spinner_id.text = str(dbedit_pricing.fetch_currency())
+        if str(dbedit_pricing.GetOxygen()) == 'None':
+
+            self.ids.price_oxygen.text = '0'
+
+        else:
+
+            self.ids.price_oxygen.text = str(dbedit_pricing.GetOxygen())
+
+        if str(dbedit_pricing.GetHelium()) == 'None':
+
+            self.ids.price_helium.text = '0'
+
+        else:
+
+            self.ids.price_helium.text = str(dbedit_pricing.GetHelium())
+
+        if str(dbedit_pricing.GetAir()) == 'None':
+
+            self.ids.price_air.text = '0'
+
+        else:
+
+            self.ids.price_air.text = str(dbedit_pricing.GetAir())
+
+        if str(dbedit_pricing.fetch_tank_fee()) == 'None':
+
+            self.ids.price_tank_fee.text = '0'
+
+        else:
+
+            self.ids.price_tank_fee.text = str(dbedit_pricing.fetch_tank_fee())
+
+        if str(dbedit_pricing.GetServiceFee()) == 'None':
+
+            self.ids.price_service_fee.text = '0'
+
+        else:
+
+            self.ids.price_service_fee.text = str(dbedit_pricing.GetServiceFee())
+
+        if str(dbedit_pricing.fetch_currency()) == 'None':
+
+            self.ids.spinner_id.text = 'SEK'
+
+        else:
+
+            self.ids.spinner_id.text = str(dbedit_pricing.fetch_currency())
+
         return super().on_pre_enter(*args)
 
     def spinnerclick(self, value):
@@ -243,7 +281,7 @@ class MoreInfoScreen(Screen):
                 
                 else:
                     
-                    self.ids.fill.text = f"Please lower the old tank to {-fill_recipe[0] + -fill_recipe[1] + -fill_recipe[2] - 0.1} Bar."
+                    self.ids.fill.text = f"Please lower the old tank to {round(-fill_recipe[0] + -fill_recipe[1] + -fill_recipe[2] - 0.1, 1)} Bar."
             
             elif str(fill_recipe[0]) == "-0.0":
 
@@ -270,10 +308,36 @@ class MoreInfoScreen(Screen):
 
     def GetPrice(self, capacity, fill:list):
 
+        if str(dbedit_pricing.GetOxygen()) == 'None':
+
+            dbedit_pricing.update_pricelist("UDT", 'o2', '0')
+
+        if str(dbedit_pricing.GetHelium()) == 'None':
+
+            dbedit_pricing.update_pricelist("UDT", 'he', '0')
+
+        if str(dbedit_pricing.GetAir()) == 'None':
+
+            dbedit_pricing.update_pricelist("UDT", 'air', '0')
+
+        if str(dbedit_pricing.fetch_tank_fee()) == 'None':
+
+            dbedit_pricing.update_pricelist("UDT", 'tank', '0')
+
+        if str(dbedit_pricing.GetServiceFee()) == 'None':
+
+            dbedit_pricing.update_pricelist("UDT", 'service', '0')
+
+        if str(dbedit_pricing.fetch_currency()) == 'None':
+
+            dbedit_pricing.update_pricelist("UDT", 'currency', 'SEK')
+
         price = dbedit_pricing.calculate_tank_price(capacity, fill)
         currency = dbedit_pricing.fetch_currency()
+
         global price_currency
         price_currency = price
+
         if price < 0: # Shouldn't be able to recieve money
 
             self.ids.tank_price.text = f"0 {currency}" 
@@ -281,6 +345,7 @@ class MoreInfoScreen(Screen):
         else:
 
             self.ids.tank_price.text = f"{str(price)} {currency}"
+
     def customer_select(self):
         self.manager.get_screen('select_customer_screen').customers_view()
         
