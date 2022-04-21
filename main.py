@@ -233,7 +233,7 @@ class MoreInfoScreen(Screen):
 
             else:
                 
-                self.ids.fill.text = f"Please fill tank with\n{fill_recipe[0]} Bar Oxygen,\n{fill_recipe[1]} Bar Helium,\n{fill_recipe[2]} Bar Air."
+                self.ids.fill.text = f"Please fill the tank with\n{fill_recipe[0]} Bar Oxygen,\n{fill_recipe[1]} Bar Helium,\n{fill_recipe[2]} Bar Air."
 
         self.ids.newo2.text = newoxygen 
         self.ids.oldo2.text = oldoxygen 
