@@ -280,16 +280,24 @@ class MoreInfoScreen(Screen):
                     self.ids.fill.text = "Please empty the old tank before filling."
                 
                 else:
+
+                    output = round(-fill_recipe[0] + -fill_recipe[1] + -fill_recipe[2] - 0.1, 1)
+
+                    if output < 0:
+
+                        self.ids.fill.text = "Please lower the old tank to 0.0 Bar."
+
+                    else:
                     
-                    self.ids.fill.text = f"Please lower the old tank to {round(-fill_recipe[0] + -fill_recipe[1] + -fill_recipe[2] - 0.1, 1)} Bar."
+                        self.ids.fill.text = f"Please lower the old tank to {output} Bar."
             
             elif str(fill_recipe[0]) == "-0.0":
 
-                self.ids.fill.text = "Please empty the tank."
+                self.ids.fill.text = "Please lower the old tank to 0.0 Bar."
 
             else:
                 
-                self.ids.fill.text = f"Please fill the tank with\n{fill_recipe[0]} Bar Oxygen,\n{fill_recipe[1]} Bar Helium,\n{fill_recipe[2]} Bar Air."
+                self.ids.fill.text = f"Please fill the tank with\n{fill_recipe[0]} Bar Oxygen, (To {float(oldpressure) + fill_recipe[0]} Bar),\n{fill_recipe[1]} Bar Helium, (To {float(oldpressure) + fill_recipe[0] + fill_recipe[1]} Bar),\n{fill_recipe[2]} Bar Air, (To {float(oldpressure) + fill_recipe[0] + fill_recipe[1] + fill_recipe[2]} Bar)."
 
         self.ids.newo2.text = newoxygen 
         self.ids.oldo2.text = oldoxygen 
@@ -340,11 +348,9 @@ class MoreInfoScreen(Screen):
 
         if price < 0: # Shouldn't be able to recieve money
 
-            self.ids.tank_price.text = f"0 {currency}" 
+            price = 0
 
-        else:
-
-            self.ids.tank_price.text = f"{str(price)} {currency}"
+        self.ids.tank_price.text = f"{'Total: ' + str(price) + ' ' + currency}\nOxygen: {str(round(fill[0] * capacity * dbedit_pricing.GetOxygen(), 2)) + ' ' + currency}\nHelium: {str(round(fill[1] * capacity * dbedit_pricing.GetHelium(), 2)) + ' ' + currency}\nAir: {str(round(fill[2] * capacity * dbedit_pricing.GetAir(), 2)) + ' ' + currency}"
 
     def customer_select(self):
         self.manager.get_screen('select_customer_screen').customers_view()

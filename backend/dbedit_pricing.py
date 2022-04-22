@@ -136,7 +136,7 @@ def calculate_tank_price(capacity, fill):
     o2_cost = round(fill[0]*capacity*prices[0], 3)
     he_cost = round(fill[1]*capacity*prices[1], 3)
     air_cost = round(fill[2]*capacity*prices[2], 3)
-    return o2_cost + he_cost + air_cost + fetch_tank_fee()
+    return o2_cost + he_cost + air_cost + fetch_tank_fee() + GetServiceFee()
 
 
 def fetch_tank_fee():
