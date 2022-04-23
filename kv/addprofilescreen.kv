@@ -19,7 +19,7 @@
                 size: self.size
                 
         Label:
-            text: 'Create New Profile'
+            text: 'Create New Customer'
             font_size: '40sp'
             color: 0, 0, 0, 1
             pos_hint: {'center_x': .5, 'center_y': .96}
@@ -117,6 +117,6 @@
                 root.reset_info()
         Button:
             pos_hint: {'top': 1, 'left': 0.8}
-            size_hint: 0.1, 0.02
+            size_hint: 0.15, 0.075
             text: 'Go Back'
             on_release: root.manager.current = 'profile_screen'
