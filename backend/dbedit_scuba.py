@@ -3,8 +3,6 @@ Module for handeling all things scuba
 """
 
 import datetime
-import sqlite3
-from sqlite3 import Error
 
 from backend.algorithm import blending as blending
 from backend import dbedit_pricing

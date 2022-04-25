@@ -24,9 +24,9 @@
         Button:
             pos_hint: {'top': 1, 'right': 1}
             size_hint: 0.15, 0.075
-            text: 'Assignment'
+            text: 'Add to Customer'
             on_release: 
-                root.manager.transition.direction = 'right'
+                root.manager.transition.direction = 'left'
                 root.manager.current = 'select_customer_screen'
                 root.customer_select()
 

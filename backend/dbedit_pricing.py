@@ -2,8 +2,6 @@
 Module for handeling all things price
 """
 
-import sqlite3
-from sqlite3 import Error
 import datetime
 
 from backend import db_connect

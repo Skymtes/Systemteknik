@@ -1,33 +1,21 @@
-from cProfile import label
-from turtle import color
-import kivy
 from kivy.app import App 
 from kivy.uix.widget import Widget
-from kivy.uix.gridlayout import GridLayout
-from kivy.uix.floatlayout import FloatLayout
-from kivy.uix.boxlayout import BoxLayout
 from kivy.lang import Builder
-from kivy.metrics import dp
-from kivy.uix.screenmanager import Screen, ScreenManager, FadeTransition
+from kivy.uix.screenmanager import Screen
 from kivy.uix.image import Image
 from kivy.uix.button import ButtonBehavior, Button
 from kivy.uix.label import Label
-from kivy.uix.recycleview import RecycleView
-from kivy.uix.dropdown import DropDown
-from kivy.uix.recycleview.views import RecycleDataViewBehavior
-from kivy.properties import ObjectProperty, StringProperty, NumericProperty, ListProperty
+from kivy.properties import ObjectProperty, StringProperty
 from kivy.uix.checkbox import CheckBox
-from kivy.uix.textinput import TextInput
-from kivy.uix.scrollview import ScrollView
 from kivymd.app import MDApp
 from kivymd.uix.picker import MDDatePicker
 from kivy.core.window import Window
 from datetime import date
-import sys, os, sqlite3
+import sys, os
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from backend.algorithm import blending, blendingUtilities
-from backend import db_connect, dbedit_customer, dbedit_pricing, dbedit_rent, dbedit_scuba
+from backend import dbedit_customer, dbedit_pricing
 
 class HomeScreen(Screen):
     old_pressure = ObjectProperty(None)
