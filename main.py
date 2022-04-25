@@ -197,6 +197,8 @@ class AddProfileScreen(Screen,MDApp):
             dbedit_customer.create_customer_note(id,note)
         else:
             pass
+    def on_reserved_press(self):
+        self.manager.get_screen('reserved_profile_screen').add_button()
     def date_picker(self):
         todays_date = date.today()
         data_dialog = MDDatePicker(year=todays_date.year, month=todays_date.month, day=todays_date.day)
