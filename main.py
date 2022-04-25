@@ -272,9 +272,9 @@ class MoreInfoScreen(Screen):
 
             if fill_recipe[0] < 0 or fill_recipe[1] < 0 or fill_recipe[2] < 0:
                 
-                if -fill_recipe[0] + -fill_recipe[1] + -fill_recipe[2] == oldpressure:
+                if -fill_recipe[0] + -fill_recipe[1] + -fill_recipe[2] == float(oldpressure):
                     
-                    self.ids.fill.text = "Please empty the old tank before filling."
+                    self.ids.fill.text = "Please lower the old tank to 0.0 Bar."
                 
                 else:
 

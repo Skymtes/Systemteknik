@@ -94,6 +94,9 @@ def Blend(desiredOxygen = None, desiredHelium = None, desiredPressure = None, st
 
     airFill = desiredPressure - startPressure - heliumFill # How much air should be in the tank
 
+    if oxygenFill < 0:
+        return (round(oxygenFill * 10, 1), 0, 0)
+
     if oxygenFill >= 0: # If any oxygen should be added
 
         airFill -= oxygenFill
