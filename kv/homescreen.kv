@@ -145,15 +145,12 @@
                     halign: 'center'
                     valign: 'middle'
 
-                TextInput:
+                Spinner:
+                    text: 'Capacity'
                     pos_hint:{'top':1, 'center_x':0.5}
                     size_hint: 0.1, 0.6
                     id: tank_capacity
-                    text: '12'
-                    input_filter: 'float'
-                    text_size: self.size
-                    halign: 'center'
-                    valign: 'middle'
+                    values: ['1.8', '3', '5', '7', '8', '10', '11', '12', '15', '2x6', '2x7', '2x10', '2x12']
                   
             FloatLayout:
                 Button:

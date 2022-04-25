@@ -58,7 +58,7 @@ class HomeScreen(Screen):
         if self.ids.new_pressure.text == '':
             self.ids.new_pressure.text = '0'
 
-        if self.ids.tank_capacity.text == '':
+        if self.ids.tank_capacity.text == 'Capacity':
             self.ids.tank_capacity.text = '0'
         
         newBlend = blending.Blend( (float(self.new_otwo.text)) / 100, (float(self.new_he.text)) / 100, float(self.new_pressure.text), (float(self.old_otwo.text)) / 100, (float(self.old_he.text)) / 100, float(self.old_pressure.text)) # Values should be enterd Percentage / Pressure . 
