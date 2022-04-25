@@ -145,15 +145,12 @@
                     halign: 'center'
                     valign: 'middle'
 
-                TextInput:
+                Spinner:
+                    text: 'Capacity'
                     pos_hint:{'top':1, 'center_x':0.5}
                     size_hint: 0.1, 0.6
                     id: tank_capacity
-                    text: '12'
-                    input_filter: 'float'
-                    text_size: self.size
-                    halign: 'center'
-                    valign: 'middle'
+                    values: ['1.8', '3', '5', '7', '8', '10', '11', '12', '15', '2x6', '2x7', '2x10', '2x12']
                   
             FloatLayout:
                 Button:
@@ -170,12 +167,13 @@
             size_hint: 1, .4
             
             Button:
-                text: 'Profiles'
+                text: 'Customers'
                 pos_hint: {'y': 0.0, 'x': 0}
                 size_hint: 0.2, 0.2
-                on_release: 
+                on_release:
                     root.manager.transition.direction = 'left'
-                    root.manager.current = 'profile_screen'
+                    root.manager.current = 'reserved_profile_screen'
+                    root.on_reserved_press()
             
             Button:
                 text: 'Settings'

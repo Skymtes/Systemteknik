@@ -1,37 +1,21 @@
-from cProfile import label
-from turtle import color
-import kivy
 from kivy.app import App 
 from kivy.uix.widget import Widget
-from kivy.uix.gridlayout import GridLayout
-from kivy.uix.floatlayout import FloatLayout
-from kivy.uix.boxlayout import BoxLayout
 from kivy.lang import Builder
-from kivy.metrics import dp
-from kivy.uix.screenmanager import Screen, ScreenManager, FadeTransition
+from kivy.uix.screenmanager import Screen
 from kivy.uix.image import Image
 from kivy.uix.button import ButtonBehavior, Button
 from kivy.uix.label import Label
-from kivy.uix.recycleview import RecycleView
-
-
-
-
-from kivy.uix.dropdown import DropDown
-from kivy.uix.recycleview.views import RecycleDataViewBehavior
-from kivy.properties import ObjectProperty, StringProperty, NumericProperty, ListProperty
+from kivy.properties import ObjectProperty, StringProperty
 from kivy.uix.checkbox import CheckBox
-from kivy.uix.textinput import TextInput
-from kivy.uix.scrollview import ScrollView
 from kivymd.app import MDApp
 from kivymd.uix.picker import MDDatePicker
 from kivy.core.window import Window
 from datetime import date
-import sys, os, sqlite3
+import sys, os
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from backend.algorithm import blending, blendingUtilities
-from backend import db_connect, dbedit_customer, dbedit_pricing, dbedit_rent, dbedit_scuba
+from backend import dbedit_customer, dbedit_pricing
 
 class HomeScreen(Screen):
     old_pressure = ObjectProperty(None)
@@ -62,31 +46,72 @@ class HomeScreen(Screen):
         if self.ids.new_pressure.text == '':
             self.ids.new_pressure.text = '0'
 
-        if self.ids.tank_capacity.text == '':
+        if self.ids.tank_capacity.text == 'Capacity':
             self.ids.tank_capacity.text = '0'
         
         newBlend = blending.Blend( (float(self.new_otwo.text)) / 100, (float(self.new_he.text)) / 100, float(self.new_pressure.text), (float(self.old_otwo.text)) / 100, (float(self.old_he.text)) / 100, float(self.old_pressure.text)) # Values should be enterd Percentage / Pressure . 
         self.manager.get_screen('more_info_screen').BlendResult(newBlend, self.new_otwo.text, self.new_he.text, self.new_pressure.text, self.old_otwo.text, self.old_he.text, self.old_pressure.text)
         self.manager.get_screen('more_info_screen').GetPrice(int(self.ids.tank_capacity.text), newBlend)
         self.manager.get_screen('more_info_screen').min_max(blendingUtilities.MaxDepth(float(self.new_otwo.text)/100),blendingUtilities.MinDepth(float(self.new_otwo.text)/100))
-        
+
+    def on_reserved_press(self):
+        self.manager.get_screen('reserved_profile_screen').add_button()
+
 class SettingsScreen(Screen):
 
     _currency = None
 
-    def on_pre_enter(self, *args): # Gets prices from database as soon as page switches to settings
+    def on_pre_enter(self, *args): # Gets prices from database as soon as page switches to settings, Fills in values if database is empty
 
-        self.ids.price_oxygen.text = str(dbedit_pricing.GetOxygen())
-        self.ids.price_helium.text = str(dbedit_pricing.GetHelium())
-        self.ids.price_air.text = str(dbedit_pricing.GetAir())
-        self.ids.price_tank_fee.text = str(dbedit_pricing.fetch_tank_fee())
-        self.ids.price_service_fee.text = str(dbedit_pricing.GetServiceFee())
-        self.ids.spinner_id.text = str(dbedit_pricing.fetch_currency())
+        if str(dbedit_pricing.GetOxygen()) == 'None':
+
+            self.ids.price_oxygen.text = '0'
+
+        else:
+
+            self.ids.price_oxygen.text = str(dbedit_pricing.GetOxygen())
+
+        if str(dbedit_pricing.GetHelium()) == 'None':
+
+            self.ids.price_helium.text = '0'
+
+        else:
+
+            self.ids.price_helium.text = str(dbedit_pricing.GetHelium())
+
+        if str(dbedit_pricing.GetAir()) == 'None':
+
+            self.ids.price_air.text = '0'
+
+        else:
+
+            self.ids.price_air.text = str(dbedit_pricing.GetAir())
+
+        if str(dbedit_pricing.fetch_tank_fee()) == 'None':
+
+            self.ids.price_tank_fee.text = '0'
+
+        else:
+
+            self.ids.price_tank_fee.text = str(dbedit_pricing.fetch_tank_fee())
+
+        if str(dbedit_pricing.GetServiceFee()) == 'None':
+
+            self.ids.price_service_fee.text = '0'
+
+        else:
+
+            self.ids.price_service_fee.text = str(dbedit_pricing.GetServiceFee())
+
+        if str(dbedit_pricing.fetch_currency()) == 'None':
+
+            self.ids.currency.text = 'SEK'
+
+        else:
+
+            self.ids.currency.text = str(dbedit_pricing.fetch_currency())
+
         return super().on_pre_enter(*args)
-
-    def spinnerclick(self, value):
-        
-        self._currency = value
 
     def button(self): # Needed for back-button
 
@@ -114,11 +139,7 @@ class SettingsScreen(Screen):
         dbedit_pricing.update_pricelist("UDT", 'he', float(self.ids.price_helium.text))
         dbedit_pricing.update_pricelist("UDT",'service', int(self.ids.price_service_fee.text))
         dbedit_pricing.update_pricelist("UDT", 'tank', int(self.ids.price_tank_fee.text))
-            
-        if self._currency == None:
-            self._currency = 'SEK'
-
-        dbedit_pricing.update_pricelist("UDT", 'currency', self._currency)
+        dbedit_pricing.update_pricelist("UDT", 'currency', self.ids.currency.text)
 
 class SelectCustomerScreen(Screen):
     def customers_view(self):
@@ -152,6 +173,8 @@ class AddProfileScreen(Screen,MDApp):
             dbedit_customer.create_customer_note(id,note)
         else:
             pass
+    def on_reserved_press(self):
+        self.manager.get_screen('reserved_profile_screen').add_button()
     def date_picker(self):
         todays_date = date.today()
         data_dialog = MDDatePicker(year=todays_date.year, month=todays_date.month, day=todays_date.day)
@@ -237,21 +260,29 @@ class MoreInfoScreen(Screen):
 
             if fill_recipe[0] < 0 or fill_recipe[1] < 0 or fill_recipe[2] < 0:
                 
-                if -fill_recipe[0] + -fill_recipe[1] + -fill_recipe[2] == oldpressure:
+                if -fill_recipe[0] + -fill_recipe[1] + -fill_recipe[2] == float(oldpressure):
                     
-                    self.ids.fill.text = "Please empty the old tank before filling."
+                    self.ids.fill.text = "Please lower the old tank to 0.0 Bar."
                 
                 else:
+
+                    output = round(-fill_recipe[0] + -fill_recipe[1] + -fill_recipe[2] - 0.1, 1)
+
+                    if output < 0:
+
+                        self.ids.fill.text = "Please lower the old tank to 0.0 Bar."
+
+                    else:
                     
-                    self.ids.fill.text = f"Please lower the old tank to {-fill_recipe[0] + -fill_recipe[1] + -fill_recipe[2] - 0.1} Bar."
+                        self.ids.fill.text = f"Please lower the old tank to {output} Bar."
             
             elif str(fill_recipe[0]) == "-0.0":
 
-                self.ids.fill.text = "Please empty the tank."
+                self.ids.fill.text = "Please lower the old tank to 0.0 Bar."
 
             else:
                 
-                self.ids.fill.text = f"Please fill tank with\n{fill_recipe[0]} Bar Oxygen,\n{fill_recipe[1]} Bar Helium,\n{fill_recipe[2]} Bar Air."
+                self.ids.fill.text = f"Please fill the tank with\n{fill_recipe[0]} Bar Oxygen, (To {float(oldpressure) + fill_recipe[0]} Bar),\n{fill_recipe[1]} Bar Helium, (To {float(oldpressure) + fill_recipe[0] + fill_recipe[1]} Bar),\n{fill_recipe[2]} Bar Air, (To {float(oldpressure) + fill_recipe[0] + fill_recipe[1] + fill_recipe[2]} Bar)."
 
         self.ids.newo2.text = newoxygen 
         self.ids.oldo2.text = oldoxygen 
@@ -270,17 +301,42 @@ class MoreInfoScreen(Screen):
 
     def GetPrice(self, capacity, fill:list):
 
+        if str(dbedit_pricing.GetOxygen()) == 'None':
+
+            dbedit_pricing.update_pricelist("UDT", 'o2', '0')
+
+        if str(dbedit_pricing.GetHelium()) == 'None':
+
+            dbedit_pricing.update_pricelist("UDT", 'he', '0')
+
+        if str(dbedit_pricing.GetAir()) == 'None':
+
+            dbedit_pricing.update_pricelist("UDT", 'air', '0')
+
+        if str(dbedit_pricing.fetch_tank_fee()) == 'None':
+
+            dbedit_pricing.update_pricelist("UDT", 'tank', '0')
+
+        if str(dbedit_pricing.GetServiceFee()) == 'None':
+
+            dbedit_pricing.update_pricelist("UDT", 'service', '0')
+
+        if str(dbedit_pricing.fetch_currency()) == 'None':
+
+            dbedit_pricing.update_pricelist("UDT", 'currency', 'SEK')
+
         price = dbedit_pricing.calculate_tank_price(capacity, fill)
         currency = dbedit_pricing.fetch_currency()
+
         global price_currency
         price_currency = price
+
         if price < 0: # Shouldn't be able to recieve money
 
-            self.ids.tank_price.text = f"0 {currency}" 
+            price = 0
 
-        else:
+        self.ids.tank_price.text = f"{'Total: ' + str(price) + ' ' + currency}\nOxygen: {str(round(fill[0] * capacity * dbedit_pricing.GetOxygen(), 2)) + ' ' + currency}\nHelium: {str(round(fill[1] * capacity * dbedit_pricing.GetHelium(), 2)) + ' ' + currency}\nAir: {str(round(fill[2] * capacity * dbedit_pricing.GetAir(), 2)) + ' ' + currency}"
 
-            self.ids.tank_price.text = f"{str(price)} {currency}"
     def customer_select(self):
         self.manager.get_screen('select_customer_screen').customers_view()
         

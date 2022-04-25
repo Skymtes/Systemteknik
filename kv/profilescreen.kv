@@ -1,4 +1,6 @@
 #:kivy 2.0.0
+
+
 <ProfileScreen>:
     FloatLayout:
         canvas:
@@ -9,7 +11,7 @@
                 pos: self.pos   
         Button:
             pos_hint: {'top': 1, 'left': 0.8}
-            size_hint: 0.15, 0.05
+            size_hint: 0.15, 0.075
             text: 'Go Back'
             on_release:
                 root.manager.transition.direction = 'right' 
@@ -18,7 +20,7 @@
             pos_hint: {'center_x':0.5, 'center_y':0.7}
             size_hint: 0.8, 0.25
             text:
-                'Create New Profile'
+                'Create New Customer'
             on_release:
                 root.manager.transition.direction = 'left' 
                 root.manager.current = 'add_profile_screen'
@@ -26,7 +28,7 @@
             pos_hint: {'center_x':0.5, 'center_y':0.35}
             size_hint: 0.8, 0.25
             text:
-                'Current Profiles'
+                'Current Customer'
             on_release:
                 root.manager.transition.direction = 'left' 
                 root.manager.current = 'reserved_profile_screen'

@@ -3,7 +3,6 @@ Module for handeling all things rent
 """
 
 import sqlite3
-from sqlite3 import Error
 
 from backend import db_connect
 

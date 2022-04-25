@@ -1,7 +1,6 @@
 import unittest
 import sys
 import os
-import datetime
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from backend.db_connect import create_connection, close_connection
 from db_setup import main

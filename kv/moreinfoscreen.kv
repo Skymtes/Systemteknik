@@ -24,9 +24,9 @@
         Button:
             pos_hint: {'top': 1, 'right': 1}
             size_hint: 0.15, 0.075
-            text: 'plus'
+            text: 'Add to Customer'
             on_release: 
-                root.manager.transition.direction = 'right'
+                root.manager.transition.direction = 'left'
                 root.manager.current = 'select_customer_screen'
                 root.customer_select()
 
@@ -90,7 +90,7 @@
 
         GridLayout:
             rows:2
-            size_hint: 1, 0.1
+            size_hint: 1, 0.2
             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
             Label:
                 color: 0,0,0,1
@@ -102,9 +102,11 @@
             Label:
                 id: tank_price
                 color: 0,0,0,1
-                pos_hint: {'top': 0.8, 'left': 1}
+                pos_hint: {'top': 0.7, 'left': 1}
                 text: '0'
                 font_size: '16sp'
+                halign: 'center'
+                valign: 'middle'
 
         FloatLayout:
             size_hint: 1, 0.15
