@@ -48,6 +48,23 @@ class HomeScreen(Screen):
 
         if self.ids.tank_capacity.text == 'Capacity':
             self.ids.tank_capacity.text = '0'
+
+
+
+
+
+
+        if self.ids.tank_capacity.text == '2x6':
+            self.ids.tank_capacity.text = '12'
+        
+        if self.ids.tank_capacity.text == '2x7':
+            self.ids.tank_capacity.text = '14'
+        
+        if self.ids.tank_capacity.text == '2x10':
+            self.ids.tank_capacity.text = '20'
+        
+        if self.ids.tank_capacity.text == '2x12':
+            self.ids.tank_capacity.text = '24'
         
         newBlend = blending.Blend( (float(self.new_otwo.text)) / 100, (float(self.new_he.text)) / 100, float(self.new_pressure.text), (float(self.old_otwo.text)) / 100, (float(self.old_he.text)) / 100, float(self.old_pressure.text)) # Values should be enterd Percentage / Pressure . 
         self.manager.get_screen('more_info_screen').BlendResult(newBlend, self.new_otwo.text, self.new_he.text, self.new_pressure.text, self.old_otwo.text, self.old_he.text, self.old_pressure.text)
