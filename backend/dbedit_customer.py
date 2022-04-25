@@ -89,4 +89,3 @@ def remove_customer(id):
     )
     conn.commit()
     db_connect.close_connection(conn)
-    
