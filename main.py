@@ -69,10 +69,6 @@ class HomeScreen(Screen):
     def on_reserved_press(self):
         self.manager.get_screen('reserved_profile_screen').add_button()
 
-
-
-
-
 class SettingsScreen(Screen):
 
     _currency = None
@@ -121,17 +117,13 @@ class SettingsScreen(Screen):
 
         if str(dbedit_pricing.fetch_currency()) == 'None':
 
-            self.ids.spinner_id.text = 'SEK'
+            self.ids.currency.text = 'SEK'
 
         else:
 
-            self.ids.spinner_id.text = str(dbedit_pricing.fetch_currency())
+            self.ids.currency.text = str(dbedit_pricing.fetch_currency())
 
         return super().on_pre_enter(*args)
-
-    def spinnerclick(self, value):
-        
-        self._currency = value
 
     def button(self): # Needed for back-button
 
@@ -159,11 +151,7 @@ class SettingsScreen(Screen):
         dbedit_pricing.update_pricelist("UDT", 'he', float(self.ids.price_helium.text))
         dbedit_pricing.update_pricelist("UDT",'service', int(self.ids.price_service_fee.text))
         dbedit_pricing.update_pricelist("UDT", 'tank', int(self.ids.price_tank_fee.text))
-            
-        if self._currency == None:
-            self._currency = 'SEK'
-
-        dbedit_pricing.update_pricelist("UDT", 'currency', self._currency)
+        dbedit_pricing.update_pricelist("UDT", 'currency', self.ids.currency.text)
 
 class SelectCustomerScreen(Screen):
     def customers_view(self):
