@@ -170,9 +170,10 @@
                 text: 'Customers'
                 pos_hint: {'y': 0.0, 'x': 0}
                 size_hint: 0.2, 0.2
-                on_release: 
-                    root.manager.transition.direction = 'left'
-                    root.manager.current = 'profile_screen'
+                on_release:
+
+                    root.manager.current = 'reserved_profile_screen'
+                    root.on_reserved_press()
             
             Button:
                 text: 'Settings'

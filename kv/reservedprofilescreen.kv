@@ -22,7 +22,14 @@
             text: 'Go Back'
             on_release:
                 root.manager.transition.direction = 'right' 
-                root.manager.current = 'profile_screen' 
+                root.manager.current = 'home_screen' 
+        Button:
+            pos_hint: {'top': 1, 'right': 1}
+            size_hint: 0.15, 0.075
+            text: 'Add'
+            on_release:
+                root.manager.transition.direction = 'right' 
+                root.manager.current = 'add_profile_screen' 
         Label:
             text: 'Customers'
             font_size: '40sp'
