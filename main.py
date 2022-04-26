@@ -59,7 +59,7 @@ class HomeScreen(Screen):
 
 
 
-
+        remember_capacity = self.ids.tank_capacity.text
 
         if self.ids.tank_capacity.text == '2x6':
             self.ids.tank_capacity.text = '12'
@@ -77,6 +77,8 @@ class HomeScreen(Screen):
         self.manager.get_screen('more_info_screen').BlendResult(newBlend, self.new_otwo.text, self.new_he.text, self.new_pressure.text, self.old_otwo.text, self.old_he.text, self.old_pressure.text)
         self.manager.get_screen('more_info_screen').GetPrice(int(self.ids.tank_capacity.text), newBlend)
         self.manager.get_screen('more_info_screen').min_max(blendingUtilities.MaxDepth(float(self.new_otwo.text)/100),blendingUtilities.MinDepth(float(self.new_otwo.text)/100))
+
+        self.ids.tank_capacity.text = remember_capacity
 
     def on_reserved_press(self):
         self.manager.get_screen('reserved_profile_screen').add_button()
