@@ -17,6 +17,9 @@ from kivymd.app import MDApp
 from kivymd.uix.picker import MDDatePicker
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton, MDRectangleFlatButton
+from kivymd.uix.list import OneLineAvatarIconListItem, IRightBodyTouch
+from kivymd.uix.selectioncontrol import MDCheckbox
+from kivymd.icon_definitions import md_icons
 #other imports
 import sys, os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -244,6 +247,15 @@ class ReservedProfileScreen(Screen,Widget):
                 self.manager.get_screen('profile_info_screen').insert_info(profile[1],profile[2],profile[3],profile[4],profile[6],profile[5])
                 self.manager.current= 'profile_info_screen'
                 break
+    def search_customer(self):
+        self.ids.box.clear_widgets()
+        customer = dbedit_customer.select_customer()
+        for profile in customer:
+            if (profile[1].lower().startswith(self.ids.search_input.text.lower()) 
+                or profile[0] == int(self.ids.search_input.text)):
+                self.button = Button(text=f'{profile[1]}',
+                                     on_press= self.Press_auth)
+                self.ids.box.add_widget(self.button)
 
 class ProfileInfoScreen(Screen,Widget):
     name = StringProperty('')
