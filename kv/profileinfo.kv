@@ -39,7 +39,7 @@
             pos_hint: {'top': 1, 'right': 1}
             size_hint: 0.15, 0.05
             on_release: 
-                root.remove_profile(name.text)
+                root.alert_remove_profile(name.text)
                 root.manager.transition.direction = 'right'
                 root.manager.current = 'reserved_profile_screen'
         BoxLayout:

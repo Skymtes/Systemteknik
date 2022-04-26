@@ -1,3 +1,5 @@
+#kivy imports
+from turtle import color
 from kivy.app import App 
 from kivy.uix.widget import Widget
 from kivy.lang import Builder
@@ -7,15 +9,20 @@ from kivy.uix.button import ButtonBehavior, Button
 from kivy.uix.label import Label
 from kivy.properties import ObjectProperty, StringProperty
 from kivy.uix.checkbox import CheckBox
-from kivymd.app import MDApp
-from kivymd.uix.picker import MDDatePicker
 from kivy.core.window import Window
 from datetime import date
-import sys, os
 
+# kivyMD imports
+from kivymd.app import MDApp
+from kivymd.uix.picker import MDDatePicker
+from kivymd.uix.dialog import MDDialog
+from kivymd.uix.button import MDFlatButton, MDRectangleFlatButton
+#other imports
+import sys, os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from backend.algorithm import blending, blendingUtilities
 from backend import dbedit_customer, dbedit_pricing
+from functools import partial
 
 class HomeScreen(Screen):
     old_pressure = ObjectProperty(None)
@@ -208,6 +215,12 @@ class AddProfileScreen(Screen,MDApp):
         self.ids.note.text = ''
         self.ids.spinner_type.text = 'Air'
         self.ids.date_label.text = 'Date'
+    def validate_email(self,email):
+        if email.count('@') == 1 and email.count('.') == 1:
+            print("valid email")
+        else:
+            print("invalid email")
+            
 
 
 class ReservedProfileScreen(Screen,Widget):
@@ -239,6 +252,7 @@ class ProfileInfoScreen(Screen,Widget):
     date = StringProperty('')
     price = StringProperty('')
     mix = StringProperty('')
+    dialog = None
     def insert_info(self,name,number,email,gas_type,note,date):
         self.ids['name'].text = "Name: " + name
         self.ids['number'].text = "Number: " + str(number)
@@ -252,11 +266,27 @@ class ProfileInfoScreen(Screen,Widget):
             self.ids['note'].text = "Note: " + note
         else:
             self.ids['note'].text = "Note: "
-    def remove_profile(self,name_2):
+    def alert_remove_profile(self,name_2):
         name = name_2.split(':')[1].strip().lower()
         id = dbedit_customer.find_id(name)
+        Button_callback = partial(self.delete_profile,id)
+        if not self.dialog:
+            self.dialog = MDDialog(title=("Delete Profile:  " + name),
+                                   type="custom",
+                                   content_cls=Label(text="Are you sure you want to delete this profile?",color=(0,0,0,1)),
+                                   buttons=[
+                                       MDFlatButton(text="Cancel",on_release=self.cancel_remove_profile),
+                                       MDRectangleFlatButton(text="Delete", on_release=Button_callback)
+                                   ])
+        self.dialog.open()
+    def delete_profile(self,id,instance):
         dbedit_customer.remove_customer(id)
         self.manager.get_screen('reserved_profile_screen').add_button()
+        self.dialog.dismiss()
+        self.dialog = None
+    def cancel_remove_profile(self,instance):
+        self.dialog.dismiss()
+        self.dialog = None
     def add_price_mix(self,price):
         self.ids['price'].text = "Price: " + str(price)
         #self.ids['mix'].text = "Mix: " + str(mix)

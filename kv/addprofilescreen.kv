@@ -38,6 +38,7 @@
             pos_hint: {'center_x': .5, 'center_y': .83}
             #pos:200, 450
             size_hint: .5, .05
+            hint_text: 'Enter your first and last name'
         Label:
             text: 'Phone Number'
             font_size: '20sp'
@@ -53,6 +54,7 @@
             input_filter: 'int'
             #pos:200, 340
             size_hint: .5, .05
+            hint_text: 'Enter 10 digit phone number'
         Label:
             text: 'Email'
             font_size: '20sp'
@@ -67,6 +69,8 @@
             pos_hint: {'center_x': .5, 'center_y': .61}
             #pos:200, 100
             size_hint: .5, .05
+            hint_text: 'Write your email with @'
+            on_text: root.validate_email(email.text)
         Label:
             text: 'Certificate'
             font_size: '20sp'
