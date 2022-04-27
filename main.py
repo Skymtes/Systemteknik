@@ -227,7 +227,6 @@ class AddProfileScreen(Screen,MDApp):
             print("invalid email")
             
 
-
 class ReservedProfileScreen(Screen,Widget):
     def add_button(self):
         self.ids.box.clear_widgets()
@@ -251,11 +250,17 @@ class ReservedProfileScreen(Screen,Widget):
         self.ids.box.clear_widgets()
         customer = dbedit_customer.select_customer()
         for profile in customer:
-            if (profile[1].lower().startswith(self.ids.search_input.text.lower()) 
-                or profile[0] == int(self.ids.search_input.text)):
-                self.button = Button(text=f'{profile[1]}',
-                                     on_press= self.Press_auth)
-                self.ids.box.add_widget(self.button)
+            if self.ids.search_input.text.isdigit():
+                if profile[0] == int(self.ids.search_input.text):
+                    self.button = Button(text=f'{profile[1]}',
+                                        on_press= self.Press_auth)
+                    self.ids.box.add_widget(self.button)
+
+            else:
+                if profile[1].lower().startswith(self.ids.search_input.text.lower()):
+                    self.button = Button(text=f'{profile[1]}',
+                                        on_press= self.Press_auth)
+                    self.ids.box.add_widget(self.button)
 
 class ProfileInfoScreen(Screen,Widget):
     name = StringProperty('')
