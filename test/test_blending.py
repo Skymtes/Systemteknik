@@ -29,7 +29,7 @@ class BlendingTest(unittest.TestCase):
 
     def test_blending_zero_values(self):
             mix = Blend(0.0, 0.0, 0, 0, 0, 0)
-            self.assertEqual(mix, "Can not by divided by zero")
+            self.assertEqual(mix, "Can not divide by zero")
 
     def test_missing_arguments(self):
             mix = Blend(0.0, 175, 0.16, 0.40, 45)
