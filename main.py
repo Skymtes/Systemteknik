@@ -1,5 +1,4 @@
 #kivy imports
-from turtle import color
 from kivy.app import App 
 from kivy.uix.widget import Widget
 from kivy.lang import Builder
@@ -9,7 +8,6 @@ from kivy.uix.button import ButtonBehavior, Button
 from kivy.uix.label import Label
 from kivy.properties import ObjectProperty, StringProperty
 from kivy.uix.checkbox import CheckBox
-from kivy.core.window import Window
 from datetime import date
 
 # kivyMD imports
@@ -320,6 +318,4 @@ class MainApp(App):
         screen_manager.current = screen_name
 
 
-
-#Window.size = (360, 740)
 MainApp().run()
