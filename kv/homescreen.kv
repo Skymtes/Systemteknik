@@ -55,6 +55,14 @@
                         on_release:
                             root.manager.transition.direction = 'left'
                             root.manager.current = 'settings_screen'
+                    Button:
+                        pos_hint: {'y': 0.6, 'x': 0.8}
+                        size_hint: 0.2, 0.2
+                        text: 'Add to Customer'
+                        on_release: 
+                            root.manager.transition.direction = 'left'
+                            root.manager.current = 'select_customer_screen'
+                            root.customer_select()
 
                     
 

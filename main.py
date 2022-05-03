@@ -133,7 +133,8 @@ class HomeScreen(Screen):
             price = 0
         self.ids.tank_price.text = f"{'Total: ' + str(price) + ' ' + currency}\nOxygen: {str(round(fill[0] * capacity * dbedit_pricing.GetOxygen(), 2)) + ' ' + currency}\nHelium: {str(round(fill[1] * capacity * dbedit_pricing.GetHelium(), 2)) + ' ' + currency}\nAir: {str(round(fill[2] * capacity * dbedit_pricing.GetAir(), 2)) + ' ' + currency}"
 
-
+    def customer_select(self):
+        self.manager.get_screen('select_customer_screen').customers_view()
 class SettingsScreen(Screen):
     _currency = None
     def on_pre_enter(self, *args): # Gets prices from database as soon as page switches to settings, Fills in values if database is empty
