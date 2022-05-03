@@ -65,6 +65,75 @@ class HomeScreen(Screen):
     def on_reserved_press(self):
         self.manager.get_screen('reserved_profile_screen').add_button()
 
+
+
+    
+    def BlendResult(self, fill_recipe, newoxygen, newhelium, newpressure, oldoxygen, oldhelium, oldpressure):
+        if isinstance(fill_recipe, str):
+            self.ids.fill.text = fill_recipe
+        else:
+            if fill_recipe[0] < 0 or fill_recipe[1] < 0 or fill_recipe[2] < 0:   
+                if -fill_recipe[0] + -fill_recipe[1] + -fill_recipe[2] == float(oldpressure):
+                    self.ids.fill.text = "Please lower the old tank to 0.0 Bar."
+                else:
+                    output = round(-fill_recipe[0] + -fill_recipe[1] + -fill_recipe[2] - 0.1, 1)
+                    if output < 0:
+                        self.ids.fill.text = "Please lower the old tank to 0.0 Bar."
+                    else:
+                        self.ids.fill.text = f"Please lower the old tank to {output} Bar."                
+            elif str(fill_recipe[0]) == "-0.0":
+                self.ids.fill.text = "Please lower the old tank to 0.0 Bar."
+            else:
+                self.ids.fill.text = f"Please fill the tank with\n{fill_recipe[0]} Bar Oxygen, (To {float(oldpressure) + fill_recipe[0]} Bar),\n{fill_recipe[1]} Bar Helium, (To {float(oldpressure) + fill_recipe[0] + fill_recipe[1]} Bar),\n{fill_recipe[2]} Bar Air, (To {float(oldpressure) + fill_recipe[0] + fill_recipe[1] + fill_recipe[2]} Bar)."
+    
+    def testone(self):
+        
+        if self.ids.old_pressure.text != '' and self.ids.old_he.text != '' and self.ids.old_otwo.text != '' and self.ids.new_otwo.text != '' and self.ids.new_he.text != '' and self.ids.new_pressure.text != '' and self.ids.tank_capacity.text != 'Capacity':
+            
+            if self.ids.tank_capacity.text == '2x6':
+                self.ids.tank_capacity.text = '12'
+            
+            if self.ids.tank_capacity.text == '2x7':
+                self.ids.tank_capacity.text = '14'
+            
+            if self.ids.tank_capacity.text == '2x10':
+                self.ids.tank_capacity.text = '20'
+            
+            if self.ids.tank_capacity.text == '2x12':
+                self.ids.tank_capacity.text = '24'
+            newBlend = blending.Blend( (float(self.new_otwo.text)) / 100, (float(self.new_he.text)) / 100, float(self.new_pressure.text), (float(self.old_otwo.text)) / 100, (float(self.old_he.text)) / 100, float(self.old_pressure.text)) # Values should be enterd Percentage / Pressure . 
+            self.BlendResult(newBlend, self.new_otwo.text, self.new_he.text, self.new_pressure.text, self.old_otwo.text, self.old_he.text, self.old_pressure.text)
+            self.GetPrice(int(self.ids.tank_capacity.text), newBlend)
+            self.min_max(blendingUtilities.MaxDepth(float(self.new_otwo.text)/100),blendingUtilities.MinDepth(float(self.new_otwo.text)/100))
+
+        
+    def min_max(self, max,min): #function to present max/min depth
+        self.ids.max_depth.text = ( '(Tx)' + ' ' + 'Max Depth' + ' ' + str(max) + 'm')
+        self.ids.min_depth.text = ('(Tx)' + ' ' + 'Min Depth' + ' ' + str(min) + 'm')
+        
+    def GetPrice(self, capacity, fill:list):
+        
+        if str(dbedit_pricing.GetOxygen()) == 'None':
+            dbedit_pricing.update_pricelist("UDT", 'o2', '0')
+        if str(dbedit_pricing.GetHelium()) == 'None':
+            dbedit_pricing.update_pricelist("UDT", 'he', '0')
+        if str(dbedit_pricing.GetAir()) == 'None':
+            dbedit_pricing.update_pricelist("UDT", 'air', '0')
+        if str(dbedit_pricing.fetch_tank_fee()) == 'None':
+            dbedit_pricing.update_pricelist("UDT", 'tank', '0')
+        if str(dbedit_pricing.GetServiceFee()) == 'None':
+            dbedit_pricing.update_pricelist("UDT", 'service', '0')
+        if str(dbedit_pricing.fetch_currency()) == 'None':
+            dbedit_pricing.update_pricelist("UDT", 'currency', 'SEK')
+        price = dbedit_pricing.calculate_tank_price(capacity, fill)
+        currency = dbedit_pricing.fetch_currency()
+        global price_currency
+        price_currency = price
+        if price < 0: # Shouldn't be able to recieve money
+            price = 0
+        self.ids.tank_price.text = f"{'Total: ' + str(price) + ' ' + currency}\nOxygen: {str(round(fill[0] * capacity * dbedit_pricing.GetOxygen(), 2)) + ' ' + currency}\nHelium: {str(round(fill[1] * capacity * dbedit_pricing.GetHelium(), 2)) + ' ' + currency}\nAir: {str(round(fill[2] * capacity * dbedit_pricing.GetAir(), 2)) + ' ' + currency}"
+
+
 class SettingsScreen(Screen):
     _currency = None
     def on_pre_enter(self, *args): # Gets prices from database as soon as page switches to settings, Fills in values if database is empty
