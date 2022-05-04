@@ -164,8 +164,7 @@
                     font_size: '20sp'
                     color: 0, 0, 0, 1
                     text_size: self.width, None
-            BoxLayout:
-                orientation: 'vertical'
+            FloatLayout:
                 size_hint: 1, .25
                 pos_hint: {'center_y': .20}
                 canvas:
@@ -180,9 +179,9 @@
                     font_size: '20sp'
                     color: 0, 0, 0, 1
                 Label:
-                    pos_hint: {'center_x': .5, 'center_y': .6}
+                    pos_hint: {'center_x': .2, 'center_y': .2}
                     id: mix
-                    text: root.mix 
-                    font_size: '20sp'
+                    text: root.mix
+                    font_size: '10sp'
                     color: 0, 0, 0, 1
-                    text_size: self.width - 10, None
+                    text_size: None , self.height

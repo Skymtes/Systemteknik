@@ -72,7 +72,7 @@ def main():
     rented_table = """ CREATE TABLE IF NOT EXISTS rented (
                                     id integer PRIMARY KEY AUTOINCREMENT,
                                     item text NOT NULL,
-                                    item_fee integer NOT NULL,
+                                    fee integer NOT NULL,
                                     customer_id integer NOT NULL,
                                     FOREIGN KEY (customer_id) REFERENCES customer (id)
                                 ); """

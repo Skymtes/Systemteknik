@@ -1,4 +1,5 @@
 #kivy imports
+from turtle import onclick
 from kivy.app import App 
 from kivy.uix.widget import Widget
 from kivy.lang import Builder
@@ -16,8 +17,9 @@ from kivy.uix.floatlayout import FloatLayout
 import sys, os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from backend.algorithm import blending, blendingUtilities
-from backend import dbedit_customer, dbedit_pricing
+from backend import dbedit_customer, dbedit_pricing, dbedit_rent
 from functools import partial
+from numbers import Number
 
 class HomeScreen(Screen):
     old_pressure = ObjectProperty(None)
@@ -62,9 +64,6 @@ class HomeScreen(Screen):
     def on_reserved_press(self):
         self.manager.get_screen('reserved_profile_screen').add_button()
 
-
-
-    
     def BlendResult(self, fill_recipe, newoxygen, newhelium, newpressure, oldoxygen, oldhelium, oldpressure):
         if isinstance(fill_recipe, str):
             self.ids.fill.text = fill_recipe
@@ -82,7 +81,8 @@ class HomeScreen(Screen):
                 self.ids.fill.text = "Please lower the old tank to 0.0 Bar."
             else:
                 self.ids.fill.text = f"Please fill the tank with\n{fill_recipe[0]} Bar Oxygen, (To {float(oldpressure) + fill_recipe[0]} Bar),\n{fill_recipe[1]} Bar Helium, (To {float(oldpressure) + fill_recipe[0] + fill_recipe[1]} Bar),\n{fill_recipe[2]} Bar Air, (To {float(oldpressure) + fill_recipe[0] + fill_recipe[1] + fill_recipe[2]} Bar)."
-    
+        global blend_result
+        blend_result = f"{fill_recipe[0]} Bar Oxygen, (To {float(oldpressure) + fill_recipe[0]} Bar),\n{fill_recipe[1]} Bar Helium, (To {float(oldpressure) + fill_recipe[0] + fill_recipe[1]} Bar),\n{fill_recipe[2]} Bar Air, (To {float(oldpressure) + fill_recipe[0] + fill_recipe[1] + fill_recipe[2]} Bar)."
     def testone(self):
         
         if self.ids.old_pressure.text != '' and self.ids.old_he.text != '' and self.ids.old_otwo.text != '' and self.ids.new_otwo.text != '' and self.ids.new_he.text != '' and self.ids.new_pressure.text != '' and self.ids.tank_capacity.text != 'Capacity':
@@ -187,18 +187,20 @@ class SelectCustomerScreen(Screen):
         self.ids.select_customer_grid.clear_widgets()
         customer = dbedit_customer.select_customer()
         for profile in customer:
-            self.label = Label(text=f'{profile[1]}', color=(0,0,0,1),
-                               size_hint=(0.5,0.1), font_name='fonts/Roboto-Regular.ttf')
-            self.ids.select_customer_grid.add_widget(self.label)
-            self.active = CheckBox(active = False)
-            self.ids.select_customer_grid.add_widget(self.active)
-            self.active.bind(active=self.on_checkbox_active)
-            #self.active.bind(on_release=self.on_checkbox_release)
-    def on_checkbox_active(self, checkbox, value):
-        if value:
-            self.manager.get_screen('profile_info_screen').add_price_mix(price_currency)
-    # def on_checkbox_release(self, checkbox):
-    #     self.manager.get_screen('profile_info_screen').ids.price.text = "Price: " + ''
+            self.button = Button(text=f'{profile[1]}', on_press= self.add_pric_mix)
+            self.ids.select_customer_grid.add_widget(self.button)
+    def add_pric_mix(self,instance):
+        name = instance.text.lower()
+        instance.background_color = (0,1,0,1)
+        id = dbedit_customer.find_id(name.lower())
+        customer = dbedit_customer.select_customer()
+        for profile in customer:
+            if profile[0] == id:
+                dbedit_rent.create_rented(blend_result,price_currency,id)
+                break
+
+    def change_background(self, instance):
+        instance.background_color = (1,1,1,1)
 
     
 class AddProfileScreen(Screen):
@@ -235,7 +237,7 @@ class ReservedProfileScreen(Screen,Widget):
        customer = dbedit_customer.select_customer()
        for profile in customer:
             if profile[0] == id:
-                self.manager.get_screen('profile_info_screen').insert_info(profile[1],profile[2],profile[3],profile[4],profile[6],profile[5])
+                self.manager.get_screen('profile_info_screen').insert_info(profile[0],profile[1],profile[2],profile[3],profile[4],profile[6],profile[5])
                 self.manager.current= 'profile_info_screen'
                 break
     def search_customer(self):
@@ -262,8 +264,7 @@ class ProfileInfoScreen(Screen,Widget):
     date = StringProperty('')
     price = StringProperty('')
     mix = StringProperty('')
-    dialog = None
-    def insert_info(self,name,number,email,gas_type,note,date):
+    def insert_info(self,id,name,number,email,gas_type,note,date):
         self.ids['name'].text = name
         self.ids['number'].text = str(number)
         self.ids['email'].text = email
@@ -273,27 +274,34 @@ class ProfileInfoScreen(Screen,Widget):
         else:
             self.ids['date'].text = str(date)
         if note:
-            self.ids['note'].text = note
+            self.ids['note'].text = note 
         else:
             self.ids['note'].text = ""
+        rented_tank = dbedit_rent.get_rented(id)
+        if rented_tank:
+            for key in rented_tank:
+                tank = rented_tank[key]
+                nums = [num for num in tank if isinstance(num, Number)]
+                str_mix = [_str for _str in tank if isinstance(_str, str)]
+                self.ids['price'].text = str(sum(nums))
+                mix_text = ''.join(f'({mix} \n____________\n {nums[idx]} \n ' for idx,mix in enumerate(str_mix))
+                self.ids['mix'].text = mix_text
+        else:
+            self.ids['price'].text = "0"
+            self.ids['mix'].text = ""
     def alert_remove_profile(self,name):
         id = dbedit_customer.find_id(name)
         button_callback = partial(self.delete_profile,id) 
         self.box=FloatLayout() 
         self.lab=(Label(text="Are you sure you want delet this profile",font_size=15, 
-        	size_hint=(None,None),pos_hint={'x':.30,'y':.5})) 
+        	size_hint=(None,None),pos_hint={'x':.35,'y':.5})) 
         self.box.add_widget(self.lab) 
-         
         self.but=(Button(text="Yes",size_hint=(None,None), 
         	width=200,height=50,pos_hint={'x':.25,'y':0},on_press=button_callback)) 
         self.box.add_widget(self.but) 
-     
-        
         self.main_pop = Popup(title=name,content=self.box, 
-        	size_hint=(None,None),size=(450,200),auto_dismiss=True,title_size=25) 
-        	 
+        	size_hint=(None,None),size=(450,200),auto_dismiss=True,title_size=25)  
         self.but.bind(on_press=self.main_pop.dismiss) 
-         
         self.main_pop.open()
     def delete_profile(self,id,instance):
         dbedit_customer.remove_customer(id)
@@ -330,6 +338,7 @@ class MoreInfoScreen(Screen):
         self.ids.newhe.text = newhelium 
         self.ids.oldpressure.text = oldpressure 
         self.ids.newpressure.text = newpressure
+        
 
     def min_max(self, max,min): #function to present max/min depth
        self.ids.max_depth.text = (str(max) + 'm')
@@ -354,9 +363,9 @@ class MoreInfoScreen(Screen):
         price = dbedit_pricing.calculate_tank_price(capacity, fill)
         currency = dbedit_pricing.fetch_currency()
         global price_currency
-        price_currency = price
         if price < 0: # Shouldn't be able to recieve money
             price = 0
+        price_currency = f"{price} {currency}"
         self.ids.tank_price.text = f"{'Total: ' + str(price) + ' ' + currency}\nOxygen: {str(round(fill[0] * capacity * dbedit_pricing.GetOxygen(), 2)) + ' ' + currency}\nHelium: {str(round(fill[1] * capacity * dbedit_pricing.GetHelium(), 2)) + ' ' + currency}\nAir: {str(round(fill[2] * capacity * dbedit_pricing.GetAir(), 2)) + ' ' + currency}"
     def customer_select(self):
         self.manager.get_screen('select_customer_screen').customers_view()

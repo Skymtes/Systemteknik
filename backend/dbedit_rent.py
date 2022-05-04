@@ -33,7 +33,23 @@ def update_rented(id, item, fee, customer_id):
     conn.close()
     print(sqlite3.version, "closed")
 
-
+def get_rented(customer_id):
+    rented_li = {}
+    conn = db_connect.create_connection()
+    c = conn.cursor()
+    c.execute(
+        f''' SELECT fee, item, customer_id
+            FROM rented
+            WHERE customer_id="{customer_id}"; ''' 
+    )
+    for row in c:
+        if row[2] in rented_li.keys():
+            rented_li[row[2]].extend([row[0], row[1]])
+        else:
+            rented_li[row[2]] = [row[0], row[1]]
+    conn.commit()
+    conn.close()
+    return rented_li
 def remove_rented(id):
     conn = db_connect.create_connection()
     c = conn.cursor()
