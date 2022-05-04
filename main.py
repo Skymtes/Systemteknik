@@ -1,5 +1,5 @@
 #kivy imports
-from turtle import onclick
+from turtle import color, onclick
 from kivy.app import App 
 from kivy.uix.widget import Widget
 from kivy.lang import Builder
@@ -283,9 +283,17 @@ class ProfileInfoScreen(Screen,Widget):
                 tank = rented_tank[key]
                 nums = [num for num in tank if isinstance(num, Number)]
                 str_mix = [_str for _str in tank if isinstance(_str, str)]
-                self.ids['price'].text = str(sum(nums))
-                mix_text = ''.join(f'({mix} \n____________\n {nums[idx]} \n ' for idx,mix in enumerate(str_mix))
-                self.ids['mix'].text = mix_text
+                #self.ids['price'].text = str(sum(nums))
+                for idx,mix in enumerate(str_mix):
+                    self.lbl_mix = Label(text=mix, color=(0,1,0,1))
+                    self.lbl_price = Label(text=str(nums[idx]), color=(0,1,0,1))
+                    self.ids.gas_info_box.add_widget(self.lbl_mix)
+                    self.ids.gas_info_box.add_widget(self.lbl_price)
+                    self.ids.gas_info_box.add_widget(Label(text='\n'))
+
+
+                #mix_text = ''.join(f'({mix} \n____________\n {nums[idx]} \n ' for idx,mix in enumerate(str_mix))
+                #self.ids['mix'].text = mix_text
         else:
             self.ids['price'].text = "0"
             self.ids['mix'].text = ""

@@ -164,24 +164,40 @@
                     font_size: '20sp'
                     color: 0, 0, 0, 1
                     text_size: self.width, None
-            FloatLayout:
-                size_hint: 1, .25
-                pos_hint: {'center_y': .20}
+            ScrollView:
+                do_scroll_x: False
+                size_hint: 1, 0.75
+                pos_hint: {'center_y': .2}
                 canvas:
                     Color:
                         rgba: 1, 0, 0, 1
                     Line:
                         rectangle: self.x, self.y, self.width, self.height
-                Label:
-                    text: 'The Mix'
-                    pos_hint: {'center_x': .5, 'center_y': .8}
-                    bold: True
-                    font_size: '20sp'
-                    color: 0, 0, 0, 1
-                Label:
-                    pos_hint: {'center_x': .2, 'center_y': .2}
-                    id: mix
-                    text: root.mix
-                    font_size: '10sp'
-                    color: 0, 0, 0, 1
-                    text_size: None , self.height
+                GridLayout:
+                    id: gas_info_box
+                    cols: 1
+                    size_hint: 1, None
+                    row_default_height: '40dp'
+                    row_force_default: False
+                    spacing: 0, 0
+                    padding: 0, 0
+                    height: self.minimum_height
+                    width: self.minimum_width
+                    # canvas:
+                    #     Color:
+                    #         rgba: 1, 0, 0, 1
+                    #     Line:
+                    #         rectangle: self.x, self.y, self.width, self.height
+                    Label:
+                        text: 'The Mix'
+                        pos_hint: {'center_x': .5, 'center_y': .8}
+                        bold: True
+                        font_size: '20sp'
+                        color: 0, 0, 0, 1
+                    # Label:
+                    #     pos_hint: {'center_x': .2, 'center_y': .2}
+                    #     id: mix
+                    #     text: root.mix
+                    #     font_size: '10sp'
+                    #     color: 0, 0, 0, 1
+                    #     #text_size: None , self.height
