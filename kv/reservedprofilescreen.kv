@@ -30,11 +30,10 @@
             on_release:
                 root.manager.transition.direction = 'left' 
                 root.manager.current = 'add_profile_screen' 
-        Label:
-            text: 'Customers'
-            font_size: '40sp'
-            color: 0, 0, 0, 1
-            pos_hint: {'center_x': .5, 'center_y': .96}
+        Image:
+            source: 'pic/customers.png'
+            pos_hint:{'top':1, 'center_x':0.5}
+            size_hint: 0.1,0.1
         TextInput:
             id: search_input
             hint_text: 'Search'
