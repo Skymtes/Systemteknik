@@ -9,12 +9,9 @@ from kivy.uix.label import Label
 from kivy.properties import ObjectProperty, StringProperty
 from kivy.uix.checkbox import CheckBox
 from datetime import date
+from kivy.uix.popup import Popup
+from kivy.uix.floatlayout import FloatLayout
 
-# kivyMD imports
-from kivymd.app import MDApp
-from kivymd.uix.picker import MDDatePicker
-from kivymd.uix.dialog import MDDialog
-from kivymd.uix.button import MDFlatButton, MDRectangleFlatButton
 #other imports
 import sys, os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -200,12 +197,11 @@ class SelectCustomerScreen(Screen):
     def on_checkbox_active(self, checkbox, value):
         if value:
             self.manager.get_screen('profile_info_screen').add_price_mix(price_currency)
-    def on_checkbox_release(self, checkbox):
-        self.manager.get_screen('profile_info_screen').ids.price.text = "Price: " + ''
+    # def on_checkbox_release(self, checkbox):
+    #     self.manager.get_screen('profile_info_screen').ids.price.text = "Price: " + ''
 
     
-class AddProfileScreen(Screen,MDApp):
-    bool_profile = False
+class AddProfileScreen(Screen):
     def add_profile(self,name,number,email,spinner_type,note,set_date):
         dbedit_customer.create_customer(name.lower(),number,email,spinner_type,set_date)
         if note:
@@ -215,22 +211,12 @@ class AddProfileScreen(Screen,MDApp):
             pass
     def on_reserved_press(self):
         self.manager.get_screen('reserved_profile_screen').add_button()
-    def date_picker(self):
-        todays_date = date.today()
-        data_dialog = MDDatePicker(year=todays_date.year, month=todays_date.month, day=todays_date.day)
-        data_dialog.bind(on_save= self.on_save, on_cancel=self.on_cancel)
-        data_dialog.open()
-    def on_save(self, instance,value,date_range):
-        self.ids.date_label.text = str(value) 
-    def on_cancel(self, instance,value):
-        self.ids.date_label.text = 'you cancelled'    
     def reset_info(self):
         self.ids.name.text = ''
         self.ids.number.text = ''
         self.ids.email.text = ''
         self.ids.note.text = ''
         self.ids.spinner_type.text = 'Air'
-        self.ids.date_label.text = 'Date'
             
 
 class ReservedProfileScreen(Screen,Widget):
@@ -292,24 +278,26 @@ class ProfileInfoScreen(Screen,Widget):
             self.ids['note'].text = ""
     def alert_remove_profile(self,name):
         id = dbedit_customer.find_id(name)
-        Button_callback = partial(self.delete_profile,id)
-        if not self.dialog:
-            self.dialog = MDDialog(title=("Delete Profile:  " + name),
-                                   type="custom",
-                                   content_cls=Label(text="Are you sure you want to delete this profile?",color=(0,0,0,1)),
-                                   buttons=[
-                                       MDFlatButton(text="Cancel",on_release=self.cancel_remove_profile),
-                                       MDRectangleFlatButton(text="Delete", on_release=Button_callback)
-                                   ])
-        self.dialog.open()
+        button_callback = partial(self.delete_profile,id) 
+        self.box=FloatLayout() 
+        self.lab=(Label(text="Are you sure you want delet this profile",font_size=15, 
+        	size_hint=(None,None),pos_hint={'x':.30,'y':.5})) 
+        self.box.add_widget(self.lab) 
+         
+        self.but=(Button(text="Yes",size_hint=(None,None), 
+        	width=200,height=50,pos_hint={'x':.25,'y':0},on_press=button_callback)) 
+        self.box.add_widget(self.but) 
+     
+        
+        self.main_pop = Popup(title=name,content=self.box, 
+        	size_hint=(None,None),size=(450,200),auto_dismiss=True,title_size=25) 
+        	 
+        self.but.bind(on_press=self.main_pop.dismiss) 
+         
+        self.main_pop.open()
     def delete_profile(self,id,instance):
         dbedit_customer.remove_customer(id)
         self.manager.get_screen('reserved_profile_screen').add_button()
-        self.dialog.dismiss()
-        self.dialog = None
-    def cancel_remove_profile(self,instance):
-        self.dialog.dismiss()
-        self.dialog = None
     def add_price_mix(self,price):
         self.ids['price'].text = str(price)
         #self.ids['mix'].text = "Mix: " + str(mix)

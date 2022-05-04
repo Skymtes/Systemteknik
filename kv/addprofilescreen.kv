@@ -1,4 +1,5 @@
 #:kivy 2.0.0
+#: import datetime datetime
 <AddProfileScreen>:
     FloatLayout:
         orientation: 'vertical'
@@ -87,36 +88,33 @@
             font_size: '20sp'
             color: 0, 0, 0, 1
             pos_hint: {'x': 0, 'center_y': .46}
-        Button:
-            id: date_button
-            text: 'Select Date'
+        TextInput:
+            id: date
+            text: '{}'.format(datetime.datetime.now().strftime('%d-%m-%Y'))
             pos_hint: {'center_x': .5, 'center_y': .41}
             size_hint: .5, .05
-            on_press: root.date_picker()
-        Label:
-            id: date_label
-            #text: 'Date'
-            pos_hint: {'center_x': .5, 'center_y': .36}
-            color: 0, 0, 0, 1
+            multiline: False
+            halign: 'center'
+            valign: 'middle'
         Label:
             text: 'Note'
             font_size: '20sp'
             color: 0, 0, 0, 1
-            pos_hint: {'center_x': .5, 'center_y': .32}
+            pos_hint: {'center_x': .5, 'center_y': .36}
         TextInput:
             id: note
             multiline: True
             font_size: '15sp'
             color: 0, 0, 0, 1
-            pos_hint: {'center_x': .5, 'center_y': .22}
+            pos_hint: {'center_x': .5, 'center_y': .25}
             size_hint: .5, .16
         Button:  
             text: 'Confirm'
             font_size: '15sp'
-            pos_hint: {'center_x': .5, 'center_y': .08}
+            pos_hint: {'center_x': .5, 'center_y': .11}
             size_hint: .5, .1
             on_press: 
-                root.add_profile(name.text, number.text, email.text, spinner_type.text, note.text, date_label.text)
+                root.add_profile(name.text, number.text, email.text, spinner_type.text, note.text, date.text)
                 root.reset_info()
         Button:
             pos_hint: {'top': 1, 'left': 0.8}

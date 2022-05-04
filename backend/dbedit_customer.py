@@ -24,12 +24,12 @@ def create_customer_note(id,note):
     db_connect.close_connection(conn)
 
 
-def update_customer(id, type, price):
+def update_customer(id, price, mix):
     conn = db_connect.create_connection()
     c = conn.cursor()
     c.execute(
         f''' UPDATE customers
-            SET {type}="{price}"
+            SET price="{price}, mix="{mix}"
             WHERE id="{id}"; '''
     )
     conn.commit()
