@@ -39,25 +39,38 @@
                         size_hint: 1,1
                         source: 'pic/ny_gas.png'
 
-                    Button:
-                        text: 'Customers'
-                        pos_hint: {'y': 0.8, 'x': 0}
-                        size_hint: 0.2, 0.2
+                    #Button:
+                        #text: 'Customers'
+                        #pos_hint: {'y': 0.8, 'x': 0}
+                        #size_hint: 0.2, 0.2
+                        #on_release:
+                            #root.manager.transition.direction = 'left'
+                            #root.manager.current = 'reserved_profile_screen'
+                            #root.on_reserved_press()
+
+                    ImageButton:
+                        pos_hint: {'y': 0.75, 'x': 0}
+                        size_hint: 0.1, 0.2
+                        source: 'pic/vc.png'
                         on_release:
                             root.manager.transition.direction = 'left'
                             root.manager.current = 'reserved_profile_screen'
                             root.on_reserved_press()
                     
-                    Button:
+                    ImageButton:
                         text: 'Settings'
-                        pos_hint: {'y': 0.8, 'x': 0.8}
-                        size_hint: 0.2, 0.2
+                        pos_hint: {'y': 0.8, 'x': 0.9}
+                        size_hint: 0.1, 0.2
+                        source: 'pic/settingsnew.png'
                         on_release:
                             root.manager.transition.direction = 'left'
                             root.manager.current = 'settings_screen'
-                    Button:
-                        pos_hint: {'y': 0.6, 'x': 0.8}
-                        size_hint: 0.2, 0.2
+
+
+                    ImageButton:
+                        pos_hint: {'y': 0.5, 'x': 0.9}
+                        size_hint: 0.1, 0.2 #h/l
+                        source: 'pic/add_to_customer.png'
                         text: 'Add to Customer'
                         on_release: 
                             root.manager.transition.direction = 'left'

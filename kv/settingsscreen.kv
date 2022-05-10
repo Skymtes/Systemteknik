@@ -21,9 +21,10 @@
             pos_hint:{'top': 1, 'left':1}
             size_hint: 1,0.15
 
-            Button:
+            ImageButton:
                 pos_hint: {'top': 1, 'left': 0.8}
-                size_hint: 0.15, 0.5
+                size_hint: 0.1, 0.5
+                source:'pic/home.png'
                 text: 'Go Back'
                 on_release:
                     root.manager.transition.direction = 'right'

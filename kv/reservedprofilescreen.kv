@@ -16,16 +16,20 @@
             Rectangle:
                 pos: self.pos
                 size: self.size  
-        Button:
+        ImageButton:
             pos_hint: {'top': 1, 'left': 0.8}
-            size_hint: 0.15, 0.075
+            size_hint: 0.1, 0.075
+            source: 'pic/home.png'
             text: 'Go Back'
             on_release:
                 root.manager.transition.direction = 'right' 
                 root.manager.current = 'home_screen' 
-        Button:
+
+
+        ImageButton:
             pos_hint: {'top': 1, 'right': 1}
             size_hint: 0.15, 0.075
+            source: 'pic/add_symbol.png'
             text: 'Add'
             on_release:
                 root.manager.transition.direction = 'left' 
