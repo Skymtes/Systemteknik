@@ -174,7 +174,6 @@
                     Line:
                         rectangle: self.x, self.y, self.width, self.height
                 GridLayout:
-                    id: gas_info_box
                     cols: 1
                     size_hint: 1, None
                     row_default_height: '40dp'
@@ -194,6 +193,8 @@
                         bold: True
                         font_size: '20sp'
                         color: 0, 0, 0, 1
+                    StackLayout:
+                        id: gas_info_box
                     # Label:
                     #     pos_hint: {'center_x': .2, 'center_y': .2}
                     #     id: mix
