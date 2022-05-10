@@ -16,8 +16,88 @@ Outside the folders we have the programs that will tie it all together.
 3. Done.
 
 ### Build
-Download all the files. Download all the dependencies. Run the main.py file and the app should work. 
+Download all the files. Download all the dependencies with pip install requirements.txt. Run the main.py file and the app should work. 
 You can also use the exe file in the builds branch for easy direct access to the app.
+
+To build an executable build for Windows do the following:
+
+Download the project of the "main" branch linked here: https://github.com/Skymtes/Systemteknik (and put it in a map you can easily locate for easier use)
+With the help of PIP install kivy dependencies using the pip install requirements.txt command in the terminal to be able to run the program.
+Then do pip install pyinstaller (which is a module that allows you to create an executable for windows)
+locate the map in the terminal using the cd command
+Use the command "pyinstaller main.py -w (this creates a spec file, which we have to change in the next step)
+Open up the "main.spec" file and paste this in:
+@@ -1,54 +0,0 @@
+from kivy_deps import sdl2, glew
+
+-- mode: python ; coding: utf-8 --
+block_cipher = None
+
+a = Analysis(['main.py'],
+pathex=[],
+binaries=[],
+datas=[],
+hiddenimports=[],
+hookspath=[],
+hooksconfig={},
+runtime_hooks=[],
+excludes=[],
+win_no_prefer_redirects=False,
+win_private_assemblies=False,
+cipher=block_cipher,
+noarchive=False)
+pyz = PYZ(a.pure, a.zipped_data,
+cipher=block_cipher)
+
+a.datas += [('Code\main.kv',
+'C:\Uppgifter\Systemteknik\main.kv',
+'DATA')]
+
+exe = EXE(pyz,
+a.scripts,
+[],
+exclude_binaries=True,
+name='main',
+debug=False,
+bootloader_ignore_signals=False,
+strip=False,
+upx=True,
+console=False,
+disable_windowed_traceback=False,
+target_arch=None,
+codesign_identity=None,
+entitlements_file=None )
+coll = COLLECT(exe,
+Tree('C:\Uppgifter\Systemteknik\'),
+a.binaries,
+a.zipfiles,
+a.datas,
+*[Tree(p) for p in
+(sdl2.dep_bins +
+glew.dep_bins)],
+strip=False,
+upx=True,
+upx_exclude=[],
+name='main')
+
+You will also have to edit the Tree() with your own filepath, as well as a.datas with your the updated filepath on your PC
+Use "pyinstaller main.spec -y" to create the executable file in the dist folder.
+You are now done, to run the file find "main.exe" in the dist folder.
+
+To "come close" to creating an application for Android do the following.
+
+You have to be on Linux or macOS, I would recommend using Git Bash, but as it has technically nothing to do with building the app for Android i will link it here: https://gitforwindows.org/
+Open Git Bash
+Make sure you have python
+Download the project of the "main" branch linked here: https://github.com/Skymtes/Systemteknik
+With the help of PIP install kivy dependencies using the pip install requirements.txt command in the terminal to be able to run the program.
+git clone https://github.com/kivy/buildozer.git
+cd buildozer
+sudo python setup.py install
+Now, locate the map where the project you downloaded is located with the help of cd.
+buildozer init (creates buildozer.spec file)
+Plug in the android advice into the computer
+buildozer android debug deploy run (will hopefully start the application on your device)
 
 ### Test
 Download the files and run the db_test.py file in the test folder to run tests for the database.
