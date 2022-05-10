@@ -100,7 +100,7 @@ class HomeScreen(Screen):
                 self.ids.tank_capacity.text = '24'
             newBlend = blending.Blend( (float(self.new_otwo.text)) / 100, (float(self.new_he.text)) / 100, float(self.new_pressure.text), (float(self.old_otwo.text)) / 100, (float(self.old_he.text)) / 100, float(self.old_pressure.text)) # Values should be enterd Percentage / Pressure . 
             self.BlendResult(newBlend, self.new_otwo.text, self.new_he.text, self.new_pressure.text, self.old_otwo.text, self.old_he.text, self.old_pressure.text)
-            self.GetPrice(int(self.ids.tank_capacity.text), newBlend)
+            self.GetPrice(float(self.ids.tank_capacity.text), newBlend)
             self.min_max(blendingUtilities.MaxDepth(float(self.new_otwo.text)/100),blendingUtilities.MinDepth(float(self.new_otwo.text)/100))
 
         
