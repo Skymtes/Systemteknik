@@ -48,7 +48,7 @@
                             #root.manager.current = 'reserved_profile_screen'
                             #root.on_reserved_press()
 
-                    ImageButton:
+                    ImageButton: # Customer button
                         pos_hint: {'y': 0.75, 'x': 0}
                         size_hint: 0.1, 0.2
                         source: 'pic/vc.png'
@@ -57,18 +57,8 @@
                             root.manager.current = 'reserved_profile_screen'
                             root.on_reserved_press()
                     
-                    ImageButton:
-                        text: 'Settings'
-                        pos_hint: {'y': 0.8, 'x': 0.9}
-                        size_hint: 0.1, 0.2
-                        source: 'pic/settingsnew.png'
-                        on_release:
-                            root.manager.transition.direction = 'left'
-                            root.manager.current = 'settings_screen'
-
-
-                    ImageButton:
-                        pos_hint: {'y': 0.5, 'x': 0.9}
+                    ImageButton: # Add to customer button
+                        pos_hint: {'y': 0.5, 'x': 0}
                         size_hint: 0.1, 0.2 #h/l
                         source: 'pic/add_to_customer.png'
                         text: 'Add to Customer'
@@ -76,8 +66,15 @@
                             root.manager.transition.direction = 'left'
                             root.manager.current = 'select_customer_screen'
                             root.customer_select()
-
                     
+                    ImageButton: # Settings button
+                        text: 'Settings'
+                        pos_hint: {'y': 0.75, 'x': 0.9}
+                        size_hint: 0.1, 0.2
+                        source: 'pic/settingsnew.png'
+                        on_release:
+                            root.manager.transition.direction = 'left'
+                            root.manager.current = 'settings_screen'
 
                 FloatLayout:
                     pos_hint: {'top': 0.9, 'left':1}
@@ -207,7 +204,7 @@
                             valign: 'middle'
 
                         Spinner:
-                            text: 'Capacity'
+                            text: '10'
                             pos_hint:{'top':1, 'center_x':0.5}
                             size_hint: 0.1, 0.6
                             id: tank_capacity
