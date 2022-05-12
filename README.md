@@ -21,6 +21,7 @@ Outside the folders we have the programs that will tie it all together.
 ### Requirements
 
 Install Python dependencies: `pip3 install -r requirements.txt`
+or install the dependencies manually with `pip install kivy`
 
 ### Build
 
