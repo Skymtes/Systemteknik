@@ -105,7 +105,7 @@ class HomeScreen(Screen):
 
         
     def min_max(self, max,min): #function to present max/min depth
-        self.ids.max_depth.text = ( '(Tx)' + ' ' + 'Max Depth' + ' ' + str(max) + 'm')
+        self.ids.max_depth.text = ('Max Depth' + ' ' + str(max) + 'm')
         self.ids.min_depth.text = ('(Tx)' + ' ' + 'Min Depth' + ' ' + str(min) + 'm')
         
     def GetPrice(self, capacity, fill:list):
