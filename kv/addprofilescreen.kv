@@ -116,10 +116,23 @@
             on_press: 
                 root.add_profile(name.text, number.text, email.text, spinner_type.text, note.text, date.text)
                 root.reset_info()
-        Button:
+#        Button:
+#            pos_hint: {'top': 1, 'left': 0.8}
+#            size_hint: 0.15, 0.075
+#            text: 'Go Back'
+#            on_release:
+#                root.manager.transition.direction = 'right'
+#                root.manager.current = 'reserved_profile_screen'
+#                root.on_reserved_press()
+#                root.reset_info()
+
+
+        ImageButton:
             pos_hint: {'top': 1, 'left': 0.8}
-            size_hint: 0.15, 0.075
+            size_hint: 0.1, 0.075
+            source: 'pic/home.png'
             text: 'Go Back'
+
             on_release:
                 root.manager.transition.direction = 'right'
                 root.manager.current = 'reserved_profile_screen'
