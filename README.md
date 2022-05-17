@@ -105,6 +105,43 @@ buildozer init (creates buildozer.spec file)
 Plug in the android advice into the computer
 buildozer android debug deploy run (will hopefully start the application on your device)
 
+### Build on IOS
+Documentation for building gasblending-app in xcode
+
+Introduction
+
+The following documentation is based on the usage of:
+
+Macbook Pro with macOS Big Sur Version 11.6.5. 
+Xcode, version 13.2.1 (13C100)
+
+Therefore there is no guarantee that the process would look exactly the same on a different machine or/and version.
+
+The usage of Xcode requires a Mac, since Xcode only is available on AppleStore.
+For installing prerequisites it is recommended to use Homebrew, installing Homebrew can be done using https://brew.sh/.
+  
+Process
+
+Enter into the terminal.
+    1.)brew install autoconf automake libtool pkg-config
+    2.)brew link libtool
+
+Create the directory where you want to keep the project. Then change the directory to the one you created. 
+
+Enter into the terminal.
+    1.)git clone https://github.com/kivy/kivy-ios.git
+    2.)cd kivy-ios
+    3.)python3 -m venv env
+    4.). env/bin/activate
+    5.)pip install -e .
+    6.)pip install cython
+    7.)python3 toolchain.py build kivy python3 (This will take a long time)
+    8.)python3 toolchain.py create <name of the app> <path to the folder where the code is>
+    9.)open <name of the app>-ios/<name of the app>.xcodeproj
+The project should now be open in Xcode where it can be run in a simulation and on Iphone. 
+
+
+
 ### Test
 
 Download the files and run the db_test.py file in the test folder to run tests for the database.
