@@ -22,7 +22,15 @@ def MaxDepth(oxygen, partialPressure = 1.4): # Returns max operating depth based
 
 def MinDepth(oxygen): # Returns minimum operating depth on percentage of oxygen
 
-    return round((.18 / oxygen - 1) * 10, 1)
+    minimum =  round((.18 / oxygen - 1) * 10, 1)
+
+    if minimum < 0:
+
+        return 0
+
+    else:
+
+        return minimum
 
 def EquivalentAirDepth(depth, oxygenPercentage, heliumPercentage = 0): # Returns the equivalent air depth of blend at specific depth
 
